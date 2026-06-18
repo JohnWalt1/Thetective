@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dry1pbhaxahiw"]
+
+[node name="InventoryUI" type="Panel" unique_id=1225903078]
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
