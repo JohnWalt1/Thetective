@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://b6wti2m40de4c"]
 
-[ext_resource type="Script" uid="uid://d3k0y0nvqoepy" path="res://Scenes/Player/Player.gd" id="1_uvnfx"]
+[ext_resource type="Script" uid="uid://di58t7j0vfry3" path="res://Scripts/Player.gd" id="1_xpcdj"]
 [ext_resource type="Texture2D" uid="uid://bs2ioth2cic47" path="res://Assets/Sprites/Black Units/Warrior/Warrior_Idle.png" id="2_a3d8c"]
+[ext_resource type="Texture2D" uid="uid://r860f1s0xsc8" path="res://Tree1.png" id="2_mtuoh"]
 [ext_resource type="Texture2D" uid="uid://c8ae0af88xquo" path="res://Assets/Sprites/Black Units/Warrior/Warrior_Run.png" id="3_xpcdj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpcdj"]
@@ -9,28 +10,36 @@ radius = 24.0
 height = 76.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ks1b7"]
-atlas = ExtResource("3_xpcdj")
-region = Rect2(0, 0, 192, 192)
+atlas = ExtResource("2_mtuoh")
+region = Rect2(0, 0, 192, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hnuln"]
-atlas = ExtResource("3_xpcdj")
-region = Rect2(192, 0, 192, 192)
+atlas = ExtResource("2_mtuoh")
+region = Rect2(192, 0, 192, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aqm4k"]
-atlas = ExtResource("3_xpcdj")
-region = Rect2(384, 0, 192, 192)
+atlas = ExtResource("2_mtuoh")
+region = Rect2(384, 0, 192, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rcvs5"]
-atlas = ExtResource("3_xpcdj")
-region = Rect2(576, 0, 192, 192)
+atlas = ExtResource("2_mtuoh")
+region = Rect2(576, 0, 192, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h8ma5"]
-atlas = ExtResource("3_xpcdj")
-region = Rect2(768, 0, 192, 192)
+atlas = ExtResource("2_mtuoh")
+region = Rect2(768, 0, 192, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eksi1"]
-atlas = ExtResource("3_xpcdj")
-region = Rect2(960, 0, 192, 192)
+atlas = ExtResource("2_mtuoh")
+region = Rect2(960, 0, 192, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jincj"]
+atlas = ExtResource("2_mtuoh")
+region = Rect2(1152, 0, 192, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqdc0"]
+atlas = ExtResource("2_mtuoh")
+region = Rect2(1344, 0, 192, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xpcdj"]
 atlas = ExtResource("2_a3d8c")
@@ -108,6 +117,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_eksi1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jincj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rqdc0")
 }],
 "loop": true,
 "name": &"dodge",
@@ -168,7 +183,9 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D" unique_id=266149309]
 scale = Vector2(0.5, 0.5)
-script = ExtResource("1_uvnfx")
+collision_layer = 5
+collision_mask = 3
+script = ExtResource("1_xpcdj")
 walk_speed = 500.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1319483905]
@@ -178,11 +195,13 @@ shape = SubResource("CapsuleShape2D_xpcdj")
 z_index = 4
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_74mp2")
-animation = &"idle"
+animation = &"dodge"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1348428094]
 
 [node name="InteractionRay" type="RayCast2D" parent="." unique_id=1274803265]
+target_position = Vector2(40, 0)
+collision_mask = 3
 
 [node name="DetEyeDuration" type="Timer" parent="." unique_id=1432981470]
 
