@@ -195,16 +195,23 @@ shape = SubResource("CapsuleShape2D_xpcdj")
 z_index = 4
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_74mp2")
-animation = &"dodge"
+animation = &"idle"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1348428094]
 
 [node name="InteractionRay" type="RayCast2D" parent="." unique_id=1274803265]
+z_index = 2
+position = Vector2(0, 2)
+scale = Vector2(4, 4)
+exclude_parent = false
 target_position = Vector2(40, 0)
-collision_mask = 3
+collision_mask = 19
 
 [node name="DetEyeDuration" type="Timer" parent="." unique_id=1432981470]
+one_shot = true
 
 [node name="DetEyeCooldown" type="Timer" parent="." unique_id=2118443470]
+one_shot = true
 
 [node name="DodgeTimer" type="Timer" parent="." unique_id=1237034681]
+one_shot = true

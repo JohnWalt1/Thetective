@@ -6,7 +6,7 @@ var facing_direction: Vector2 = Vector2.RIGHT
 
 @export var walk_speed: float = 150.0
 @export var dodge_speed: float = 500.0
-@export var dodge_duration: float = 2
+@export var dodge_duration: float = 0.2
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var interaction_ray: RayCast2D = $InteractionRay
@@ -15,25 +15,24 @@ var facing_direction: Vector2 = Vector2.RIGHT
 @onready var det_eye_cooldown: Timer = $DetEyeCooldown
 @onready var canvas_modulate: CanvasModulate = get_node("/root/Main/CanvasModulate")
 
+
 #input user
 var input_direction: Vector2 = Vector2.ZERO
 
+# Player.gd (Tambahkan ini)
+var nearby_clue: Area2D = null   # <-- Ini tempat menyimpan clue yang sedang didekati
 
 func _ready():
+	add_to_group("player")
 	det_eye_duration.wait_time = 10.0   # Skill aktif 10 detik
-	det_eye_cooldown.wait_time = 30.0   # Cooldown 30 detik
+	det_eye_cooldown.wait_time = 2   # Cooldown 30 detik
 	dodge_timer.wait_time=dodge_duration
 	dodge_timer.timeout.connect(_on_dodge_timer_timeout)
 	det_eye_duration.timeout.connect(_on_det_eye_duration_timeout)
 	det_eye_cooldown.timeout.connect(_on_det_eye_cooldown_timeout)
 
+
 func _physics_process(delta):
-
-	if Global.is_battle_active:
-		velocity = Vector2.ZERO
-		move_and_slide()
-		return
-
 	if current_state == PlayerState.DODGE:
 		move_and_slide()
 		update_animation()
@@ -75,29 +74,70 @@ func _input(event):
 		elif not det_eye_cooldown.is_stopped():
 			print("[Player] Det Eye sedang cooldown!")
 
+		
+
+#func attempt_interaction():
+	#if not interaction_ray.is_colliding():
+		#print("Tidak ada apapun di depan")
+		#return
+	#
+	#var collider = interaction_ray.get_collider()
+	#if not collider:
+	
+		#return
+	#print(" Ray mengenai: ", collider.name, " (", collider.get_class(), ")")
+	#if collider.is_in_group("npc") and collider.visible:
+		#collider.interact()
+		#return
+	#
+	#if collider.is_in_group("enemy") and collider.visible:
+		#if Global.is_det_eye_active:
+			#start_battle(collider)
+		#else:
+			#print("[Player] Aktifkan Det Eye dulu untuk melihat dan melawan musuh!")
+		#return
+#
+	#if collider.is_in_group("clue_pickup") and collider.visible:
+		#collider.pickup()
+		#return
+
 func attempt_interaction():
+	if nearby_clue and nearby_clue.visible:
+		print("[Player] 🎯 Mengambil clue via overlap!")
+		nearby_clue.pickup()
+		nearby_clue = null  # Reset setelah diambil
+		return
+
 	if not interaction_ray.is_colliding():
 		return
 	
 	var collider = interaction_ray.get_collider()
 	if not collider:
 		return
-
+		
+	# 1. Interaksi NPC (Biasa atau Hidden)
 	if collider.is_in_group("npc") and collider.visible:
 		collider.interact()
 		return
 
+	# 2. Interaksi Musuh (Hanya jika Det Eye aktif)
 	if collider.is_in_group("enemy") and collider.visible:
 		if Global.is_det_eye_active:
 			start_battle(collider)
-		else:
-			print("[Player] Aktifkan Det Eye dulu untuk melihat dan melawan musuh!")
 		return
-
-	if collider.is_in_group("clue_pickup") and collider.visible:
-		collider.pickup()
-		return
-
+	
+# Fungsi alternatif: deteksi Area2D di sekitar player (pakai overlap)
+func detect_nearby_interactables():
+	var areas = get_tree().get_nodes_in_group("clue_pickup")
+	for area in areas:
+		if area is Area2D and area.visible:
+			var dist = global_position.distance_to(area.global_position)
+			if dist < 50.0:  # Jarak dekat
+				var dir_to_area = (area.global_position - global_position).normalized()
+				if dir_to_area.dot(facing_direction) > 0.7:  # Arah depan
+					area.pickup()
+					return
+#######################################################
 func activate_det_eye():
 	Global.is_det_eye_active = true
 	det_eye_duration.start()
@@ -128,16 +168,14 @@ func _on_det_eye_cooldown_timeout():
 
 func toggle_hidden_objects(active: bool):
 	var objects = get_tree().get_nodes_in_group("det_eye_hidden")
+
 	for obj in objects:
 		obj.visible = active
-		# Collision
 		if obj.has_node("CollisionShape2D"):
-			obj.get_node("CollisionShape2D").disabled = not active
-		if obj.has_node("CollisionPolygon2D"):
-			obj.get_node("CollisionPolygon2D").disabled = not active
-
+			var shape = obj.get_node("CollisionShape2D")
+			shape.disabled = not active
+		# Aktifkan proses agar sinyal overlap bisa berjalan
 		obj.process_mode = PROCESS_MODE_INHERIT if active else PROCESS_MODE_DISABLED
-
 func start_battle(enemy_node):
 	Global.is_battle_active = true
 	

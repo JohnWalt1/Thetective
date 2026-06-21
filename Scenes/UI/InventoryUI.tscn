@@ -1,6 +1,56 @@
 [gd_scene format=3 uid="uid://dry1pbhaxahiw"]
 
+[ext_resource type="Script" uid="uid://4mfhqodfrwby" path="res://Scenes/UI/InventoryUI.gd" id="1_03hdg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_03hdg"]
+
 [node name="InventoryUI" type="Panel" unique_id=1225903078]
-offset_right = 40.0
-offset_bottom = 40.0
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 380.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_03hdg")
 metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="Label" parent="." unique_id=738443677]
+layout_mode = 1
+offset_top = 10.0
+offset_right = 40.0
+offset_bottom = 33.0
+label_settings = SubResource("LabelSettings_03hdg")
+
+[node name="CloseButton" type="Button" parent="." unique_id=791634463]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+
+[node name="EmptyLabel" type="Label" parent="." unique_id=905082530]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Inventory masih kosong"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1547386443]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer" unique_id=258431730]
+layout_mode = 2
