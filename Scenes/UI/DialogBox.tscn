@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://dyk3jkoy8h40k"]
+
+[ext_resource type="Script" uid="uid://dyqgxpmy1b8k0" path="res://Scenes/UI/DialogBox.gd" id="1_uql0l"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hyb0n"]
+font_color = Color(1, 0.84313726, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_uql0l"]
+font_size = 14
+
+[sub_resource type="LabelSettings" id="LabelSettings_dh506"]
+font_size = 12
+font_color = Color(0.6666667, 0.6666667, 0.6666667, 1)
+
+[node name="DialogBox" type="CanvasLayer" unique_id=325318954]
+script = ExtResource("1_uql0l")
+
+[node name="Panel" type="Panel" parent="." unique_id=1362027269]
+modulate = Color(0, 0, 0, 0.85)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1002.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(7.76, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1650245225]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=447780095]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="NameLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=668845777]
+layout_mode = 2
+text = "Nama NPC"
+label_settings = SubResource("LabelSettings_hyb0n")
+
+[node name="TextLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=532245517]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "isi dialog"
+label_settings = SubResource("LabelSettings_uql0l")
+
+[node name="ContinueLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=84650165]
+layout_mode = 2
+text = "Tekan untuk lanjut"
+label_settings = SubResource("LabelSettings_dh506")
+horizontal_alignment = 2

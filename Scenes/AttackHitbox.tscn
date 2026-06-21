@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ldrmpwi1eo35"]
+
+[ext_resource type="Script" uid="uid://c3cpgcmb5ntqk" path="res://AttackHitbox.gd" id="1_ofug1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_67wn2"]
+size = Vector2(28, 38)
+
+[node name="AttackHitbox" type="Area2D" unique_id=1855075091]
+collision_layer = 32
+collision_mask = 16
+script = ExtResource("1_ofug1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1234367466]
+scale = Vector2(0.97183096, 1)
+shape = SubResource("RectangleShape2D_67wn2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=822279151]

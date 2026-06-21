@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://jqjn0ffi4t3q" path="res://Scenes/Worlds/NPC.gd" id="2_hx8sr"]
 [ext_resource type="Texture2D" uid="uid://bopi27yyqf576" path="res://Assets/Sprites/slime-Sheet.png" id="2_til7i"]
 [ext_resource type="Texture2D" uid="uid://b0wh24jsjmlk1" path="res://Assets/Sprites/Black Units/Lancer/Lancer_Idle.png" id="3_hx8sr"]
+[ext_resource type="PackedScene" uid="uid://ncklvb603m2n" path="res://Clue_Item.tscn" id="5_5i252"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_til7i"]
 texture = ExtResource("1_s7653")
@@ -1027,6 +1028,7 @@ collision_mask = 5
 script = ExtResource("2_hx8sr")
 npc_name = "Slime"
 dialogue_text = "Aku Slime yang baik loh!"
+is_hidden_clue = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Homeless" unique_id=1810659229]
 shape = SubResource("RectangleShape2D_hx8sr")
@@ -1046,7 +1048,11 @@ dialogue_text = "Dunia Dikutuk oleh Sang Penyihir"
 is_hidden_clue = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mundar" unique_id=1170809781]
+scale = Vector2(3.56, 3.56)
 shape = SubResource("RectangleShape2D_hx8sr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Mundar" unique_id=236061069]
 sprite_frames = SubResource("SpriteFrames_q2e3r")
+
+[node name="ClueItem" parent="." unique_id=2006939993 instance=ExtResource("5_5i252")]
+position = Vector2(-61, 89)
