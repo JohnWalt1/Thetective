@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dry1pbhaxahiw" path="res://Scenes/UI/InventoryUI.tscn" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://b6wti2m40de4c" path="res://Scenes/Player/player.tscn" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://dqqnwqmsour5i" path="res://Scenes/Worlds/game_world.tscn" id="4_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://cd4vo0bjkasb4" path="res://Scenes/enemy.tscn" id="4_kry3j"]
 
 [node name="Main" type="Node2D" unique_id=418448351]
 
@@ -27,3 +28,6 @@ metadata/_edit_use_anchors_ = true
 [node name="WorldContainer" type="Node2D" parent="." unique_id=229261229]
 
 [node name="GameWorld" parent="WorldContainer" unique_id=2141335711 instance=ExtResource("4_jjvhh")]
+
+[node name="Enemy" parent="." unique_id=1333070977 instance=ExtResource("4_kry3j")]
+position = Vector2(139, -59)

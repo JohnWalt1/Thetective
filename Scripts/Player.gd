@@ -1,9 +1,10 @@
 extends CharacterBody2D
 # state
-enum PlayerState { IDLE, WALK, DODGE }
+enum PlayerState { IDLE, WALK, DODGE, ATTACK }
 var current_state: PlayerState = PlayerState.IDLE
 var facing_direction: Vector2 = Vector2.RIGHT
-
+var hitbox_offset:Vector2
+var is_attacking:bool=false
 @export var walk_speed: float = 150.0
 @export var dodge_speed: float = 500.0
 @export var dodge_duration: float = 0.2
@@ -14,12 +15,14 @@ var facing_direction: Vector2 = Vector2.RIGHT
 @onready var det_eye_duration: Timer = $DetEyeDuration
 @onready var det_eye_cooldown: Timer = $DetEyeCooldown
 @onready var canvas_modulate: CanvasModulate = get_node("/root/Main/CanvasModulate")
-
+@onready var idle_timer:Timer=$IdleTimer
+@onready var hitbox: Area2D = $Hitbox
+@onready var swing: AudioStreamPlayer2D = $swing
 
 #input user
 var input_direction: Vector2 = Vector2.ZERO
 
-# Player.gd (Tambahkan ini)
+
 var nearby_clue: Area2D = null   # <-- Ini tempat menyimpan clue yang sedang didekati
 
 func _ready():
@@ -30,30 +33,51 @@ func _ready():
 	dodge_timer.timeout.connect(_on_dodge_timer_timeout)
 	det_eye_duration.timeout.connect(_on_det_eye_duration_timeout)
 	det_eye_cooldown.timeout.connect(_on_det_eye_cooldown_timeout)
-
-
+	idle_timer.wait_time=3
+	#initialize hitbox offset
+	hitbox_offset=hitbox.position
 func _physics_process(delta):
+	hitbox.monitoring=false
 	if current_state == PlayerState.DODGE:
 		move_and_slide()
 		update_animation()
 		update_interaction_ray()
 		return
-	input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	if current_state==PlayerState.ATTACK:
+		velocity=Vector2.ZERO
+		move_and_slide()
+		update_animation()
+		update_interaction_ray()
+		return
+	handle_movement(delta)
+	dodge()
+	handle_attack()
 	
-	if input_direction != Vector2.ZERO:
-		facing_direction = input_direction
-		current_state = PlayerState.WALK
-		velocity = input_direction * walk_speed
-	else:
-		current_state = PlayerState.IDLE
-		velocity = Vector2.ZERO
 	move_and_slide()
-	if Input.is_action_just_pressed("dodge") and dodge_timer.is_stopped() and current_state != PlayerState.DODGE:
-		current_state = PlayerState.DODGE
-		velocity = facing_direction * dodge_speed
-		dodge_timer.start()
 	update_animation()
 	update_interaction_ray()
+	
+func handle_movement(delta):
+	input_direction=Input.get_vector("move_left", "move_right","move_up", "move_down")
+	
+	if input_direction!=Vector2.ZERO:
+		facing_direction=input_direction
+		current_state=PlayerState.WALK
+		velocity=(input_direction*walk_speed)
+		update_hitbox()
+	else:
+		current_state=PlayerState.IDLE
+		velocity =Vector2.ZERO
+func handle_attack():
+	if Input.is_action_just_pressed("attack"):
+		attack()
+func dodge():
+	if Input.is_action_just_pressed("dodge") and dodge_timer.is_stopped() and current_state!=PlayerState.DODGE:
+		current_state=PlayerState.DODGE
+		velocity= facing_direction*dodge_speed
+		dodge_timer.start()
+
+		
 func _on_dodge_timer_timeout():
 	current_state = PlayerState.IDLE
 	velocity = Vector2.ZERO
@@ -67,7 +91,7 @@ func _input(event):
 		attempt_interaction()
 	
 	if event.is_action_pressed("det_eye"):
-		if det_eye_cooldown.is_stopped() and not Global.is_det_eye_active and not Global.is_battle_active:
+		if det_eye_cooldown.is_stopped() and not Global.is_det_eye_active:
 			activate_det_eye()
 		elif Global.is_det_eye_active:
 			print("[Player] Det Eye masih aktif!")
@@ -103,7 +127,7 @@ func _input(event):
 
 func attempt_interaction():
 	if nearby_clue and nearby_clue.visible:
-		print("[Player] 🎯 Mengambil clue via overlap!")
+		print("[Player]  Mengambil clue via overlap!")
 		nearby_clue.pickup()
 		nearby_clue = null  # Reset setelah diambil
 		return
@@ -185,18 +209,62 @@ func start_battle(enemy_node):
 	else:
 		print("[Player] ERROR: BattleUI tidak ditemukan!")
 
+
+func attack():
+	if current_state==PlayerState.ATTACK:
+		return
+	current_state=PlayerState.ATTACK
+	is_attacking=true
+	hitbox.monitoring=true
+	swing.play()
+	sprite.play("attack")
+	
+	await get_tree().create_timer(0.3).timeout
+	current_state=PlayerState.IDLE
 func update_animation():
 	# Prioritas Dodge
 	if current_state == PlayerState.DODGE:
-		sprite.play("dodge")
+		if sprite.animation!="dodge":
+			sprite.play("dodge")
 		return
-	
 	# Idle vs Walk
+	if current_state == PlayerState.ATTACK:
+		if sprite.animation != "attack":
+			sprite.play("attack")
+		
+		return
 	if velocity.length() > 0:
-		sprite.play("walk")
+		if sprite.animation!="walk":
+			sprite.play("walk")
 	else:
-		sprite.play("idle")
+		if sprite.animation!="idle":
+			sprite.play("idle")
 	
 	# Flip sprite 
 	if facing_direction.x != 0:
 		sprite.flip_h = facing_direction.x < 0
+
+func update_hitbox():
+	var x:=hitbox_offset.x
+	var y:=hitbox_offset.y
+	
+	match facing_direction:
+		Vector2.LEFT:
+			hitbox.position=Vector2(-x,y)
+		Vector2.RIGHT:
+			hitbox.position=Vector2(x,y)
+		Vector2.UP:
+			hitbox.position=Vector2(y,-x)
+		Vector2.DOWN:
+			hitbox.position=Vector2(-y,x)
+			
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	if is_attacking:
+		print("hit")
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if is_attacking:
+		is_attacking=false
+		
