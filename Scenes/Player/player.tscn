@@ -2,12 +2,30 @@
 
 [ext_resource type="Script" uid="uid://di58t7j0vfry3" path="res://Scripts/Player.gd" id="1_xpcdj"]
 [ext_resource type="Texture2D" uid="uid://bs2ioth2cic47" path="res://Assets/Sprites/Black Units/Warrior/Warrior_Idle.png" id="2_a3d8c"]
+[ext_resource type="Texture2D" uid="uid://cjyingjyae7yg" path="res://Assets/Sprites/Black Units/Warrior/Warrior_Attack1.png" id="2_htcer"]
 [ext_resource type="Texture2D" uid="uid://r860f1s0xsc8" path="res://Tree1.png" id="2_mtuoh"]
 [ext_resource type="Texture2D" uid="uid://c8ae0af88xquo" path="res://Assets/Sprites/Black Units/Warrior/Warrior_Run.png" id="3_xpcdj"]
+[ext_resource type="AudioStream" uid="uid://bad0gcev2ugh3" path="res://Resources/530444__mellau__whoosh-short-4.wav" id="6_dd0ac"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpcdj"]
 radius = 24.0
 height = 76.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qr1w5"]
+atlas = ExtResource("2_htcer")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ythyg"]
+atlas = ExtResource("2_htcer")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bmb2s"]
+atlas = ExtResource("2_htcer")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ur3l4"]
+atlas = ExtResource("2_htcer")
+region = Rect2(576, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ks1b7"]
 atlas = ExtResource("2_mtuoh")
@@ -101,6 +119,23 @@ region = Rect2(960, 0, 192, 192)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_qr1w5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ythyg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bmb2s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ur3l4")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ks1b7")
 }, {
 "duration": 1.0,
@@ -181,6 +216,9 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_htcer"]
+size = Vector2(50, 50)
+
 [node name="Player" type="CharacterBody2D" unique_id=266149309]
 scale = Vector2(0.5, 0.5)
 collision_layer = 5
@@ -195,7 +233,8 @@ shape = SubResource("CapsuleShape2D_xpcdj")
 z_index = 4
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_74mp2")
-animation = &"idle"
+animation = &"attack"
+frame = 2
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1348428094]
 
@@ -215,3 +254,18 @@ one_shot = true
 
 [node name="DodgeTimer" type="Timer" parent="." unique_id=1237034681]
 one_shot = true
+
+[node name="IdleTimer" type="Timer" parent="." unique_id=1654457219]
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=82031294]
+position = Vector2(68, 14)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=592856988]
+z_index = 2
+shape = SubResource("RectangleShape2D_htcer")
+
+[node name="swing" type="AudioStreamPlayer2D" parent="." unique_id=1108026453]
+stream = ExtResource("6_dd0ac")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
