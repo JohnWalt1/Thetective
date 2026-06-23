@@ -165,11 +165,13 @@ size = Vector2(18, 16)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1333070977]
 collision_layer = 5
+collision_mask = 16
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1171542844]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_vh8xy")
-animation = &"die"
+animation = &"idle"
+autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=5377787]
 shape = SubResource("RectangleShape2D_qjcj6")
