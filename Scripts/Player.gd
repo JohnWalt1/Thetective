@@ -9,6 +9,9 @@ var is_attacking:bool=false
 @export var dodge_speed: float = 500.0
 @export var dodge_duration: float = 0.2
 
+@export var hitbox_size: Vector2 = Vector2(18, 120)  
+
+
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var interaction_ray: RayCast2D = $InteractionRay
 @onready var dodge_timer: Timer = $DodgeTimer
@@ -18,6 +21,7 @@ var is_attacking:bool=false
 @onready var idle_timer:Timer=$IdleTimer
 @onready var hitbox: Area2D = $Hitbox
 @onready var swing: AudioStreamPlayer2D = $swing
+@onready var seamless_particles_trail: Node2D = $SeamlessParticlesTrail
 
 #input user
 var input_direction: Vector2 = Vector2.ZERO
@@ -54,6 +58,10 @@ func _physics_process(delta):
 	handle_attack()
 	
 	move_and_slide()
+	if velocity.length() > 10.0: 
+		seamless_particles_trail.set_emitting(true)
+	else:
+		seamless_particles_trail.set_emitting(false)
 	update_animation()
 	update_interaction_ray()
 	
@@ -245,18 +253,26 @@ func update_animation():
 		sprite.flip_h = facing_direction.x < 0
 
 func update_hitbox():
+	var collision=$Hitbox/CollisionShape2D
+	if not collision:
+		return
 	var x:=hitbox_offset.x
 	var y:=hitbox_offset.y
 	
 	match facing_direction:
 		Vector2.LEFT:
 			hitbox.position=Vector2(-x,y)
+			collision.shape.extents = hitbox_size
 		Vector2.RIGHT:
 			hitbox.position=Vector2(x,y)
+			collision.shape.extents = hitbox_size
 		Vector2.UP:
 			hitbox.position=Vector2(y,-x)
+			collision.shape.extents = Vector2(hitbox_size.y,hitbox_size.x)
 		Vector2.DOWN:
 			hitbox.position=Vector2(-y,x)
+			collision.shape.extents = Vector2(hitbox_size.y,hitbox_size.x)
+			
 			
 
 func _on_hitbox_body_entered(body: Node2D) -> void:

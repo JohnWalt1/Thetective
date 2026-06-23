@@ -30,4 +30,5 @@ metadata/_edit_use_anchors_ = true
 [node name="GameWorld" parent="WorldContainer" unique_id=2141335711 instance=ExtResource("4_jjvhh")]
 
 [node name="Enemy" parent="." unique_id=1333070977 instance=ExtResource("4_kry3j")]
+z_index = 2
 position = Vector2(139, -59)
