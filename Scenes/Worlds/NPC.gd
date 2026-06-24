@@ -4,6 +4,13 @@ extends CharacterBody2D
 @export var dialogue_text: String = "Aku Slime yang tidak berbahaya"
 @export var is_hidden_clue: bool = false  
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+const lines:Array[String]=[
+	"Aku cuma slime biasa kok",
+	"Tadi aku tinggal di goa yang ada naganya",
+	"tunggu",
+	"Mungkin itu Kadal, hehe",
+]
 # ==========================================
 #  INIT
 # ==========================================
@@ -37,7 +44,7 @@ func interact():
 	
 	# TODO: Nanti sambungkan ke sistem Dialog Box UI
 	if DialogManager:
-		DialogManager.show_dialog(npc_name, dialogue_text)
+		DialogManager.start_dialog(global_position, lines)
 	# Jika NPC ini adalah hidden clue, mungkin setelah diajak bicara dia memberi item
 	if is_hidden_clue:
 		print(" [", npc_name, "] memberimu petunjuk tersembunyi!")

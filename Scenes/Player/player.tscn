@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c8ae0af88xquo" path="res://Assets/Sprites/Black Units/Warrior/Warrior_Run.png" id="3_xpcdj"]
 [ext_resource type="AudioStream" uid="uid://bad0gcev2ugh3" path="res://Resources/530444__mellau__whoosh-short-4.wav" id="6_dd0ac"]
 [ext_resource type="PackedScene" uid="uid://c0qpsuxibwjrn" path="res://Scenes/Seamless_Trail.tscn" id="7_0u5uq"]
+[ext_resource type="PackedScene" uid="uid://cadtcgui2wxay" path="res://TraiLines.tscn" id="8_jlvik"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpcdj"]
 radius = 24.0
@@ -273,6 +274,9 @@ stream = ExtResource("6_dd0ac")
 
 [node name="SeamlessParticlesTrail" parent="." unique_id=793983858 instance=ExtResource("7_0u5uq")]
 z_index = 1
+
+[node name="Node2D" parent="." unique_id=376791478 instance=ExtResource("8_jlvik")]
+visible = false
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
