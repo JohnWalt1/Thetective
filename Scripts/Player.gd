@@ -22,6 +22,7 @@ var is_attacking:bool=false
 @onready var hitbox: Area2D = $Hitbox
 @onready var swing: AudioStreamPlayer2D = $swing
 @onready var seamless_particles_trail: Node2D = $SeamlessParticlesTrail
+@onready var trail_line: Node2D = $Node2D
 
 #input user
 var input_direction: Vector2 = Vector2.ZERO
@@ -60,6 +61,7 @@ func _physics_process(delta):
 	move_and_slide()
 	if velocity.length() > 10.0: 
 		seamless_particles_trail.set_emitting(true)
+		trail_line.add_point(global_position)
 	else:
 		seamless_particles_trail.set_emitting(false)
 	update_animation()

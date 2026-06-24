@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://b1srrtpigd6vw"]
+
+[ext_resource type="Script" uid="uid://cqonq3cp0lanu" path="res://text_box.gd" id="1_0kxgl"]
+[ext_resource type="Texture2D" uid="uid://dm63r18yt5pc3" path="res://Dialog/d_box.png" id="2_ot2p7"]
+
+[node name="TextBox" type="MarginContainer" unique_id=1896787356]
+offset_right = 84.0
+offset_bottom = 56.0
+script = ExtResource("1_0kxgl")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1359833128]
+layout_mode = 2
+texture = ExtResource("2_ot2p7")
+region_rect = Rect2(0, 0, 64, 64)
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1180058648]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="MarginContainer" unique_id=1451216931]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+vertical_alignment = 1
+
+[node name="DisplayTimer" type="Timer" parent="." unique_id=267850097]
+
+[connection signal="timeout" from="DisplayTimer" to="." method="_on_display_timer_timeout"]

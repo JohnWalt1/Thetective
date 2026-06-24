@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://tgcdmjdd16mh"]
+
+[ext_resource type="Script" uid="uid://d22miqe1qwags" path="res://Scenes/customtrail.gd" id="1_ld6xj"]
+
+[node name="Trrail" type="Node2D" unique_id=449019843]
+script = ExtResource("1_ld6xj")
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=615843287]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1221175441]

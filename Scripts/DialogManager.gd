@@ -1,24 +1,49 @@
 # DialogManager.gd (Autoload)
 extends Node
 
-var dialog_box: Node = null
+@onready var textbox_scene=preload("res://Scenes/text_box.tscn")
+var dialog_lines:Array[String]=[]
+var current_line_idx=0
+var text_box
+var tb_pos:Vector2
+var is_dialog_active=false
+var can_advance_line= false
+func start_dialog(position:Vector2,lines:Array[String]):
+	if is_dialog_active:
+		return
+	dialog_lines=lines
+	tb_pos=position
+	_show_text_box()
+	is_dialog_active=true
+	
+func _show_text_box():
+	text_box=textbox_scene.instantiate()
+	text_box.finished_displaying.connect(_on_text_box_finished_displaying)
+	get_tree().root.add_child(text_box)
+	text_box.global_position= tb_pos
+	text_box.display(dialog_lines[current_line_idx])
+	can_advance_line=false
+	
+func _on_text_box_finished_displaying():
+	print(">>> _on_text_box_finished_displaying received")
+	can_advance_line=true
+	
+func _unhandled_input(event):
+	if not (is_dialog_active && can_advance_line):
+		return
 
-func _ready():
-	# Cari DialogBox di scene utama (asumsikan ada di UI)
-	# Atau kamu bisa instance secara manual
-	var main = get_tree().current_scene
-	if main:
-		dialog_box = main.get_node_or_null("UI/DialogBox")
-		if not dialog_box:
-			# Jika tidak ada, buat instance dari scene
-			var scene = load("res://Scenes/UI/DialogBox.tscn")
-			if scene:
-				dialog_box = scene.instantiate()
-				main.add_child(dialog_box)
-				print("[DialogManager] DialogBox di-instance otomatis.")
+	# Hanya respon terhadap klik kiri mouse atau tombol aksi (spasi/enter)
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		_advance_dialog()
+	elif event is InputEventKey and event.pressed and (event.keycode == KEY_SPACE or event.keycode == KEY_ENTER):
+		_advance_dialog()
 
-func show_dialog(npc_name: String, text: String):
-	if dialog_box:
-		dialog_box.show_dialog(npc_name, text)
-	else:
-		print("[DialogManager] ERROR: DialogBox tidak ditemukan!")
+func _advance_dialog():
+	text_box.queue_free()
+	current_line_idx += 1
+	if current_line_idx >= dialog_lines.size():
+		is_dialog_active = false
+		current_line_idx = 0
+		print("Dialog selesai")
+		return
+	_show_text_box()
