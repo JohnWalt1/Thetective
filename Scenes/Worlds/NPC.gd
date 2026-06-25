@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var dialogue_text: String = "Aku Slime yang tidak berbahaya"
 @export var is_hidden_clue: bool = false  
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-
+@export var dialog_entries: Array[DialogCondition]=[]
 const lines:Array[String]=[
 	"Aku cuma slime biasa kok",
 	"Tadi aku tinggal di goa yang ada naganya",
@@ -38,14 +38,28 @@ func _ready():
 
 #Interaction
 func interact():
-	print("=====================================")
-	print(" [", npc_name, "] : ", dialogue_text)
-	print("=====================================")
-	
-	# TODO: Nanti sambungkan ke sistem Dialog Box UI
+	var lines:=_resolve_lines()
 	if DialogManager:
 		DialogManager.start_dialog(global_position, lines)
 	# Jika NPC ini adalah hidden clue, mungkin setelah diajak bicara dia memberi item
 	if is_hidden_clue:
 		print(" [", npc_name, "] memberimu petunjuk tersembunyi!")
 		# Global.add_clue("Petunjuk dari " + npc_name)
+
+func _resolve_lines() -> Array[String]:
+	for entry in dialog_entries:
+		if _check_condition(entry):
+			return entry.lines
+	return []
+	
+func _check_condition(entry: DialogCondition) -> bool:
+	# Jika tidak ada flag → ini fallback, selalu lolos
+	if entry.condition_flag == "":
+		return true
+
+	# Cek apakah property itu ada di Global
+	if not entry.condition_flag in Global:
+		push_warning("Flag '%s' tidak ditemukan di Global" % entry.condition_flag)
+		return false
+
+	return Global.get(entry.condition_flag) == entry.expected_value

@@ -13,8 +13,7 @@ var punctuation_time= 0.2
 
 signal finished_displaying()
 
-func display(text_to_display:String):
-	print("=== display() called with: ", text_to_display)
+func display(text_to_display:String,tb_pos:Vector2):
 	letter_idx=0
 	text=text_to_display
 	label.text=text_to_display
@@ -29,24 +28,23 @@ func display(text_to_display:String):
 		await get_tree().process_frame
 		await get_tree().process_frame
 		custom_minimum_size.y=size.y
-	global_position.x-=size.x/2
-	global_position.y=size.y +24
+	else:
+		label.autowrap_mode=TextServer.AUTOWRAP_OFF
+	global_position.x=tb_pos.x-size.x/2
+	global_position.y= tb_pos.y- size.y -24
 	
 	label.text=""
-	print("Starting display for: ", text)
+
 	_display_letter()
 	
 func _display_letter():
-	print("_display_letter: letter_idx=", letter_idx, " text.length=", text.length())
 	if letter_idx>=text.length():
-		print(">>> Emitting finished_displaying")
 		finished_displaying.emit()
 		return
 	label.text+=text[letter_idx]
 	
 	letter_idx+=1
 	if letter_idx>=text.length():
-		print(">>> Finished after last char, emitting")
 		finished_displaying.emit()
 		return
 	match text[letter_idx]:

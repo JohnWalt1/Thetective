@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://jqjn0ffi4t3q" path="res://Scenes/Worlds/NPC.gd" id="2_hx8sr"]
 [ext_resource type="Texture2D" uid="uid://bopi27yyqf576" path="res://Assets/Sprites/slime-Sheet.png" id="2_til7i"]
 [ext_resource type="Texture2D" uid="uid://b0wh24jsjmlk1" path="res://Assets/Sprites/Black Units/Lancer/Lancer_Idle.png" id="3_hx8sr"]
-[ext_resource type="Script" uid="uid://cvk76d00awenn" path="res://Resources/Dialog/DialogCondition.gd" id="4_5tcqn"]
 [ext_resource type="PackedScene" uid="uid://ncklvb603m2n" path="res://Clue_Item.tscn" id="5_5i252"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_til7i"]
@@ -917,10 +916,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Resource" id="Resource_ufcxp"]
-script = ExtResource("4_5tcqn")
-metadata/_custom_type_script = "uid://cvk76d00awenn"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_sxo2p"]
 atlas = ExtResource("3_hx8sr")
 region = Rect2(0, 0, 320, 320)
@@ -1051,7 +1046,6 @@ script = ExtResource("2_hx8sr")
 npc_name = "Knight"
 dialogue_text = "Dunia Dikutuk oleh Sang Penyihir"
 is_hidden_clue = true
-dialog_entries = Array[ExtResource("4_5tcqn")]([SubResource("Resource_ufcxp"), null, null])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mundar" unique_id=1170809781]
 scale = Vector2(3.56, 3.56)
