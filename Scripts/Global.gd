@@ -10,6 +10,9 @@ signal clue_collected(clue_name)
 signal inventory_updated(inventor:Array)
 signal det_eye_toggled(active)
 
+var naga_defeated:bool=false
+var has_sword:bool=false
+var talked_to_elder:bool=false
 func add_clue(item_name:String):
 	if not inventory.has(item_name):
 		inventory.append(item_name)
