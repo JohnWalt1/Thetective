@@ -36,30 +36,31 @@ func _ready():
 		process_mode = PROCESS_MODE_INHERIT
 		print("[NPC] ", npc_name, " muncul di dunia normal.")
 
+func _resolve_entry() -> DialogCondition:
+	print("=== Resolving dialog for: ", npc_name, " ===")
+	for entry in dialog_entries:
+		var result:=dialog_entries
+		if result:
+			return entry
+	return null
 #Interaction
 func interact():
-	var lines:=_resolve_lines()
-	if DialogManager:
-		DialogManager.start_dialog(global_position, lines)
+	var entry:=_resolve_entry()
+	if entry==null or entry.lines.is_empty():
+		print("Tidak ada lah :v")
+		return
+	DialogManager.start_dialog(global_position, entry.lines)
+	Global.set_flag("on_naga_defeated",true)
 	# Jika NPC ini adalah hidden clue, mungkin setelah diajak bicara dia memberi item
 	if is_hidden_clue:
 		print(" [", npc_name, "] memberimu petunjuk tersembunyi!")
 		# Global.add_clue("Petunjuk dari " + npc_name)
 
-func _resolve_lines() -> Array[String]:
-	for entry in dialog_entries:
-		if _check_condition(entry):
-			return entry.lines
-	return []
 	
 func _check_condition(entry: DialogCondition) -> bool:
-	# Jika tidak ada flag → ini fallback, selalu lolos
 	if entry.condition_flag == "":
 		return true
-
-	# Cek apakah property itu ada di Global
-	if not entry.condition_flag in Global:
-		push_warning("Flag '%s' tidak ditemukan di Global" % entry.condition_flag)
-		return false
-
+	var current := Global.get_flag(entry.condition_flag)
+	print("    get_flag('%s') = %s, expected = %s" % [entry.condition_flag, current, entry.expected_value])
+	return current == entry.expected_value
 	return Global.get(entry.condition_flag) == entry.expected_value
