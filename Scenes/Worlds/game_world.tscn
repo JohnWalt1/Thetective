@@ -919,6 +919,13 @@ animations = [{
 
 [sub_resource type="Resource" id="Resource_ufcxp"]
 script = ExtResource("4_5tcqn")
+condition_flag = "naga_defeated"
+lines = Array[String](["Hmm, dari tampangmu, sepertinya kau ssudah bertemu dengannya", "...", "Si Jack The Reaper itu", "Dia sudah meneror sanctuary untuk waktu yang lama", "..."])
+metadata/_custom_type_script = "uid://cvk76d00awenn"
+
+[sub_resource type="Resource" id="Resource_5tcqn"]
+script = ExtResource("4_5tcqn")
+lines = Array[String](["Apa-apaan", "bisa-bisanya", "ANTEK-ANTEK ASING!!"])
 metadata/_custom_type_script = "uid://cvk76d00awenn"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sxo2p"]
@@ -1051,7 +1058,7 @@ script = ExtResource("2_hx8sr")
 npc_name = "Knight"
 dialogue_text = "Dunia Dikutuk oleh Sang Penyihir"
 is_hidden_clue = true
-dialog_entries = Array[ExtResource("4_5tcqn")]([SubResource("Resource_ufcxp"), null, null])
+dialog_entries = Array[ExtResource("4_5tcqn")]([SubResource("Resource_ufcxp"), SubResource("Resource_5tcqn")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mundar" unique_id=1170809781]
 scale = Vector2(3.56, 3.56)
