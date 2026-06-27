@@ -33,6 +33,7 @@ scale_max = 1.1999999
 scale_curve = SubResource("CurveTexture_5vw3s")
 
 [node name="Node2D" type="Node2D" unique_id=793983858]
+visible = false
 script = ExtResource("1_adcvh")
 
 [node name="Trail_Rim" type="GPUParticles2D" parent="." unique_id=1190015151]

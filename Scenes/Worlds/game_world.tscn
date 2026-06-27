@@ -1021,6 +1021,8 @@ animations = [{
 }]
 
 [node name="GameWorld" type="Node2D" unique_id=2141335711]
+z_index = 1
+y_sort_enabled = true
 
 [node name="TileMap" type="TileMapLayer" parent="." unique_id=156891634]
 z_index = 1
@@ -1035,6 +1037,7 @@ tile_map_data = PackedByteArray("AAD0//j/AAAUAAkAAAD0//n/AAAUAA0AAAD0//r/AAAUAA4
 tile_set = SubResource("TileSet_hx8sr")
 
 [node name="Homeless" type="CharacterBody2D" parent="." unique_id=83058995]
+z_index = 1
 position = Vector2(23, -121)
 collision_layer = 3
 collision_mask = 5
@@ -1043,9 +1046,11 @@ npc_name = "Slime"
 dialogue_text = "Aku Slime yang baik loh!"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Homeless" unique_id=1810659229]
+z_index = 1
 shape = SubResource("RectangleShape2D_hx8sr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Homeless" unique_id=300868914]
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_nku2f")
 
 [node name="Mundar" type="CharacterBody2D" parent="." unique_id=1608596954]
@@ -1061,10 +1066,12 @@ is_hidden_clue = true
 dialog_entries = Array[ExtResource("4_5tcqn")]([SubResource("Resource_ufcxp"), SubResource("Resource_5tcqn")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mundar" unique_id=1170809781]
+z_index = 1
 scale = Vector2(3.56, 3.56)
 shape = SubResource("RectangleShape2D_hx8sr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Mundar" unique_id=236061069]
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_q2e3r")
 
 [node name="ClueItem" parent="." unique_id=2006939993 instance=ExtResource("5_5i252")]
