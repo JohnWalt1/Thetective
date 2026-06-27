@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://myajwgtj8cs0"]
+
+[ext_resource type="Texture2D" uid="uid://r860f1s0xsc8" path="res://Tree1.png" id="1_gtca3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nku2f"]
+atlas = ExtResource("1_gtca3")
+region = Rect2(0, 0, 192, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_we6dp"]
+atlas = ExtResource("1_gtca3")
+region = Rect2(192, 0, 192, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fr0b0"]
+atlas = ExtResource("1_gtca3")
+region = Rect2(384, 0, 192, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_84s5n"]
+atlas = ExtResource("1_gtca3")
+region = Rect2(576, 0, 192, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25w8e"]
+atlas = ExtResource("1_gtca3")
+region = Rect2(768, 0, 192, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xts68"]
+atlas = ExtResource("1_gtca3")
+region = Rect2(960, 0, 192, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngvhx"]
+atlas = ExtResource("1_gtca3")
+region = Rect2(1152, 0, 192, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w55o8"]
+atlas = ExtResource("1_gtca3")
+region = Rect2(1344, 0, 192, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6bp64"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nku2f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_we6dp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fr0b0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_84s5n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25w8e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xts68")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngvhx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w55o8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_344ge"]
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=1825048262]
+z_index = 1
+y_sort_enabled = true
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=277323427]
+z_index = 1
+texture_filter = 1
+position = Vector2(0, -92)
+sprite_frames = SubResource("SpriteFrames_6bp64")
+autoplay = "default"
+offset = Vector2(0, -80)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1676261560]
+z_index = 1
+position = Vector2(0, -80)
+shape = SubResource("CircleShape2D_344ge")

@@ -222,6 +222,8 @@ animations = [{
 size = Vector2(58, 120)
 
 [node name="Player" type="CharacterBody2D" unique_id=266149309]
+y_sort_enabled = true
+position = Vector2(0, -11)
 scale = Vector2(0.5, 0.5)
 collision_layer = 5
 collision_mask = 19
@@ -229,14 +231,17 @@ script = ExtResource("1_xpcdj")
 walk_speed = 500.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1319483905]
+position = Vector2(0, -20)
 shape = SubResource("CapsuleShape2D_xpcdj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1250888229]
-z_index = 4
+z_index = 1
+y_sort_enabled = true
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_74mp2")
 animation = &"attack"
 frame = 2
+offset = Vector2(0, -20)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1348428094]
 

@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dry1pbhaxahiw" path="res://Scenes/UI/InventoryUI.tscn" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://b6wti2m40de4c" path="res://Scenes/Player/player.tscn" id="3_8gbba"]
+[ext_resource type="PackedScene" uid="uid://myajwgtj8cs0" path="res://Scenes/Tree.tscn" id="4_21xkr"]
 [ext_resource type="PackedScene" uid="uid://dqqnwqmsour5i" path="res://Scenes/Worlds/game_world.tscn" id="4_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://cd4vo0bjkasb4" path="res://Scenes/enemy.tscn" id="4_kry3j"]
 
@@ -21,14 +22,21 @@ offset_right = 40.0
 offset_bottom = 23.0
 metadata/_edit_use_anchors_ = true
 
-[node name="Player" parent="." unique_id=266149309 instance=ExtResource("3_8gbba")]
-
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1669061881]
-
-[node name="WorldContainer" type="Node2D" parent="." unique_id=229261229]
-
-[node name="GameWorld" parent="WorldContainer" unique_id=2141335711 instance=ExtResource("4_jjvhh")]
 
 [node name="Enemy" parent="." unique_id=1333070977 instance=ExtResource("4_kry3j")]
 z_index = 2
 position = Vector2(139, -59)
+
+[node name="GameWorld" parent="." unique_id=2141335711 instance=ExtResource("4_jjvhh")]
+
+[node name="Node2D" type="Node2D" parent="." unique_id=2010273915]
+y_sort_enabled = true
+position = Vector2(1, 0)
+
+[node name="StaticBody2D" parent="Node2D" unique_id=1825048262 instance=ExtResource("4_21xkr")]
+position = Vector2(161, 97)
+
+[node name="Player" parent="Node2D" unique_id=266149309 instance=ExtResource("3_8gbba")]
+z_index = 1
+position = Vector2(3, 14)
