@@ -78,9 +78,9 @@ texture_filter = 1
 position = Vector2(0, -92)
 sprite_frames = SubResource("SpriteFrames_6bp64")
 autoplay = "default"
-offset = Vector2(0, -80)
+offset = Vector2(0, -90)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1676261560]
 z_index = 1
-position = Vector2(0, -80)
+position = Vector2(0, -90)
 shape = SubResource("CircleShape2D_344ge")
