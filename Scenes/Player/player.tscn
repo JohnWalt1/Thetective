@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c8ae0af88xquo" path="res://Assets/Sprites/Black Units/Warrior/Warrior_Run.png" id="3_xpcdj"]
 [ext_resource type="AudioStream" uid="uid://bad0gcev2ugh3" path="res://Resources/530444__mellau__whoosh-short-4.wav" id="6_dd0ac"]
 [ext_resource type="PackedScene" uid="uid://c0qpsuxibwjrn" path="res://Scenes/Seamless_Trail.tscn" id="7_0u5uq"]
+[ext_resource type="AudioStream" uid="uid://cbft28h3hywn" path="res://Jutsu Activation-Sound Effect(Naruto) - SoundsAnimeX.mp3" id="7_gk6dx"]
 [ext_resource type="PackedScene" uid="uid://cadtcgui2wxay" path="res://TraiLines.tscn" id="8_jlvik"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xpcdj"]
@@ -221,14 +222,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dd0ac"]
 size = Vector2(58, 120)
 
-[node name="Player" type="CharacterBody2D" unique_id=266149309]
+[node name="Player" type="CharacterBody2D" unique_id=266149309 groups=["player"]]
 y_sort_enabled = true
-position = Vector2(0, -11)
-scale = Vector2(0.5, 0.5)
 collision_layer = 5
 collision_mask = 19
 script = ExtResource("1_xpcdj")
 walk_speed = 500.0
+dodge_speed = 1000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1319483905]
 z_index = 3
@@ -278,6 +278,10 @@ shape = SubResource("RectangleShape2D_dd0ac")
 
 [node name="swing" type="AudioStreamPlayer2D" parent="." unique_id=1108026453]
 stream = ExtResource("6_dd0ac")
+
+[node name="dodge" type="AudioStreamPlayer2D" parent="." unique_id=2126062012]
+position = Vector2(68, 14)
+stream = ExtResource("7_gk6dx")
 
 [node name="SeamlessParticlesTrail" parent="." unique_id=793983858 instance=ExtResource("7_0u5uq")]
 z_index = 1
