@@ -23,6 +23,8 @@ var is_attacking:bool=false
 @onready var swing: AudioStreamPlayer2D = $swing
 @onready var seamless_particles_trail: Node2D = $SeamlessParticlesTrail
 @onready var trail_line: Node2D = $Node2D
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var dodge_sound: AudioStreamPlayer2D = $dodge
 
 #input user
 var input_direction: Vector2 = Vector2.ZERO
@@ -83,15 +85,18 @@ func handle_attack():
 		attack()
 func dodge():
 	if Input.is_action_just_pressed("dodge") and dodge_timer.is_stopped() and current_state!=PlayerState.DODGE:
+		dodge_sound.play()
+		await get_tree().create_timer(2).timeout
 		current_state=PlayerState.DODGE
 		velocity= facing_direction*dodge_speed
 		dodge_timer.start()
+		collision_shape_2d.disabled=true
 
 		
 func _on_dodge_timer_timeout():
 	current_state = PlayerState.IDLE
 	velocity = Vector2.ZERO
-
+	collision_shape_2d.disabled=false
 func update_interaction_ray():
 	# raycast depan 40 px
 	interaction_ray.target_position = facing_direction * 40.0

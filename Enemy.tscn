@@ -1,91 +1,81 @@
 [gd_scene format=3 uid="uid://dkxphqyqb7t6q"]
 
-[ext_resource type="Script" uid="uid://ljcsm48fcdij" path="res://Enemy.gd" id="1_2hac7"]
-[ext_resource type="Script" uid="uid://dcok0nfoo36t2" path="res://hitbox_enemy.gd" id="2_e6d4v"]
-[ext_resource type="Texture2D" uid="uid://eb28cx5toii3" path="res://Assets/Arks/DinoSprites - vita.png" id="3_qp131"]
-[ext_resource type="Script" uid="uid://bqmj7voacng0r" path="res://label.gd" id="4_6do27"]
-[ext_resource type="Script" uid="uid://bbh50wrvlwng0" path="res://enemy_state.gd" id="5_rvmyp"]
-[ext_resource type="Script" uid="uid://ehpu5h3nk5je" path="res://idle.gd" id="6_2nxwx"]
-[ext_resource type="Script" uid="uid://t50yt8raajov" path="res://wander.gd" id="7_rvmyp"]
-[ext_resource type="Script" uid="uid://dt1g51n8x8egd" path="res://chase.gd" id="8_52xpa"]
-[ext_resource type="Script" uid="uid://c52aio4v5w0oo" path="res://stun.gd" id="9_jdgko"]
+[ext_resource type="Script" uid="uid://ljcsm48fcdij" path="res://enemy.gd" id="1_4gyqm"]
+[ext_resource type="Texture2D" uid="uid://1o6xrf0s7gth" path="res://Assets/Sprites/Black Units/Archer/Archer_Idle.png" id="1_7k104"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6do27"]
-radius = 7.0
-height = 20.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_4gyqm"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rvmyp"]
-radius = 6.0
-height = 15.999844
+[sub_resource type="AtlasTexture" id="AtlasTexture_qi2p4"]
+atlas = ExtResource("1_7k104")
+region = Rect2(0, 0, 192, 192)
 
-[sub_resource type="Animation" id="Animation_2nxwx"]
-resource_name = "idle"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 1,
-"values": []
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_iifgy"]
+atlas = ExtResource("1_7k104")
+region = Rect2(192, 0, 192, 192)
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_52xpa"]
-_data = {
-&"idle": SubResource("Animation_2nxwx")
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_epg4t"]
+atlas = ExtResource("1_7k104")
+region = Rect2(384, 0, 192, 192)
 
-[node name="Enemy" type="CharacterBody2D" unique_id=1649461151]
-script = ExtResource("1_2hac7")
-enemy_name = null
-max_hp = null
-attack_power = null
-move_speed = null
-chase_range = null
-attack_range = null
+[sub_resource type="AtlasTexture" id="AtlasTexture_3yqyl"]
+atlas = ExtResource("1_7k104")
+region = Rect2(576, 0, 192, 192)
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=804167859]
-script = ExtResource("2_e6d4v")
+[sub_resource type="AtlasTexture" id="AtlasTexture_wujgv"]
+atlas = ExtResource("1_7k104")
+region = Rect2(768, 0, 192, 192)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1042721104]
-shape = SubResource("CapsuleShape2D_6do27")
+[sub_resource type="AtlasTexture" id="AtlasTexture_hb8ge"]
+atlas = ExtResource("1_7k104")
+region = Rect2(960, 0, 192, 192)
 
-[node name="FloorCollisionShape2D" type="CollisionShape2D" parent="." unique_id=39586259]
-position = Vector2(-1, 8)
-rotation = -1.5752281
-shape = SubResource("CapsuleShape2D_rvmyp")
+[sub_resource type="SpriteFrames" id="SpriteFrames_e1ltt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qi2p4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iifgy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epg4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3yqyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wujgv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hb8ge")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=901917661]
+[node name="Enemy" type="CharacterBody2D" unique_id=218534243]
+scale = Vector2(0.5, 0.5)
+collision_mask = 4
+script = ExtResource("1_4gyqm")
+speed = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1433219919]
+z_index = 2
+position = Vector2(0, 14)
+shape = SubResource("CircleShape2D_4gyqm")
+one_way_collision_margin = 29.8
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=965227616]
+z_index = 1
 texture_filter = 1
-texture = ExtResource("3_qp131")
-hframes = 24
+sprite_frames = SubResource("SpriteFrames_e1ltt")
+animation = &"idle"
+autoplay = "idle"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=659084706]
-libraries/ = SubResource("AnimationLibrary_52xpa")
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=642302984]
 
-[node name="Label" type="Label" parent="." unique_id=1988138380]
-offset_right = 40.0
-offset_bottom = 23.0
-script = ExtResource("4_6do27")
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=829064853]
 
-[node name="EnemyAnimation" type="Node" parent="." unique_id=1518956890]
-
-[node name="Health" type="Node" parent="." unique_id=866237553]
-
-[node name="EnemyState" type="Node" parent="." unique_id=518854086]
-script = ExtResource("5_rvmyp")
-
-[node name="Idle" type="Node" parent="EnemyState" unique_id=1139604887]
-script = ExtResource("6_2nxwx")
-
-[node name="Wander" type="Node" parent="EnemyState" unique_id=70111700]
-script = ExtResource("7_rvmyp")
-
-[node name="Chase" type="Node" parent="EnemyState" unique_id=374932449]
-script = ExtResource("8_52xpa")
-
-[node name="Stun" type="Node" parent="EnemyState" unique_id=2058204266]
-script = ExtResource("9_jdgko")
+[node name="Timer" type="Timer" parent="." unique_id=1122203527]
