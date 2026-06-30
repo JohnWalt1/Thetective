@@ -44,7 +44,9 @@ dodge_speed = 500.0
 [node name="Enemy2" parent="ysort" unique_id=218534243 instance=ExtResource("6_21xkr")]
 z_index = 1
 position = Vector2(-240, 40)
+scale = Vector2(2, 2)
 
 [node name="Enemy3" parent="ysort" unique_id=1626530850 instance=ExtResource("6_21xkr")]
 z_index = 1
 position = Vector2(-170, 133)
+scale = Vector2(2, 2)

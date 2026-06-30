@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://dkxphqyqb7t6q"]
+
+[ext_resource type="Script" uid="uid://ljcsm48fcdij" path="res://enemy.gd" id="1_4gyqm"]
+[ext_resource type="Texture2D" uid="uid://1o6xrf0s7gth" path="res://Assets/Sprites/Black Units/Archer/Archer_Idle.png" id="1_7k104"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4gyqm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qi2p4"]
+atlas = ExtResource("1_7k104")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iifgy"]
+atlas = ExtResource("1_7k104")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epg4t"]
+atlas = ExtResource("1_7k104")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3yqyl"]
+atlas = ExtResource("1_7k104")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wujgv"]
+atlas = ExtResource("1_7k104")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hb8ge"]
+atlas = ExtResource("1_7k104")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e1ltt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qi2p4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iifgy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epg4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3yqyl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wujgv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hb8ge")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Enemy" type="CharacterBody2D" unique_id=218534243]
+scale = Vector2(0.5, 0.5)
+collision_mask = 4
+script = ExtResource("1_4gyqm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1433219919]
+z_index = 2
+position = Vector2(0, 14)
+shape = SubResource("CircleShape2D_4gyqm")
+one_way_collision_margin = 29.8
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=965227616]
+z_index = 1
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_e1ltt")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=642302984]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=829064853]
+
+[node name="StateTimer" type="Timer" parent="." unique_id=1122203527]
+
+[connection signal="timeout" from="StateTimer" to="." method="_on_state_timer_timeout"]
