@@ -136,10 +136,13 @@
 extends CharacterBody2D
 
 @export var speed: float = 200.0
+@export var max_health: int = 100.0
 @export var player: Node2D = null
 @export var sight_range:float=300.0
 @export var lost_timeout:float=3.0
 @export var wander_radius:float=100.0
+@export var knockback_friction: float = 0.9  # faktor perlambatan
+@export var hit_stun_duration: float = 0.3
 @onready var raycast: RayCast2D = $RayCast2D
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var state_timer: Timer = $StateTimer
@@ -147,6 +150,9 @@ extends CharacterBody2D
 
 
 enum EnemyState{WANDER,CHASE}
+var is_hit:bool=false
+var hit_timer:float=0.0
+var health:int=100
 var current_state:EnemyState=EnemyState.WANDER
 var last_known_player_position: Vector2
 var is_direct_chase: bool = true
@@ -159,6 +165,7 @@ var is_stuck: bool = false
 var escape_direction: Vector2 = Vector2.ZERO
 var wan_speed:float
 func _ready():
+	
 	wan_speed=speed
 	if not player:
 		player = get_tree().get_first_node_in_group("player")
@@ -190,7 +197,16 @@ func _physics_process(delta):
 	update_raycast_to_player()
 	
 	var player_visible=is_player_visible()
-	
+	if is_hit:
+		hit_timer += delta
+		# Perlambat velocity
+		velocity *= knockback_friction
+		if velocity.length() < 5.0 or hit_timer > hit_stun_duration:
+			is_hit = false
+			velocity = Vector2.ZERO
+		move_and_slide()
+		
+		return
 	if player_visible:
 		time_since_player_seen=0.0
 		last_known_player_position=player.global_position
@@ -278,6 +294,19 @@ func update_raycast_to_player():
 		var dir = (player.global_position - global_position)
 		raycast.target_position = dir.normalized() * min(dir.length(), sight_range)
 
+func take_damage(damage:int,knockback_direction: Vector2 = Vector2.ZERO):
+	health-=damage
+	await get_tree().create_timer(0.1).timeout
+	modulate=Color.WHITE
+	if knockback_direction != Vector2.ZERO:
+		is_hit=true
+		velocity = knockback_direction * 200
+		move_and_slide()
+	if health<=0:
+		die()
+
+func die():
+	queue_free()
 
 func _on_state_timer_timeout() -> void:
 	if current_state == EnemyState.WANDER:

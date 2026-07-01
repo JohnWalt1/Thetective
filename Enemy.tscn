@@ -170,13 +170,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Enemy" type="CharacterBody2D" unique_id=218534243]
+[node name="Enemy" type="CharacterBody2D" unique_id=218534243 groups=["enemy"]]
 scale = Vector2(0.5, 0.5)
+collision_layer = 16
 collision_mask = 4
 script = ExtResource("1_4gyqm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1433219919]
-z_index = 2
 position = Vector2(0, 14)
 shape = SubResource("CircleShape2D_4gyqm")
 one_way_collision_margin = 29.8

@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://dya0gwnyws38n"]
+
+[ext_resource type="Script" uid="uid://5sh7hrr8bcnp" path="res://MainMenu.gd" id="1_bkwd7"]
+[ext_resource type="Texture2D" uid="uid://2cwet1rx5hkp" path="res://Sparxie_Render3_Hoyo-transparents.png" id="2_tself"]
+
+[node name="MainMenu" type="Control" unique_id=2140038793]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_bkwd7")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1071250852]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer" unique_id=984464396]
+z_index = -1
+position = Vector2(470, 395)
+scale = Vector2(0.20287824, 0.25392455)
+texture = ExtResource("2_tself")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=689285697]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 850.0
+offset_top = 160.0
+offset_right = 1139.0
+offset_bottom = 660.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="StartButton" type="Button" parent="VBoxContainer" unique_id=1628200750]
+z_index = 1
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 5
+theme_override_font_sizes/font_size = 64
+text = "START"
+
+[node name="OptionsButton" type="Button" parent="VBoxContainer" unique_id=1181047389]
+z_index = 1
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 5
+theme_override_font_sizes/font_size = 64
+text = "OPTIONS"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=1701502265]
+z_index = 1
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 5
+theme_override_font_sizes/font_size = 64
+text = "QUIT"
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer" unique_id=1808866281]
+layout_mode = 2

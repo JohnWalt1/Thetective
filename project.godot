@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Memoire"
-run/main_scene="uid://cqnwui6h7bw3i"
+run/main_scene="uid://dya0gwnyws38n"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
 
@@ -24,9 +24,14 @@ DialogManager="*uid://dv3guobcl8jmg"
 
 project/assembly_name="Memoire"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/uip_joystick/plugin.cfg")
+
 [global_group]
 
 player=""
+enemy=""
 
 [input]
 
@@ -92,6 +97,7 @@ attack={
 2d_physics/layer_2="npc"
 2d_physics/layer_3="player"
 2d_physics/layer_4="interactable"
+2d_physics/layer_5="enemy"
 
 [physics]
 
@@ -101,3 +107,4 @@ attack={
 
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
