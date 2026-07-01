@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cqnwui6h7bw3i"]
 
 [ext_resource type="PackedScene" uid="uid://dry1pbhaxahiw" path="res://Scenes/UI/InventoryUI.tscn" id="1_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://ewgge3sx1riw" path="res://addons/uip_joystick/joystick.tscn" id="2_21xkr"]
 [ext_resource type="PackedScene" uid="uid://b6wti2m40de4c" path="res://Scenes/Player/player.tscn" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://myajwgtj8cs0" path="res://Scenes/Tree.tscn" id="4_21xkr"]
 [ext_resource type="PackedScene" uid="uid://dqqnwqmsour5i" path="res://Scenes/Worlds/game_world.tscn" id="4_jjvhh"]
@@ -8,6 +9,8 @@
 
 [node name="Main" type="Node2D" unique_id=418448351]
 metadata/_edit_horizontal_guides_ = [-26.0]
+
+[node name="joystick" parent="." unique_id=1446823300 instance=ExtResource("2_21xkr")]
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1654416546]
 
@@ -45,8 +48,10 @@ dodge_speed = 500.0
 z_index = 1
 position = Vector2(-240, 40)
 scale = Vector2(2, 2)
+speed = 50.0
 
 [node name="Enemy3" parent="ysort" unique_id=1626530850 instance=ExtResource("6_21xkr")]
 z_index = 1
 position = Vector2(-170, 133)
 scale = Vector2(2, 2)
+speed = 50.0

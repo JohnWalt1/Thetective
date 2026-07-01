@@ -25,6 +25,9 @@ var is_attacking:bool=false
 @onready var trail_line: Node2D = $Node2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var dodge_sound: AudioStreamPlayer2D = $dodge
+@onready var joystick: VirtualJoystick = $"../../joystick"
+
+
 
 #input user
 var input_direction: Vector2 = Vector2.ZERO
@@ -33,6 +36,7 @@ var input_direction: Vector2 = Vector2.ZERO
 var nearby_clue: Area2D = null   # <-- Ini tempat menyimpan clue yang sedang didekati
 
 func _ready():
+	joystick.item_rect_changed.connect(_on_joystick_moved)
 	add_to_group("player")
 	det_eye_duration.wait_time = 10.0   # Skill aktif 10 detik
 	det_eye_cooldown.wait_time = 2   # Cooldown 30 detik
@@ -43,6 +47,8 @@ func _ready():
 	idle_timer.wait_time=3
 	#initialize hitbox offset
 	hitbox_offset=hitbox.position
+func _on_joystick_moved(direction:Vector2):
+	velocity=direction*walk_speed
 func _physics_process(delta):
 	hitbox.monitoring=false
 	if current_state == PlayerState.DODGE:
@@ -283,7 +289,11 @@ func update_hitbox():
 			
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
-	if is_attacking:
+	if is_attacking and body.is_in_group("enemy"):
+		if body.has_method("take_damage"):
+			var knockback_dir = (body.global_position - global_position).normalized()
+			body.take_damage(20,knockback_dir)
+		
 		print("hit")
 
 
