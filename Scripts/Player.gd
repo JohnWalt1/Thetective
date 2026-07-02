@@ -9,7 +9,7 @@ var is_attacking:bool=false
 @export var dodge_speed: float = 500.0
 @export var dodge_duration: float = 0.2
 
-@export var hitbox_size: Vector2 = Vector2(18, 120)  
+@export var hitbox_size: Vector2 = Vector2(58, 120)  
 
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -50,7 +50,7 @@ func _ready():
 func _on_joystick_moved(direction:Vector2):
 	velocity=direction*walk_speed
 func _physics_process(delta):
-	hitbox.monitoring=false
+	
 	if current_state == PlayerState.DODGE:
 		move_and_slide()
 		update_animation()
@@ -62,6 +62,7 @@ func _physics_process(delta):
 		update_animation()
 		update_interaction_ray()
 		return
+	hitbox.monitoring=false
 	handle_movement(delta)
 	dodge()
 	handle_attack()

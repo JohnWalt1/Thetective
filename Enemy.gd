@@ -164,6 +164,8 @@ var last_position: Vector2
 var is_stuck: bool = false
 var escape_direction: Vector2 = Vector2.ZERO
 var wan_speed:float
+#SIGNAL
+signal died
 func _ready():
 	
 	wan_speed=speed
@@ -188,9 +190,9 @@ func update_animation():
 		else:
 			animated_sprite_2d.play("chase")
 			speed=500.0
-	if velocity.x>0:
+	if velocity.x>0 and is_hit==false:
 		animated_sprite_2d.flip_h=false
-	elif velocity.x<0:
+	elif velocity.x<0 and is_hit==false:
 		animated_sprite_2d.flip_h=true
 func _physics_process(delta):
 	# Update raycast ke player
@@ -300,12 +302,13 @@ func take_damage(damage:int,knockback_direction: Vector2 = Vector2.ZERO):
 	modulate=Color.WHITE
 	if knockback_direction != Vector2.ZERO:
 		is_hit=true
-		velocity = knockback_direction * 200
-		move_and_slide()
+		hit_timer=0.0
+		velocity = knockback_direction * 400
 	if health<=0:
 		die()
 
 func die():
+	emit_signal("died")
 	queue_free()
 
 func _on_state_timer_timeout() -> void:

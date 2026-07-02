@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://myajwgtj8cs0" path="res://Scenes/Tree.tscn" id="4_21xkr"]
 [ext_resource type="PackedScene" uid="uid://dqqnwqmsour5i" path="res://Scenes/Worlds/game_world.tscn" id="4_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://dkxphqyqb7t6q" path="res://enemy.tscn" id="6_21xkr"]
+[ext_resource type="PackedScene" uid="uid://curvj4rw8lbr6" path="res://EnemySpawner.tscn" id="7_6bp64"]
 
 [node name="Main" type="Node2D" unique_id=418448351]
 metadata/_edit_horizontal_guides_ = [-26.0]
@@ -47,11 +48,22 @@ dodge_speed = 500.0
 [node name="Enemy2" parent="ysort" unique_id=218534243 instance=ExtResource("6_21xkr")]
 z_index = 1
 position = Vector2(-240, 40)
-scale = Vector2(2, 2)
 speed = 50.0
+sight_range = 500.0
 
 [node name="Enemy3" parent="ysort" unique_id=1626530850 instance=ExtResource("6_21xkr")]
 z_index = 1
 position = Vector2(-170, 133)
-scale = Vector2(2, 2)
 speed = 50.0
+
+[node name="EnemySpawner" parent="ysort" unique_id=395757916 instance=ExtResource("7_6bp64")]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(602, 267)
+scale = Vector2(2, 2)
+enemy_scene = ExtResource("6_21xkr")
+spawn_count = 5
+spawn_radius = 100.0
+max_enemies = 20
+spawn_interval = 4.0
+auto_spawn_on_ready = true
