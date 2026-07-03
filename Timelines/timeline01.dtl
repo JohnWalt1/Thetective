@@ -1,0 +1,8 @@
+join Erina center
+Erina (neutral): You are a detective in this Subarashi World.
+Erina (excited): You got a weird power that allow you to see
+Erina (confused): what others not see
+Erina (excited): Luckly, that suits you as detective
+Erina (confused): Perhaps
+Erina (neutral): Here's the tutorial, Good Luck -Thetective
+[signal arg="begin"]
