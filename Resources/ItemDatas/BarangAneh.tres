@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://biitgueqho6cx"]
+
+[ext_resource type="Texture2D" uid="uid://di5u33d8syfah" path="res://Sprout Lands - Sprites - Basic pack/Sprout Lands - Sprites - Basic pack/Objects/Free_Chicken_House.png" id="1_57duu"]
+[ext_resource type="Script" uid="uid://cuk8x0kp8frbc" path="res://Scripts/Resources/ItemData.gd" id="1_v5p0a"]
+
+[resource]
+script = ExtResource("1_v5p0a")
+name = "Pedang"
+icon = ExtResource("1_57duu")
+description = "Apa ini? Kandang ayam?!?"
+is_equipment = true
+equipment_slot = "Weapon"
+stats = {
+"attack": 100
+}
+metadata/_custom_type_script = "uid://cuk8x0kp8frbc"

@@ -26,6 +26,9 @@ var is_attacking:bool=false
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var dodge_sound: AudioStreamPlayer2D = $dodge
 @onready var joystick: VirtualJoystick = $"../../joystick"
+@onready var inventory_manager=$InventoryManager
+@onready var inventory_ui: Control = $"../../UI/InventoryUI"
+
 
 
 
@@ -36,6 +39,7 @@ var input_direction: Vector2 = Vector2.ZERO
 var nearby_clue: Area2D = null   # <-- Ini tempat menyimpan clue yang sedang didekati
 
 func _ready():
+	inventory_ui.setup(inventory_manager)
 	joystick.item_rect_changed.connect(_on_joystick_moved)
 	add_to_group("player")
 	det_eye_duration.wait_time = 10.0   # Skill aktif 10 detik
@@ -109,6 +113,8 @@ func update_interaction_ray():
 	interaction_ray.target_position = facing_direction * 40.0
 
 func _input(event):
+	if event.is_action_pressed("inventory_toggle"):
+		inventory_ui.toggle()
 	if event.is_action_pressed("interact"):
 		attempt_interaction()
 	

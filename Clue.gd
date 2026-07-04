@@ -75,46 +75,42 @@
 
 extends Area2D
 
-@export var clue_name: String = "Test Clue"
+@export var item_data:ItemData
 
+var player_ref:Node2D=null
 func _ready():
 	add_to_group("clue_pickup")
+	#add_to_group("interact_items")
 	add_to_group("det_eye_hidden")  # <-- KOMENTAR DULU UNTUK TEST
 	
 	# --- Set Layer ---
 	collision_layer = 1 << 3  # Layer 4
 	collision_mask = 1 << 2   # Layer 3 (player)
 	
-	# --- Shape ---
-	#var shape = $CollisionShape2D
-	#if shape:
-		#print("Shape ditemukan!")
-		#shape.disabled = false
-		#print("Shape disabled: ", shape.disabled)
-	#else:
-		#print(" ERROR: CollisionShape2D tidak ditemukan!")
-	
-	# --- Status ---
+
 	visible = false
 	process_mode = PROCESS_MODE_INHERIT
 	
 	# --- Koneksi Sinyal MANUAL (via kode, lebih aman) ---
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
-	
-	#print("Sinyal body_entered dan body_exited terhubung!")
-	#print("Posisi Clue: ", global_position)
-	#print("=================================")
+	if has_node("Sprite2D") and item_data and item_data.icon:
+		$Sprite2D.texture=item_data.icon
 
 func _on_body_entered(body):
 
 	if body.is_in_group("player"):
+		player_ref=body
 		body.nearby_clue = self
 
-func _on_body_exited(body):
+func _on_body_exited(body:Node2D)->void:
 	if body.is_in_group("player"):
-		body.nearby_clue = null
+		player_ref.nearby_clue=null
+		player_ref = null
 
 func pickup():
-	Global.add_clue(clue_name)
-	queue_free()
+	if player_ref:
+		var manager=player_ref.get_node("/root/InventoryManager")
+		if manager:
+			manager.add_item(item_data)
+			queue_free()
