@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bmo7kniuctopp"]
+
+[ext_resource type="Script" uid="uid://boivr838pw27c" path="res://CollectableItem.gd" id="1_4ey2o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ol6o"]
+
+[node name="CollectableItem" type="Area2D" unique_id=1078411588]
+script = ExtResource("1_4ey2o")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1599097842]
+texture_filter = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=683763659]
+shape = SubResource("RectangleShape2D_0ol6o")

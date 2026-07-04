@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Global="*uid://dctwn8etuhbq4"
 DialogManager="*uid://dv3guobcl8jmg"
 Dialogic="*uid://ds2q0uclmolvu"
+InventoryManager="*uid://ckb7qcjqviu1p"
 
 [dialogic]
 

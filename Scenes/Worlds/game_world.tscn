@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://cfoq5neyhn7u6" path="res://Pixel Art Top Down - Basic v1.2.3/Texture/TX Tileset Wall.png" id="3_rfqs3"]
 [ext_resource type="Script" uid="uid://cvk76d00awenn" path="res://Resources/Dialog/DialogCondition.gd" id="4_5tcqn"]
 [ext_resource type="PackedScene" uid="uid://ncklvb603m2n" path="res://Clue_Item.tscn" id="5_5i252"]
+[ext_resource type="Resource" uid="uid://plkdv64h6grt" path="res://Resources/ItemDatas/DagingAneh.tres" id="10_x6b1m"]
+[ext_resource type="PackedScene" uid="uid://bmo7kniuctopp" path="res://Scenes/collectable_item.tscn" id="11_n32ou"]
+[ext_resource type="Resource" uid="uid://biitgueqho6cx" path="res://Resources/ItemDatas/BarangAneh.tres" id="12_6u4mk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_til7i"]
 texture = ExtResource("1_s7653")
@@ -4127,7 +4130,12 @@ sprite_frames = SubResource("SpriteFrames_q2e3r")
 
 [node name="ClueItem" parent="." unique_id=2006939993 instance=ExtResource("5_5i252")]
 position = Vector2(-61, 89)
+item_data = ExtResource("10_x6b1m")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1264526342]
 position = Vector2(12, 81)
 navigation_polygon = SubResource("NavigationPolygon_we6dp")
+
+[node name="CollectableItem" parent="." unique_id=1078411588 instance=ExtResource("11_n32ou")]
+position = Vector2(-536, 296)
+item_data = ExtResource("12_6u4mk")

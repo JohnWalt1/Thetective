@@ -1,79 +1,89 @@
-extends Panel
+extends Control
 
-@onready var item_container: GridContainer = $ScrollContainer/GridContainer
-@onready var close_button: Button = $CloseButton
-@onready var empty_label: Label = $EmptyLabel  # Opsional: label "Inventory kosong"
+# --- Referensi node UI ---
+@onready var item_grid: GridContainer = $Panel/ItemGrid
+@onready var equip_grid: GridContainer = $Panel/EquipGrid
+@onready var detail_panel: Panel = $Panel/DetailPanel
+@onready var detail_name: Label = $Panel/DetailPanel/VBoxContainer/NameLabel
+@onready var detail_quality: Label = $Panel/DetailPanel/VBoxContainer/QualityLabel
+@onready var detail_desc: Label = $Panel/DetailPanel/VBoxContainer/DescLabel
+@onready var detail_stats: Label = $Panel/DetailPanel/VBoxContainer/StatsLabel
 
-func _ready():
-	visible = false
-	
-	Global.clue_collected.connect(_on_clue_collected)
-	
-	if close_button:
-		close_button.pressed.connect(_on_close_button_pressed)
-	
-	update_inventory_display()
+# --- Referensi Manager ---
+var inventory_manager: InventoryManager
 
-# ==========================================
-#  TOGGLE INVENTORY (DARI INPUT)
-# ==========================================
-func _input(event):
-	# Tekan Tab atau I untuk buka/tutup inventory
-	if event.is_action_pressed("inventory_toggle"):
-		visible = !visible
-		if visible:
-			update_inventory_display()  # Refresh isi saat dibuka
-			
-func update_inventory_display():
-	# Hapus semua anak di GridContainer (kecuali jika ada template)
-	for child in item_container.get_children():
+func setup(manager: InventoryManager) -> void:
+	inventory_manager = manager
+	# Koneksikan sinyal untuk update otomatis
+	if not inventory_manager.inventory_updated.is_connected(_update_ui):
+		inventory_manager.inventory_updated.connect(_update_ui)
+	_update_ui()
+
+func _update_ui() -> void:
+	_clear_grid(item_grid)
+	_clear_grid(equip_grid)
+
+	# Tampilkan item biasa
+	for item in inventory_manager.items:
+		var btn = _create_item_button(item)
+		item_grid.add_child(btn)
+
+	# Tampilkan equipment
+	for item in inventory_manager.equipment:
+		var btn = _create_item_button(item)
+		equip_grid.add_child(btn)
+
+	# Sembunyikan detail jika inventory berubah
+	detail_panel.visible = false
+
+func _clear_grid(grid: GridContainer) -> void:
+	for child in grid.get_children():
 		child.queue_free()
+
+func _create_item_button(item: ItemData) -> Button:
+	var btn = Button.new()
+	btn.icon = item.icon
+	btn.tooltip_text = item.name
+	btn.custom_minimum_size = Vector2(64, 64)
+	# Ukuran ikon agar pas
+	btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	btn.expand_icon = true
+	btn.flat = false
 	
-	# Jika inventory kosong
-	if Global.inventory.is_empty():
-		if empty_label:
-			empty_label.visible = true
-		return
+	# Simpan referensi item ke dalam button
+	btn.set_meta("item_data", item)
+	btn.pressed.connect(_on_item_clicked.bind(item))
+	return btn
+
+func _on_item_clicked(item: ItemData) -> void:
+	# Tampilkan detail item di panel
+	detail_name.text = item.name
+	detail_quality.text = "Quality: " + item.quality
+	detail_desc.text = item.description
+	
+	var stats_text = ""
+	if item.stats.is_empty():
+		stats_text = "No stats"
 	else:
-		if empty_label:
-			empty_label.visible = false
+		for key in item.stats:
+			stats_text += str(key) + ": " + str(item.stats[key]) + "\n"
+	detail_stats.text = stats_text
 	
-	# Buat slot untuk setiap item di inventory
-	for item_name in Global.inventory:
-		var slot = create_item_slot(item_name)
-		item_container.add_child(slot)
+	detail_panel.visible = true
 
-func create_item_slot(item_name: String) -> Panel:
-	var slot = Panel.new()
-	slot.size = Vector2(120, 40)
-	
-	# border
-	var style = StyleBoxFlat.new()
-	style.bg_color = Color(0.2, 0.2, 0.3, 0.8)
-	style.border_width_left = 2
-	style.border_width_right = 2
-	style.border_width_top = 2
-	style.border_width_bottom = 2
-	style.border_color = Color(0.5, 0.5, 0.7)
-	slot.add_theme_stylebox_override("panel", style)
-	
-	# Label nama item
-	var label = Label.new()
-	label.text = "🔍 " + item_name
-	label.position = Vector2(10, 8)
-	label.add_theme_color_override("font_color", Color.WHITE)
-	slot.add_child(label)
-	
-	
-	
-	return slot
+# Sembunyikan detail jika klik di luar panel
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if detail_panel.visible:
+			var mouse_pos = get_global_mouse_position()
+			if not detail_panel.get_global_rect().has_point(mouse_pos):
+				detail_panel.visible = false
 
-func _on_clue_collected(clue_name: String):
-	# Update otomatis saat clue baru ditambahkan (tanpa harus buka/tutup)
-	# Tapi hanya jika inventory sedang terbuka
+# Bisa juga tombol close di panel detail
+func _on_close_button_pressed() -> void:
+	detail_panel.visible = false
+
+func toggle()->void:
+	visible=not visible
 	if visible:
-		update_inventory_display()
-	print("[InventoryUI] Clue baru: ", clue_name)
-
-func _on_close_button_pressed():
-	visible = false
+		_update_ui()
