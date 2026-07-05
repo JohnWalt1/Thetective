@@ -299,14 +299,14 @@ func update_raycast_to_player():
 func take_damage(damage:int,knockback_direction: Vector2 = Vector2.ZERO):
 	health-=damage
 	await get_tree().create_timer(0.1).timeout
-	modulate=Color.WHITE
+	self_modulate=Color.WHITE
 	if knockback_direction != Vector2.ZERO:
 		is_hit=true
 		hit_timer=0.0
 		velocity = knockback_direction * 400
 	if health<=0:
 		die()
-
+	
 func die():
 	emit_signal("died")
 	queue_free()

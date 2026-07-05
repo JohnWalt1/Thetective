@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://nyn4fce24vo1"]
+
+[ext_resource type="Script" uid="uid://do38c3chyeeyp" path="res://Scripts/Resources/EquipmentSlotButton.gd" id="1_io6am"]
+
+[node name="Button" type="Button" unique_id=1281043334]
+custom_minimum_size = Vector2(72, 72)
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -36.0
+offset_bottom = 36.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("1_io6am")
