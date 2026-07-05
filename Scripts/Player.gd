@@ -1,16 +1,31 @@
 extends CharacterBody2D
+
+class_name Player
 # state
 enum PlayerState { IDLE, WALK, DODGE, ATTACK }
 var current_state: PlayerState = PlayerState.IDLE
 var facing_direction: Vector2 = Vector2.RIGHT
 var hitbox_offset:Vector2
 var is_attacking:bool=false
+
+@export var base_health:float=100.0
+@export var base_attack:float=20.0
+@export var base_defense:float=20.0
+@export var base_speed:float=20.0
 @export var walk_speed: float = 150.0
 @export var dodge_speed: float = 500.0
 @export var dodge_duration: float = 0.2
 
 @export var hitbox_size: Vector2 = Vector2(58, 120)  
 
+#Stat
+var health:float
+var attack:float
+var defense:float
+var speed:float
+#Buff
+var timed_buffs: Dictionary = {}
+var permanent_buffs: Dictionary = {}
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var interaction_ray: RayCast2D = $InteractionRay
@@ -29,7 +44,7 @@ var is_attacking:bool=false
 @onready var inventory_manager=$InventoryManager
 @onready var inventory_ui: Control = $"../../UI/InventoryUI"
 
-
+signal stats_updated
 
 
 #input user
@@ -39,7 +54,9 @@ var input_direction: Vector2 = Vector2.ZERO
 var nearby_clue: Area2D = null   # <-- Ini tempat menyimpan clue yang sedang didekati
 
 func _ready():
-	inventory_ui.setup(inventory_manager)
+	_reset_stats()
+	inventory_ui.setup(inventory_manager,self)
+	inventory_ui.visible=false
 	joystick.item_rect_changed.connect(_on_joystick_moved)
 	add_to_group("player")
 	det_eye_duration.wait_time = 10.0   # Skill aktif 10 detik
@@ -51,9 +68,60 @@ func _ready():
 	idle_timer.wait_time=3
 	#initialize hitbox offset
 	hitbox_offset=hitbox.position
+	
+func _reset_stats():
+	health=base_health
+	attack=base_attack+permanent_buffs.get("attack",0.0)
+	defense = base_defense + permanent_buffs.get("defense", 0.0)
+	speed = base_speed + permanent_buffs.get("speed", 0.0)
+	stats_updated.emit()
+	
+func heal(amount:float):
+	health = min(health + amount, base_health + permanent_buffs.get("max_health", 0.0))
+	stats_updated.emit()
+
+
+func add_permanent_buff(stat: String, value: float):
+	if permanent_buffs.has(stat):
+		permanent_buffs[stat] += value
+	else:
+		permanent_buffs[stat] = value
+	_reset_stats()
+
+func add_timed_buff(stat: String, value: float, duration: float):
+	timed_buffs[stat] = {"value": value, "time": duration}
+	_update_stats_with_timed_buffs()
+
+
+func _update_stats_with_timed_buffs():
+	attack = base_attack + permanent_buffs.get("attack", 0.0) + timed_buffs.get("attack", {}).get("value", 0.0)
+	defense = base_defense + permanent_buffs.get("defense", 0.0) + timed_buffs.get("defense", {}).get("value", 0.0)
+	speed = base_speed + permanent_buffs.get("speed", 0.0) + timed_buffs.get("speed", {}).get("value", 0.0)
+	stats_updated.emit()
+	
+func add_permanent_stat(stat: String, value: float):
+	# Misal menambah max_health, dll.
+	match stat:
+		"max_health":
+			base_health += value
+		_:
+			permanent_buffs[stat] = permanent_buffs.get(stat, 0.0) + value
+	_reset_stats()
+
+func _process(delta):
+	var changed=false
+	for stat in timed_buffs.keys():
+		timed_buffs[stat].time-=delta
+		if timed_buffs[stat].time<=0:
+			timed_buffs.erase(stat)
+			changed=true
+		if changed:
+			_update_stats_with_timed_buffs()
+
 func _on_joystick_moved(direction:Vector2):
-	velocity=direction*walk_speed
+	velocity=direction*speed
 func _physics_process(delta):
+	
 	
 	if current_state == PlayerState.DODGE:
 		move_and_slide()
@@ -86,14 +154,14 @@ func handle_movement(delta):
 	if input_direction!=Vector2.ZERO:
 		facing_direction=input_direction
 		current_state=PlayerState.WALK
-		velocity=(input_direction*walk_speed)
+		velocity=(input_direction*speed)
 		update_hitbox()
 	else:
 		current_state=PlayerState.IDLE
 		velocity =Vector2.ZERO
 func handle_attack():
 	if Input.is_action_just_pressed("attack"):
-		attack()
+		attacksystem()
 func dodge():
 	if Input.is_action_just_pressed("dodge") and dodge_timer.is_stopped() and current_state!=PlayerState.DODGE:
 		dodge_sound.play()
@@ -238,7 +306,7 @@ func start_battle(enemy_node):
 		print("[Player] ERROR: BattleUI tidak ditemukan!")
 
 
-func attack():
+func attacksystem():
 	if current_state==PlayerState.ATTACK:
 		return
 	current_state=PlayerState.ATTACK
@@ -299,7 +367,7 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 	if is_attacking and body.is_in_group("enemy"):
 		if body.has_method("take_damage"):
 			var knockback_dir = (body.global_position - global_position).normalized()
-			body.take_damage(20,knockback_dir)
+			body.take_damage(attack,knockback_dir)
 		
 		print("hit")
 
