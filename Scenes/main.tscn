@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cqnwui6h7bw3i"]
 
-[ext_resource type="PackedScene" uid="uid://dry1pbhaxahiw" path="res://Scenes/UI/InventoryUI.tscn" id="1_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://8ne0287d4l0k" path="res://ui/inventory_ui.tscn" id="2_6bp64"]
 [ext_resource type="PackedScene" uid="uid://ewgge3sx1riw" path="res://addons/uip_joystick/joystick.tscn" id="2_21xkr"]
 [ext_resource type="PackedScene" uid="uid://b6wti2m40de4c" path="res://Scenes/Player/player.tscn" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://myajwgtj8cs0" path="res://Scenes/Tree.tscn" id="4_21xkr"]
@@ -15,9 +15,6 @@ metadata/_edit_horizontal_guides_ = [-26.0]
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1654416546]
 
-[node name="InventoryUI" parent="UI" unique_id=1225903078 instance=ExtResource("1_bo1nx")]
-visible = false
-
 [node name="DetEyeIndicator" type="TextureProgressBar" parent="UI" unique_id=236511769]
 offset_right = 40.0
 offset_bottom = 40.0
@@ -27,6 +24,10 @@ metadata/_edit_use_anchors_ = true
 offset_right = 40.0
 offset_bottom = 23.0
 metadata/_edit_use_anchors_ = true
+
+[node name="InventoryUI" parent="UI" unique_id=833569703 instance=ExtResource("2_6bp64")]
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1669061881]
 
@@ -45,8 +46,6 @@ position = Vector2(3, 14)
 scale = Vector2(0.5, 0.5)
 walk_speed = 1000.0
 dodge_speed = 500.0
-dodge_duration = 0.2
-hitbox_size = Vector2(58, 120)
 
 [node name="Enemy2" parent="ysort" unique_id=218534243 instance=ExtResource("6_21xkr")]
 z_index = 1

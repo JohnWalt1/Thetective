@@ -7,10 +7,9 @@
 script = ExtResource("1_v5p0a")
 name = "Pedang"
 icon = ExtResource("1_57duu")
+item_type = 1
 description = "Apa ini? Kandang ayam?!?"
-is_equipment = true
-equipment_slot = "Weapon"
-stats = {
-"attack": 100
+stat_bonus = {
+"atk": 5
 }
 metadata/_custom_type_script = "uid://cuk8x0kp8frbc"

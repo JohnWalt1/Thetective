@@ -21,6 +21,7 @@ Global="*uid://dctwn8etuhbq4"
 DialogManager="*uid://dv3guobcl8jmg"
 Dialogic="*uid://ds2q0uclmolvu"
 InventoryManager="*uid://ckb7qcjqviu1p"
+PlayerStats="*uid://ditcj3w7onb41"
 
 [dialogic]
 

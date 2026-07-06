@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://8ne0287d4l0k"]
+
+[ext_resource type="PackedScene" path="res://ui/usable_panel.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://ui/equipment_bar.tscn" id="2"]
+
+[node name="InventoryUI" type="Control" unique_id=833569703]
+custom_minimum_size = Vector2(420, 320)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TabContainer" type="TabContainer" parent="." unique_id=2021638170]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+
+[node name="Usable" parent="TabContainer" unique_id=609310607 instance=ExtResource("1")]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Equip" parent="TabContainer" unique_id=1433731511 instance=ExtResource("2")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
