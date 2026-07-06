@@ -1,19 +1,17 @@
 extends Resource
 class_name ItemData
 
-@export var id:String=""
-@export var name:String="Item"
+
+enum ItemType{USABLE,EQUIPABLE}
+enum EffectType{NONE,HEAL,BUFF_ATK}
+@export var id:String
+@export var name:String
 @export var icon:Texture2D
-@export var quality:String="Common"
-@export var description:String=""
-@export var is_equipment:bool=false
-@export var is_consumable:bool=false
-@export var equipment_slot=""
-@export var stats:Dictionary={}
-@export var use_effect:Effect=null
-@export var is_interact:bool=false
+@export var item_type:ItemType
+@export var description:String
 
-@export var max_stack: int = 1
-@export var current_stack: int = 1
+@export var effect_type: EffectType = EffectType.NONE
+@export var effect_value: float = 0.0
+@export var duration: float = 0.0 # 0 = instant, >0 = buff berdurasi (detik)
 
-@export var sort_order: int = 0
+@export var stat_bonus:Dictionary={}

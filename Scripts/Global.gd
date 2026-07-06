@@ -6,7 +6,7 @@ var player_max_hp: int =500
 #Inventory
 var inventory: Array = []
 #signal-> for UI
-signal clue_collected(clue_name)
+
 signal inventory_updated(inventor:Array)
 signal det_eye_toggled(active)
 

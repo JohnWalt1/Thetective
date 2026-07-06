@@ -16,7 +16,5 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		var manager = body.get_node("InventoryManager")
-		if manager:
-			manager.add_item(item_data)
-			queue_free()  # Hapus item dari dunia
+		InventoryManager.add_item(item_data)
+		queue_free()  # Hapus item dari dunia
