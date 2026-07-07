@@ -8,8 +8,9 @@ var facing_direction: Vector2 = Vector2.RIGHT
 var hitbox_offset:Vector2
 var is_attacking:bool=false
 
+
 @export var max_hp:float=100.0
-@export var base_atk:float=20.0
+
 @export var base_speed:float=20.0
 @export var walk_speed: float = 150.0
 @export var dodge_speed: float = 500.0
@@ -23,14 +24,14 @@ var is_attacking:bool=false
 @onready var dodge_timer: Timer = $DodgeTimer
 @onready var det_eye_duration: Timer = $DetEyeDuration
 @onready var det_eye_cooldown: Timer = $DetEyeCooldown
-@onready var canvas_modulate: CanvasModulate = get_node("/root/Main/CanvasModulate")
+@onready var canvas_modulate: CanvasModulate = $"../../CanvasModulate"
 @onready var idle_timer:Timer=$IdleTimer
 @onready var hitbox: Area2D = $Hitbox
 @onready var swing: AudioStreamPlayer2D = $swing
 
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var dodge_sound: AudioStreamPlayer2D = $dodge
-@onready var joystick: VirtualJoystick = $"../../joystick"
+
 
 
 
@@ -44,12 +45,24 @@ var input_direction: Vector2 = Vector2.ZERO
 var nearby_clue: Area2D = null   # <-- Ini tempat menyimpan clue yang sedang didekati
 
 func _ready():
-	var armor := load("res://Resources/ItemDatas/DagingAneh.tres")
-
-
-	InventoryManager.add_item(armor)
-
-
+	var potion := load("res://Resources/ItemDatas/DagingAneh.tres")
+	InventoryManager.add_item(potion)
+	var arm = ItemData.new()
+	arm.id = "potion_heal"
+	arm.name = "Potion Heal"
+	arm.item_type = ItemData.ItemType.USABLE
+	arm.effect_type = ItemData.EffectType.BUFF_ATK
+	arm.effect_value = 1000
+	var arm1=arm
+	var arm2=potion
+	var arm3=arm
+	var arm4=arm
+	# (opsional) potion.icon = load("res://icon.png")
+	InventoryManager.add_item(arm)
+	InventoryManager.add_item(arm1)
+	InventoryManager.add_item(arm2)
+	InventoryManager.add_item(arm3)
+	InventoryManager.add_item(arm4)
 	add_to_group("player")
 	det_eye_duration.wait_time = 10.0   # Skill aktif 10 detik
 	det_eye_cooldown.wait_time = 2   # Cooldown 30 detik

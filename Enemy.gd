@@ -196,10 +196,10 @@ func update_animation():
 			animated_sprite_2d.play("chase")
 			speed=200.0
 	if flip_cd <= 0:
-		if velocity.x>10.0 and is_hit==false:
+		if velocity.x>5.0 and is_hit==false:
 			animated_sprite_2d.flip_h=false
 			flip_cd = 0.5
-		elif velocity.x<-10.0 and is_hit==false:
+		elif velocity.x<-5.0 and is_hit==false:
 			animated_sprite_2d.flip_h=true
 			flip_cd = 0.5
 func _physics_process(delta):

@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("1_iw0a1")
-name = "Daging Aneh"
+name = "Daging Aneh "
 icon = ExtResource("1_h8400")
+item_type = 1
 description = "Daging Misterius?\\n Mungkin bisa digunakan untuk memberi makan sesuatu? "
-is_interact = true
 metadata/_custom_type_script = "uid://cuk8x0kp8frbc"
