@@ -12,7 +12,7 @@ func set_item(item: ItemData) -> void:
 	item_data = item
 	if item_data:
 		icon_rect.texture = item_data.icon
-		tooltip_text = item_data.item_name
+		tooltip_text = item_data.name
 	else:
 		icon_rect.texture = null
 		tooltip_text = ""

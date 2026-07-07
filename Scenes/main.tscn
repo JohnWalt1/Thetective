@@ -26,8 +26,6 @@ offset_bottom = 23.0
 metadata/_edit_use_anchors_ = true
 
 [node name="InventoryUI" parent="UI" unique_id=833569703 instance=ExtResource("2_6bp64")]
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1669061881]
 

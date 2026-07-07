@@ -1,17 +1,21 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://chbk58ihqy717"]
 
-[ext_resource type="Script" path="res://ui/usable_panel.gd" id="1"]
+[ext_resource type="Script" uid="uid://d2afcrkcnbvg3" path="res://ui/usable_panel.gd" id="1"]
 [ext_resource type="PackedScene" path="res://ui/inventory_grid.tscn" id="2"]
 
-[node name="UsablePanel" type="Control"]
+[node name="UsablePanel" type="Control" unique_id=1293444986]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1")
 
-[node name="InventoryGrid" parent="." instance=ExtResource("2")]
+[node name="InventoryGrid" parent="." unique_id=1267991062 instance=ExtResource("2")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

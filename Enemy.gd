@@ -135,7 +135,7 @@
 		#
 extends CharacterBody2D
 
-@export var speed: float = 200.0
+@export var speed: float = 100.0
 @export var max_health: int = 100.0
 @export var player: Node2D = null
 @export var sight_range:float=300.0
@@ -149,7 +149,7 @@ extends CharacterBody2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 
-enum EnemyState{WANDER,CHASE}
+enum EnemyState{WANDER,CHASE,MANEUVER}
 var is_hit:bool=false
 var hit_timer:float=0.0
 var health:int=100
@@ -158,6 +158,11 @@ var last_known_player_position: Vector2
 var is_direct_chase: bool = true
 var wander_target:Vector2
 var time_since_player_seen:float=0.0
+var chase_timer: float = 0.0
+var maneuver_timer: float = 0.0
+var flip_cd: float = 0.0
+var random_chase_limit: float = randf_range(1.0, 4.0)
+var cur_deg_mnvr: float = 0.0
 # Variabel untuk deteksi stuck
 var stuck_timer: float = 0.0
 var last_position: Vector2
@@ -189,15 +194,18 @@ func update_animation():
 			speed=wan_speed
 		else:
 			animated_sprite_2d.play("chase")
-			speed=500.0
-	if velocity.x>0 and is_hit==false:
-		animated_sprite_2d.flip_h=false
-	elif velocity.x<0 and is_hit==false:
-		animated_sprite_2d.flip_h=true
+			speed=200.0
+	if flip_cd <= 0:
+		if velocity.x>5.0 and is_hit==false:
+			animated_sprite_2d.flip_h=false
+			flip_cd = 0.5
+		elif velocity.x<-5.0 and is_hit==false:
+			animated_sprite_2d.flip_h=true
+			flip_cd = 0.5
 func _physics_process(delta):
 	# Update raycast ke player
 	update_raycast_to_player()
-	
+	flip_cd -= delta
 	var player_visible=is_player_visible()
 	if is_hit:
 		hit_timer += delta
@@ -218,14 +226,40 @@ func _physics_process(delta):
 	match current_state:
 		EnemyState.WANDER:
 			if player_visible:
+				chase_timer = 0.0
 				current_state=EnemyState.CHASE
 				navigation_agent.target_position=player.global_position
 		EnemyState.CHASE:
+			chase_timer += delta
 			if not player_visible and time_since_player_seen>lost_timeout:
 				current_state=EnemyState.WANDER
 				wander_target=get_random_wander_point()
 				navigation_agent.target_position=wander_target
 				escape_direction=Vector2.ZERO
+				
+			elif chase_timer >= random_chase_limit:
+				chase_timer = 0.0
+				maneuver_timer = 0.0
+				current_state=EnemyState.MANEUVER
+				
+				random_chase_limit = randf_range(1.0, 4.0)
+				
+				var rol = 1 if randi() % 2 == 0 else -1
+				
+				var angle_deg = randf_range(30.0, 60.0)
+				cur_deg_mnvr = deg_to_rad(angle_deg)*rol
+				
+		EnemyState.MANEUVER:
+			maneuver_timer += delta
+			
+			if player:
+				var dir_to_player = (player.global_position - global_position).normalized()
+				var belok_dir = dir_to_player.rotated(cur_deg_mnvr)
+				velocity = belok_dir * (speed * 0.2)
+				
+			if maneuver_timer >= 2.0:
+				current_state = EnemyState.CHASE
+				navigation_agent.target_position = player.global_position 
 	move_enemy(delta)
 
 func move_enemy(delta):
@@ -251,9 +285,13 @@ func move_enemy(delta):
 		else:
 			velocity = Vector2.ZERO
 	else:
-		velocity = target_direction * speed
-		if current_state==EnemyState.CHASE and is_player_visible():
-			navigation_agent.target_position=player.global_position
+		if current_state==EnemyState.MANEUVER:
+			pass
+		else :
+			velocity = target_direction * speed
+			if current_state==EnemyState.CHASE and is_player_visible():
+				navigation_agent.target_position=player.global_position
+		
 	move_and_slide()
 	last_position=global_position
 	update_animation()

@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://8ne0287d4l0k"]
 
-[ext_resource type="PackedScene" path="res://ui/usable_panel.tscn" id="1"]
-[ext_resource type="PackedScene" path="res://ui/equipment_bar.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://chbk58ihqy717" path="res://ui/usable_panel.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://dd1erruptd7qk" path="res://ui/equipment_bar.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://deixyqoxfi5we" path="res://bagbutton.tscn" id="3_j1vmf"]
 
 [node name="InventoryUI" type="Control" unique_id=833569703]
 custom_minimum_size = Vector2(420, 320)
@@ -9,21 +10,29 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-
-[node name="TabContainer" type="TabContainer" parent="." unique_id=2021638170]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 0
 
-[node name="Usable" parent="TabContainer" unique_id=609310607 instance=ExtResource("1")]
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="Equip" parent="TabContainer" unique_id=1433731511 instance=ExtResource("2")]
+[node name="Usable" parent="." unique_id=609310607 instance=ExtResource("1")]
 visible = false
-layout_mode = 2
-metadata/_tab_index = 1
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 31.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Equip" parent="." unique_id=1433731511 instance=ExtResource("2")]
+layout_mode = 0
+offset_left = 836.0
+offset_top = 557.0
+offset_right = 1136.0
+offset_bottom = 627.0
+
+[node name="Button" parent="." unique_id=1866508090 instance=ExtResource("3_j1vmf")]
+layout_mode = 0
+offset_left = 1039.9999
+offset_top = 299.99997
+offset_right = 1559.9999
+offset_bottom = 820.0

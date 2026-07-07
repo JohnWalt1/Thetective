@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://deixyqoxfi5we"]
+
+[ext_resource type="Texture2D" uid="uid://5vvmtich77rv" path="res://briefcase.png" id="1_my2rv"]
+[ext_resource type="Script" uid="uid://c2ckqf4lmv4vw" path="res://bagbutton.gd" id="2_5fhal"]
+
+[node name="Button" type="Button" unique_id=1866508090]
+offset_left = 14.0
+offset_top = 33.0
+offset_right = 534.0
+offset_bottom = 553.0
+scale = Vector2(0.2, 0.2)
+icon = ExtResource("1_my2rv")
+script = ExtResource("2_5fhal")
