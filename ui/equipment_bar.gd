@@ -2,18 +2,19 @@ extends Control
 class_name EquipmentBar
 
 @onready var slot_buttons: Array[TextureButton] = [
-	$HBoxContainer/Slot0,
-	$HBoxContainer/Slot1,
-	$HBoxContainer/Slot2,
-	$HBoxContainer/Slot3,
+	$HBoxContainer/Panel/Slot0,
+	$HBoxContainer/Panel2/Slot1,
+	$HBoxContainer/Panel3/Slot2,
+	$HBoxContainer/Panel4/Slot3,
 ]
 @onready var picker: EquipPickerPopup = $EquipPickerPopup
+
 
 
 func _ready() -> void:
 	for i in range(slot_buttons.size()):
 		slot_buttons[i].pressed.connect(_on_slot_button_pressed.bind(i))
-
+		slot_buttons[i].gui_input.connect(_on_slot_gui_input.bind(i))
 	picker.item_chosen.connect(_on_item_chosen)
 	InventoryManager.equipment_slot_changed.connect(_on_equipment_slot_changed)
 
@@ -40,3 +41,8 @@ func _on_item_chosen(slot_index: int, item: ItemData) -> void:
 
 func _on_equipment_slot_changed(slot_index: int, item: ItemData) -> void:
 	_update_button_icon(slot_index, item)
+	
+func _on_slot_gui_input(event: InputEvent, index: int):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+		if InventoryManager.equipped_slots[index] != null:
+			InventoryManager.unequip_slot(index)

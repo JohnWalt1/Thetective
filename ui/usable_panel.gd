@@ -1,10 +1,11 @@
-extends Control
+extends PopupPanel
 class_name UsablePanel
 
 @onready var grid: InventoryGrid = $InventoryGrid
 
 
 func _ready() -> void:
+	
 	InventoryManager.usable_inventory_changed.connect(_refresh)
 	grid.item_selected.connect(_on_item_selected)
 	_refresh()
