@@ -17,82 +17,60 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -2.0
+offset_right = 71.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 12
 
-[node name="Slot0" type="TextureButton" parent="HBoxContainer" unique_id=624659668]
+[node name="Panel" type="Panel" parent="HBoxContainer" unique_id=203566061]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+
+[node name="Slot0" type="TextureButton" parent="HBoxContainer/Panel" unique_id=624659668]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 70.0
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="Icon" type="TextureRect" parent="HBoxContainer/Slot0" unique_id=1233999423]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Slot1" type="TextureButton" parent="HBoxContainer" unique_id=1231352651]
+[node name="Panel2" type="Panel" parent="HBoxContainer" unique_id=1177345100]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+
+[node name="Slot1" type="TextureButton" parent="HBoxContainer/Panel2" unique_id=787895733]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 70.0
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="Icon2" type="TextureRect" parent="HBoxContainer/Slot1" unique_id=1430324309]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -76.0
-offset_right = -76.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Slot2" type="TextureButton" parent="HBoxContainer" unique_id=1447626876]
+[node name="Panel3" type="Panel" parent="HBoxContainer" unique_id=521980117]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+
+[node name="Slot2" type="TextureButton" parent="HBoxContainer/Panel3" unique_id=945964583]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 70.0
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="Icon3" type="TextureRect" parent="HBoxContainer/Slot2" unique_id=303046076]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -152.0
-offset_right = -152.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Slot3" type="TextureButton" parent="HBoxContainer" unique_id=281876637]
+[node name="Panel4" type="Panel" parent="HBoxContainer" unique_id=385035293]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+
+[node name="Slot3" type="TextureButton" parent="HBoxContainer/Panel4" unique_id=1466098363]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 70.0
 ignore_texture_size = true
 stretch_mode = 4
-
-[node name="Icon4" type="TextureRect" parent="HBoxContainer/Slot3" unique_id=147632073]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -228.0
-offset_right = -228.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-expand_mode = 1
-stretch_mode = 5
 
 [node name="EquipPickerPopup" parent="." unique_id=229422333 instance=ExtResource("2")]
