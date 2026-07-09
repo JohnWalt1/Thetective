@@ -9,4 +9,7 @@ name = "Daging Aneh "
 icon = ExtResource("1_h8400")
 item_type = 1
 description = "Daging Misterius?\\n Mungkin bisa digunakan untuk memberi makan sesuatu? "
+stat_bonus = {
+"atk": 1000.0
+}
 metadata/_custom_type_script = "uid://cuk8x0kp8frbc"

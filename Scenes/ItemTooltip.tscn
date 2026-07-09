@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bctwfkejnvom"]
+
+[ext_resource type="Script" uid="uid://d1tewg2phnbw0" path="res://ItemTooltip.gd" id="1_fbwi7"]
+
+[node name="PopupPanel" type="PopupPanel" unique_id=31652190]
+oversampling_override = 1.0
+size = Vector2i(200, 150)
+visible = true
+script = ExtResource("1_fbwi7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1860273215]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 196.0
+offset_bottom = 146.0
+
+[node name="NameLabel" type="Label" parent="VBoxContainer" unique_id=284200718]
+layout_mode = 2
+
+[node name="StatsLabel" type="Label" parent="VBoxContainer" unique_id=608743751]
+layout_mode = 2
+
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer" unique_id=2024460024]
+layout_mode = 2

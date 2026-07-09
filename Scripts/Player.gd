@@ -176,7 +176,6 @@ func attempt_interaction():
 		nearby_clue.pickup()
 		nearby_clue = null  # Reset setelah diambil
 		return
-
 	if not interaction_ray.is_colliding():
 		return
 	
