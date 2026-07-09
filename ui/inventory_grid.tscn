@@ -1,7 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://db3rxjlo6b8a4"]
 
-[ext_resource type="Script" path="res://ui/inventory_grid.gd" id="1"]
+[ext_resource type="Script" uid="uid://dk3o55w22y07a" path="res://ui/inventory_grid.gd" id="1"]
 
-[node name="InventoryGrid" type="GridContainer"]
+[node name="InventoryGrid" type="GridContainer" unique_id=1309666931]
 columns = 5
 script = ExtResource("1")

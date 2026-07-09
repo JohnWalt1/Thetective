@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://1yveipl7skte"]
+
+[ext_resource type="Script" uid="uid://bbh7qoersaeam" path="res://ItemAction.gd" id="1_5x3j8"]
+
+[node name="PopupPanel" type="PopupPanel" unique_id=2099456517]
+oversampling_override = 1.0
+visible = true
+script = ExtResource("1_5x3j8")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=113410045]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 96.0
+offset_bottom = 96.0
+
+[node name="UseButton" type="Button" parent="HBoxContainer" unique_id=1192496154]
+layout_mode = 2
+
+[node name="DiscardButton" type="Button" parent="HBoxContainer" unique_id=1868292958]
+layout_mode = 2

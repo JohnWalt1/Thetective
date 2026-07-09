@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://chbk58ihqy717"]
 
 [ext_resource type="Script" uid="uid://d2afcrkcnbvg3" path="res://ui/usable_panel.gd" id="1"]
-[ext_resource type="PackedScene" path="res://ui/inventory_grid.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://db3rxjlo6b8a4" path="res://ui/inventory_grid.tscn" id="2"]
 
 [node name="UsablePanel" type="PopupPanel" unique_id=1856823514]
 oversampling_override = 1.0
@@ -13,9 +13,9 @@ script = ExtResource("1")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 388.0
-offset_top = 165.0
-offset_right = 380.0
-offset_bottom = 157.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
