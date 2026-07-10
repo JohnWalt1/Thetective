@@ -4131,6 +4131,8 @@ sprite_frames = SubResource("SpriteFrames_q2e3r")
 [node name="ClueItem" parent="." unique_id=2006939993 instance=ExtResource("5_5i252")]
 position = Vector2(-61, 89)
 item_data = ExtResource("10_x6b1m")
+minigame_id = null
+minigame_data = null
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1264526342]
 position = Vector2(12, 81)
