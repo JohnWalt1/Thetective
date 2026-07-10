@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cyjj40dtlqiov"]
+
+[ext_resource type="Script" uid="uid://b83tbqppy4j2u" path="res://Clue.gd" id="1_mvf5q"]
+[ext_resource type="Texture2D" uid="uid://6eddomogr3d" path="res://Meat Resource.png" id="2_4vpbb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mkx8x"]
+size = Vector2(21, 21)
+
+[node name="PuzzleClue" type="Area2D" unique_id=2006939993]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_mvf5q")
+minigame_id = null
+minigame_data = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1220321811]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_mkx8x")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1236262372]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4vpbb")
