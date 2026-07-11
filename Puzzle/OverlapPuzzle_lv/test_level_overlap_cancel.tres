@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PuzzleLevelData" format=3 uid="uid://s3i1qklr73v7"]
+
+[ext_resource type="Script" uid="uid://dl2aqqeeyfva7" path="res://Scripts/Puzzle/puzzle_level_data.gd" id="1"]
+[ext_resource type="Script" uid="uid://dxh585hltm33e" path="res://Scripts/Puzzle/puzzle_block_data.gd" id="1_v8pt5"]
+
+[sub_resource type="Resource" id="Resource_v8pt5"]
+script = ExtResource("1_v8pt5")
+start_cell = Vector2i(1, 2)
+
+[resource]
+script = ExtResource("1")
+level_name = "Test Level - Overlap Cancel"
+target_cells = Array[Vector2i]([Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(0, 3), Vector2i(1, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(2, 4), Vector2i(3, 4), Vector2i(4, 4)])
+blocks = Array[ExtResource("1_v8pt5")]([SubResource("Resource_v8pt5")])

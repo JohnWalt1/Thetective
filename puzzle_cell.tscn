@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://3onuytrskmoq"]
+
+[ext_resource type="Script" uid="uid://wjoymiaogq8p" path="res://puzzle_cell.gd" id="1_6rgee"]
+
+[node name="PuzzleCell" type="Panel" unique_id=1585938528]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_6rgee")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=990165149]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

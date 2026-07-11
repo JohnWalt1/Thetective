@@ -42,7 +42,8 @@ var is_attacking:bool=false
 var input_direction: Vector2 = Vector2.ZERO
 
 
-var nearby_clue: Area2D = null   # <-- Ini tempat menyimpan clue yang sedang didekati
+var nearby_clue: Area2D = null 
+var _nearby_interactable:Array[Interactable]=[]
 
 func _ready():
 	var potion := load("res://Resources/ItemDatas/DagingAneh.tres")
@@ -142,33 +143,6 @@ func _input(event):
 			print("[Player] Det Eye masih aktif!")
 		elif not det_eye_cooldown.is_stopped():
 			print("[Player] Det Eye sedang cooldown!")
-
-		
-
-#func attempt_interaction():
-	#if not interaction_ray.is_colliding():
-		#print("Tidak ada apapun di depan")
-		#return
-	#
-	#var collider = interaction_ray.get_collider()
-	#if not collider:
-	
-		#return
-	#print(" Ray mengenai: ", collider.name, " (", collider.get_class(), ")")
-	#if collider.is_in_group("npc") and collider.visible:
-		#collider.interact()
-		#return
-	#
-	#if collider.is_in_group("enemy") and collider.visible:
-		#if Global.is_det_eye_active:
-			#start_battle(collider)
-		#else:
-			#print("[Player] Aktifkan Det Eye dulu untuk melihat dan melawan musuh!")
-		#return
-#
-	#if collider.is_in_group("clue_pickup") and collider.visible:
-		#collider.pickup()
-		#return
 
 func attempt_interaction():
 	if nearby_clue and nearby_clue.visible:
@@ -324,3 +298,13 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	if is_attacking:
 		is_attacking=false
 		
+
+func register_interactable(i:Interactable)->void:
+	_nearby_interactable.append(i)
+	
+func unregister_interactable(i:Interactable)->void:
+	_nearby_interactable.erase(i)
+
+func _unhandled_input(event:InputEvent)->void:
+	if event.is_action_pressed(("interact")) and not _nearby_interactable.is_empty():
+		_nearby_interactable[0].try_interact(self)

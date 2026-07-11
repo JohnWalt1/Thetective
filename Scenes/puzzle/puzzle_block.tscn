@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dqxsm80o7epsp"]
+
+[ext_resource type="Script" uid="uid://bl8pn78q0mcap" path="res://Scripts/Puzzle/puzzle_block.gd" id="1_6kcy4"]
+
+[node name="PuzzleBlock" type="Node2D" unique_id=1466599264]
+script = ExtResource("1_6kcy4")

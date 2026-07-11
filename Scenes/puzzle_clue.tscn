@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cyjj40dtlqiov"]
 
-[ext_resource type="Script" uid="uid://b83tbqppy4j2u" path="res://Clue.gd" id="1_mvf5q"]
+[ext_resource type="Script" uid="uid://c475fnndvp3fl" path="res://Scripts/Puzzle/puzzle_trigger.gd" id="1_mvf5q"]
 [ext_resource type="Texture2D" uid="uid://6eddomogr3d" path="res://Meat Resource.png" id="2_4vpbb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mkx8x"]
@@ -10,8 +10,6 @@ size = Vector2(21, 21)
 collision_layer = 8
 collision_mask = 4
 script = ExtResource("1_mvf5q")
-minigame_id = null
-minigame_data = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1220321811]
 position = Vector2(0.5, 0.5)

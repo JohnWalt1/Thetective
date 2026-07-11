@@ -17,4 +17,4 @@ func _input(event:InputEvent):
 				break
 
 func trigger_minigame():
-	MinigameManager.start_miigame(minigame_id,minigame_data)
+	MinigameManager.start_minigame(minigame_id,minigame_data)
