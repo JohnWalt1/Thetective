@@ -3,11 +3,9 @@ extends Node
 signal minigame_started()
 signal minigame_ended(reward)
 
-var current_minigame:Control=null
+var current_minigame:MinigameBase=null
 var minigame_scenes:Dictionary={
-	"overlap_puzzle":preload("res://bagbutton.tscn")
-	
-
+	"overlap_puzzle":preload("res://overlap_puzzle.tscn")
 }
 
 

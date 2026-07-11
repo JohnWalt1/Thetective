@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://dqqnwqmsour5i" path="res://Scenes/Worlds/game_world.tscn" id="4_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://dkxphqyqb7t6q" path="res://enemy.tscn" id="6_21xkr"]
 [ext_resource type="PackedScene" uid="uid://curvj4rw8lbr6" path="res://EnemySpawner.tscn" id="7_6bp64"]
+[ext_resource type="PackedScene" uid="uid://cyjj40dtlqiov" path="res://Scenes/puzzle_clue.tscn" id="11_d1ilt"]
+[ext_resource type="Resource" uid="uid://s3i1qklr73v7" path="res://Puzzle/OverlapPuzzle_lv/test_level_overlap_cancel.tres" id="12_6iyac"]
 
 [node name="Main" type="Node2D" unique_id=418448351]
 script = ExtResource("1_6bp64")
@@ -79,3 +81,8 @@ spawn_radius = 100.0
 max_enemies = 20
 spawn_interval = 4.0
 auto_spawn_on_ready = true
+
+[node name="PuzzleClue" parent="." unique_id=2006939993 instance=ExtResource("11_d1ilt")]
+z_index = 1
+position = Vector2(-1440, 35)
+level = ExtResource("12_6iyac")

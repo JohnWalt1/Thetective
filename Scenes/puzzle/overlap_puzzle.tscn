@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://lfqdanvecnp4"]
+
+[ext_resource type="Script" uid="uid://cjnrcdpxwp6nm" path="res://Scripts/Puzzle/overlap_puzzle.gd" id="1_kjarw"]
+[ext_resource type="Script" uid="uid://bpp8e1v3kxe8l" path="res://Scripts/Puzzle/puzzle_result_layer.gd" id="2_vpipc"]
+
+[node name="OverlapPuzzle" type="Node2D" unique_id=1903571348]
+script = ExtResource("1_kjarw")
+
+[node name="BlocksContainer" type="Node2D" parent="." unique_id=859133936]
+
+[node name="ResultLayer" type="Node2D" parent="." unique_id=878191513]
+script = ExtResource("2_vpipc")
