@@ -1,18 +1,15 @@
 extends Node2D
 class_name PuzzleBlock
-## Satu blok yang bisa di-drag & drop di grid overlap_puzzle.
-## Digambar transparan tipis (hanya bantuan visual saat drag) — hasil "ganjil/genap"
-## yang sesungguhnya digambar oleh PuzzleResultLayer, bukan oleh blok ini.
 
 signal moved(block: PuzzleBlock)
 signal picked_up(block: PuzzleBlock)
 
-var cells: Array[Vector2i] = [Vector2i.ZERO]   # bentuk blok, offset relatif
-var grid_pos: Vector2i = Vector2i.ZERO          # posisi sel acuan (kiri-atas) di grid puzzle
+var cells: Array[Vector2i] = [Vector2i.ZERO]   
+var grid_pos: Vector2i = Vector2i.ZERO          
 var color: Color = Color.WHITE
 var movable: bool = true
 var cell_size: int = 64
-var grid_bounds: Vector2i = Vector2i(6, 6)      # dipakai untuk clamp posisi
+var grid_bounds: Vector2i = Vector2i(6, 6)     
 
 var _dragging: bool = false
 var _drag_offset: Vector2 = Vector2.ZERO
@@ -24,6 +21,7 @@ func setup(data: PuzzleBlockData, cell_px: int, bounds: Vector2i) -> void:
 	movable = data.movable
 	cell_size = cell_px
 	grid_bounds = bounds
+	print("[PuzzleBlock] setup: cells=%s grid_pos=%s color=%s cell_size=%s visible=%s" % [cells, grid_pos, color, cell_size, visible])
 	_update_position()
 	queue_redraw()
 
@@ -40,7 +38,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not movable:
 		return
 
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton and event.button_index== MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			if _is_mouse_over_block():
 				_dragging = true
@@ -66,9 +64,16 @@ func _is_mouse_over_block() -> bool:
 
 func _snap_to_grid() -> void:
 	var raw_cell := Vector2i(roundi(position.x / cell_size), roundi(position.y / cell_size))
-	# clamp supaya blok tidak keluar area grid
-	raw_cell.x = clampi(raw_cell.x, 0, grid_bounds.x - 1)
-	raw_cell.y = clampi(raw_cell.y, 0, grid_bounds.y - 1)
+
+	var min_offset:=cells[0]
+	var max_offset:=cells[0]
+	for c in cells:
+		min_offset.x = mini(min_offset.x, c.x)
+		min_offset.y = mini(min_offset.y, c.y)
+		max_offset.x = maxi(max_offset.x, c.x)
+		max_offset.y = maxi(max_offset.y, c.y)
+	raw_cell.x = clampi(raw_cell.x, -min_offset.x, grid_bounds.x - 1 - max_offset.x)
+	raw_cell.y = clampi(raw_cell.y, -min_offset.y, grid_bounds.y - 1 - max_offset.y)
 	grid_pos = raw_cell
 	_update_position()
 	moved.emit(self)

@@ -7,6 +7,7 @@
 script = ExtResource("1_t7jts")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=211677101]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -15,6 +16,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.6)
 
 [node name="OverlapPuzzle" parent="." unique_id=1903571348 instance=ExtResource("1_m0qjo")]
+position = Vector2(295, 156)
 
 [node name="CloseButton" type="Button" parent="." unique_id=1066935618]
 anchors_preset = 1
