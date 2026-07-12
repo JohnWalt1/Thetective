@@ -13,8 +13,10 @@ func _draw() -> void:
 	if not puzzle or not puzzle.level:
 		return
 	var cs: int = puzzle.level.cell_size
-
+	var grid_size:Vector2i=puzzle.level.grid_size
 	for cell in puzzle.overlap_count.keys():
+		if cell.x<0 or cell.y<0 or cell.x>=grid_size.x or cell.y>=grid_size.y:
+			continue
 		var count: int = puzzle.overlap_count[cell]
 		if count % 2 == 1:
 			var r := Rect2(Vector2(cell) * cs, Vector2(cs, cs))
