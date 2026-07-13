@@ -9,14 +9,13 @@ extends EditorScript
 ## 4. Cek folder res://levels/ — file .tres baru otomatis muncul di situ
 ## 5. Ulangi dari langkah 2 buat bikin level lain (ganti OUTPUT_PATH biar gak ketimpa)
 
-const OUTPUT_PATH := "res://Puzzle/OverlapPuzzle_lv/level_testt.tres"
+const OUTPUT_PATH := "res://Puzzle/OverlapPuzzle_lv/level_01.tres"
 
 func _run() -> void:
 	var level := PuzzleLevelData.new()
 	level.level_name = "Level Baru"
 	level.grid_size = Vector2i(6, 6)
-	level.canvas_size=Vector2i(11,6)
-	level.cell_size = 100
+	level.cell_size = 64
 
 	# --- TARGET: '.' = kosong, karakter lain = sel yang harus terisi (ganjil) ---
 	var target_pattern := [

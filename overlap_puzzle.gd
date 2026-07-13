@@ -11,7 +11,7 @@ var current_grid:Array[Array]=[]
 @onready var reset_button: Button = $MarginContainer/ResetButton
 
 var cells:Array[Array]=[]
-
+signal puzzle_solved
 func _ready():
 	reset_button.pressed.connect(_reset_puzzle)
 	initialize_grid()
