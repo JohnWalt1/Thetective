@@ -1,11 +1,5 @@
 extends CanvasLayer
 class_name OverlapPuzzleUI
-## Root scene yang dibuka MinigameManager.open_minigame("overlap_puzzle", {"level": ...}).
-## Struktur node yang dibutuhkan (buat manual, simpan sebagai overlap_puzzle_ui.tscn):
-##   OverlapPuzzleUI (CanvasLayer, script ini)
-##     └─ Background (ColorRect, full rect, warna gelap semi transparan)
-##     └─ OverlapPuzzle (instance overlap_puzzle.tscn, taruh di tengah layar)
-##     └─ CloseButton (Button, pojok, terhubung ke _on_close_button_pressed)
 
 signal closed(result: Dictionary)
 @onready var puzzle :OverlapPuzzle=$OverlapPuzzle
@@ -15,7 +9,6 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	puzzle.puzzle_solved.connect(_on_solved)
 
-## Dipanggil MinigameManager setelah scene di-instantiate.
 func configure(config: Dictionary) -> void:
 	var level: PuzzleLevelData = config.get("level")
 	if level:
@@ -24,7 +17,12 @@ func configure(config: Dictionary) -> void:
 		push_error("OverlapPuzzleUI.configure() dipanggil tanpa 'level'.")
 
 func _on_solved() -> void:
-	closed.emit({"success": true})
+	closed.emit({"success": true,"rewards":puzzle.level.rewards})
 
 func _on_close_button_pressed() -> void:
 	closed.emit({"success": false})
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		_on_close_button_pressed()
+		get_viewport().set_input_as_handled()

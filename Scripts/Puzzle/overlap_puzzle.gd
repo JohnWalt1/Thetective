@@ -6,15 +6,15 @@ signal puzzle_solved
 const PuzzleBlockScene := preload("res://Scenes/puzzle/puzzle_block.tscn")
 
 @export var level: PuzzleLevelData
-@export var visible_area_size:Vector2=Vector2(384,384)
+@export var tray_spacing: float = 90.0
+@export var tray_margin_top: float = 40.0
 @onready var blocks_container: Node2D = $BlocksContainer
 @onready var result_layer: Node2D = $ResultLayer
 
 var blocks: Array[PuzzleBlock] = []
 var overlap_count: Dictionary = {}  
 var solved: bool = false
-var _panning: bool = false
-var _pan_last_mouse: Vector2 = Vector2.ZERO
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	if level:
@@ -29,24 +29,29 @@ func load_level(data: PuzzleLevelData) -> void:
 	blocks.clear()
 	overlap_count.clear()
 
-	for block_data in level.blocks:
+	var tray_y: float = level.grid_size.y * level.cell_size + tray_margin_top
+ 
+	for i in range(level.blocks.size()):
+		var block_data: PuzzleBlockData = level.blocks[i]
 		var block: PuzzleBlock = PuzzleBlockScene.instantiate()
 		blocks_container.add_child(block)
-		var canvas_bounds:Vector2i=level.canvas_size if level.canvas_size!=Vector2i.ZERO else level.grid_size
-		block.setup(block_data, level.cell_size, canvas_bounds)
-		block.moved.connect(_on_block_moved)
+ 
+		var tray_pos := Vector2(i * tray_spacing + tray_spacing * 0.5, tray_y)
+		block.setup(block_data, level.cell_size, level.grid_size, tray_pos)
+		block.placed.connect(_on_block_changed)
+		block.returned_to_tray.connect(_on_block_changed)
 		blocks.append(block)
-
+ 
 	_recompute_overlap()
 	queue_redraw()
 	if result_layer:
 		result_layer.queue_redraw()
 
-func _on_block_moved(_block: PuzzleBlock) -> void:
+func _on_block_changed(_block: PuzzleBlock) -> void:
 	_recompute_overlap()
 	if result_layer:
 		result_layer.queue_redraw()
-
+ 
 	if not solved and _check_win():
 		solved = true
 		puzzle_solved.emit()
@@ -54,9 +59,12 @@ func _on_block_moved(_block: PuzzleBlock) -> void:
 func _recompute_overlap() -> void:
 	overlap_count.clear()
 	for block in blocks:
+		if block.state != PuzzleBlock.State.PLACED:
+			continue
 		for local_cell in block.cells:
 			var world_cell: Vector2i = block.grid_pos + local_cell
 			overlap_count[world_cell] = overlap_count.get(world_cell, 0) + 1
+
 
 func get_visible_cells() -> Array[Vector2i]:
 	var result: Array[Vector2i] = []
@@ -96,27 +104,3 @@ func _draw() -> void:
 
 func _on_close_button_pressed() -> void:
 	pass
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_LEFT:
-		if event.pressed:
-			_panning=true
-			_pan_last_mouse=event.position
-		else:
-			_panning=false
-	elif event is InputEventMouseMotion and _panning:
-		var delta: Vector2 = event.position - _pan_last_mouse
-		_pan_last_mouse = event.position
-		position += delta
-		_clamp_pan()
-
-
-func _clamp_pan()->void:
-	if not level:
-		return
-	var bounds:Vector2i=level.canvas_size if level.canvas_size!=Vector2i.ZERO else level.grid_size
-	var content_size:Vector2=Vector2(bounds)*level.cell_size
-	var min_x: float = minf(0.0, visible_area_size.x - content_size.x)
-	var min_y: float = minf(0.0, visible_area_size.y - content_size.y)
-	position.x = clampf(position.x, min_x, 0.0)
-	position.y = clampf(position.y, min_y, 0.0)
