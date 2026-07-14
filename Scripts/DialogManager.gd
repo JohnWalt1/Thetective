@@ -8,6 +8,10 @@ var text_box
 var tb_pos:Vector2
 var is_dialog_active=false
 var can_advance_line= false
+signal dialog_ended
+
+func _ready():
+	process_mode=Node.PROCESS_MODE_ALWAYS
 func start_dialog(position:Vector2,lines:Array[String]):
 	if is_dialog_active:
 		return
@@ -25,7 +29,7 @@ func _show_text_box():
 	can_advance_line=false
 	
 func _on_text_box_finished_displaying():
-	print(">>> _on_text_box_finished_displaying received")
+	
 	can_advance_line=true
 	
 func _unhandled_input(event):
@@ -44,6 +48,7 @@ func _advance_dialog():
 	if current_line_idx >= dialog_lines.size():
 		is_dialog_active = false
 		current_line_idx = 0
+		dialog_ended.emit()
 		print("Dialog selesai")
 		return
 	_show_text_box()

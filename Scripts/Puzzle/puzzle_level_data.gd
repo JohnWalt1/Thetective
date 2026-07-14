@@ -7,4 +7,4 @@ class_name PuzzleLevelData
 @export var target_cells: Array[Vector2i] = []
 
 @export var blocks: Array[PuzzleBlockData] = []
-@export var rewards:Array[PuzzleReward]=[]
+@export var rewards:Array[ItemStack]=[]

@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://cqnwui6h7bw3i"]
+
+[ext_resource type="Script" uid="uid://b256sxx5evkb0" path="res://Scenes/main.gd" id="1_6bp64"]
+[ext_resource type="PackedScene" uid="uid://ewgge3sx1riw" path="res://addons/uip_joystick/joystick.tscn" id="2_21xkr"]
+[ext_resource type="PackedScene" uid="uid://deixyqoxfi5we" path="res://bagbutton.tscn" id="2_ynf5e"]
+[ext_resource type="PackedScene" uid="uid://b6wti2m40de4c" path="res://Scenes/Player/player.tscn" id="3_8gbba"]
+[ext_resource type="PackedScene" uid="uid://chbk58ihqy717" path="res://ui/usable_panel.tscn" id="3_hptm8"]
+[ext_resource type="PackedScene" uid="uid://myajwgtj8cs0" path="res://Scenes/Tree.tscn" id="4_21xkr"]
+[ext_resource type="PackedScene" uid="uid://dd1erruptd7qk" path="res://ui/equipment_bar.tscn" id="4_d1ilt"]
+[ext_resource type="PackedScene" uid="uid://dqqnwqmsour5i" path="res://Scenes/Worlds/game_world.tscn" id="4_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://dkxphqyqb7t6q" path="res://enemy.tscn" id="6_21xkr"]
+[ext_resource type="PackedScene" uid="uid://curvj4rw8lbr6" path="res://EnemySpawner.tscn" id="7_6bp64"]
+[ext_resource type="PackedScene" uid="uid://cyjj40dtlqiov" path="res://Scenes/puzzle_clue.tscn" id="11_d1ilt"]
+[ext_resource type="Resource" uid="uid://cd38ayikda0bj" path="res://Puzzle/OverlapPuzzle_lv/level_01.tres" id="12_6iyac"]
+
+[node name="Main" type="Node2D" unique_id=418448351]
+script = ExtResource("1_6bp64")
+metadata/_edit_horizontal_guides_ = [-26.0]
+
+[node name="joystick" parent="." unique_id=1446823300 instance=ExtResource("2_21xkr")]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1654416546]
+
+[node name="Button" parent="UI" unique_id=1866508090 instance=ExtResource("2_ynf5e")]
+offset_left = 1022.9999
+offset_top = 248.0
+offset_right = 1543.0
+offset_bottom = 768.0
+
+[node name="UsablePanel" parent="UI" unique_id=1856823514 instance=ExtResource("3_hptm8")]
+
+[node name="DetEyeIndicator" type="TextureProgressBar" parent="UI" unique_id=236511769]
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="InteractionHint" type="Label" parent="UI" unique_id=823382125]
+offset_right = 40.0
+offset_bottom = 23.0
+metadata/_edit_use_anchors_ = true
+
+[node name="EquipmentBar" parent="UI" unique_id=896329967 instance=ExtResource("4_d1ilt")]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1669061881]
+
+[node name="GameWorld" parent="." unique_id=2141335711 instance=ExtResource("4_jjvhh")]
+
+[node name="ysort" type="Node2D" parent="." unique_id=2010273915]
+y_sort_enabled = true
+position = Vector2(1, 0)
+
+[node name="StaticBody2D" parent="ysort" unique_id=1825048262 instance=ExtResource("4_21xkr")]
+position = Vector2(161, 97)
+
+[node name="Player" parent="ysort" unique_id=266149309 instance=ExtResource("3_8gbba")]
+z_index = 1
+position = Vector2(3, 14)
+scale = Vector2(0.5, 0.5)
+walk_speed = 1000.0
+dodge_speed = 500.0
+
+[node name="Enemy2" parent="ysort" unique_id=218534243 instance=ExtResource("6_21xkr")]
+z_index = 1
+position = Vector2(-240, 40)
+speed = 50.0
+sight_range = 500.0
+
+[node name="Enemy3" parent="ysort" unique_id=1626530850 instance=ExtResource("6_21xkr")]
+z_index = 1
+position = Vector2(-170, 133)
+speed = 50.0
+
+[node name="EnemySpawner" parent="ysort" unique_id=395757916 instance=ExtResource("7_6bp64")]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(602, 267)
+scale = Vector2(2, 2)
+enemy_scene = ExtResource("6_21xkr")
+spawn_count = 5
+spawn_radius = 100.0
+max_enemies = 20
+spawn_interval = 4.0
+auto_spawn_on_ready = true
+
+[node name="PuzzleClue" parent="." unique_id=2006939993 instance=ExtResource("11_d1ilt")]
+z_index = 1
+position = Vector2(-1440, 35)
+level = ExtResource("12_6iyac")

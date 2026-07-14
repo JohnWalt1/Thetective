@@ -5,12 +5,7 @@ extends CharacterBody2D
 @export var is_hidden_clue: bool = false  
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @export var dialog_entries: Array[DialogCondition]=[]
-const lines:Array[String]=[
-	"Aku cuma slime biasa kok",
-	"Tadi aku tinggal di goa yang ada naganya",
-	"tunggu",
-	"Mungkin itu Kadal, hehe",
-]
+
 # ==========================================
 #  INIT
 # ==========================================
@@ -43,19 +38,24 @@ func _resolve_entry() -> DialogCondition:
 		if result:
 			return entry
 	return null
-#Interaction
+
 func interact():
+	Global.pause_gameplay()
 	var entry:=_resolve_entry()
 	if entry==null or entry.lines.is_empty():
+		Global.resume_gameplay()
 		print("Tidak ada lah :v")
 		return
+	DialogManager.dialog_ended.connect(_on_custom_dialog_finished, CONNECT_ONE_SHOT)
 	DialogManager.start_dialog(global_position, entry.lines)
 	Global.set_flag("on_naga_defeated",true)
-	# Jika NPC ini adalah hidden clue, mungkin setelah diajak bicara dia memberi item
+
 	if is_hidden_clue:
 		print(" [", npc_name, "] memberimu petunjuk tersembunyi!")
-		# Global.add_clue("Petunjuk dari " + npc_name)
 
+func _on_custom_dialog_finished():
+	Global.resume_gameplay()
+	Global.set_flag("talked_to_" + npc_name.to_lower(), true)
 	
 func _check_condition(entry: DialogCondition) -> bool:
 	if entry.condition_flag == "":

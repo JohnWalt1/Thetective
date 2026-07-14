@@ -23,6 +23,7 @@ Dialogic="*uid://ds2q0uclmolvu"
 InventoryManager="*uid://ckb7qcjqviu1p"
 PlayerStats="*uid://ditcj3w7onb41"
 MinigameManager="*uid://bl0ppp1xn02vr"
+NotificationManager="*uid://2e74byt1qmbe"
 
 [dialogic]
 

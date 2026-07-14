@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://plkdv64h6grt" path="res://Resources/ItemDatas/DagingAneh.tres" id="10_x6b1m"]
 [ext_resource type="PackedScene" uid="uid://bmo7kniuctopp" path="res://Scenes/collectable_item.tscn" id="11_n32ou"]
 [ext_resource type="Resource" uid="uid://biitgueqho6cx" path="res://Resources/ItemDatas/BarangAneh.tres" id="12_6u4mk"]
+[ext_resource type="Script" uid="uid://v2p8vhcyivw3" path="res://Scripts/Puzzle/puzzle_reward.gd" id="13_n32ou"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_til7i"]
 texture = ExtResource("1_s7653")
@@ -3908,6 +3909,11 @@ sources/9 = SubResource("TileSetAtlasSource_abmt3")
 sources/1 = SubResource("TileSetAtlasSource_q2e3r")
 sources/2 = SubResource("TileSetAtlasSource_x6b1m")
 
+[sub_resource type="Resource" id="Resource_n32ou"]
+script = ExtResource("4_5tcqn")
+lines = Array[String](["Aku cuma slime biasa kok", "Tadi aku tinggal di goa yang ada naganya", "tunggu", "Mungkin itu Kadal, hehe"])
+metadata/_custom_type_script = "uid://cvk76d00awenn"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hx8sr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5jdl3"]
@@ -4072,6 +4078,23 @@ animations = [{
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_we6dp"]
 
+[sub_resource type="Resource" id="Resource_6u4mk"]
+script = ExtResource("13_n32ou")
+item = ExtResource("12_6u4mk")
+amount = 3
+metadata/_custom_type_script = "uid://v2p8vhcyivw3"
+
+[sub_resource type="Resource" id="Resource_sk0ix"]
+script = ExtResource("13_n32ou")
+item = ExtResource("10_x6b1m")
+amount = 2
+metadata/_custom_type_script = "uid://v2p8vhcyivw3"
+
+[sub_resource type="Resource" id="Resource_5jdl3"]
+script = ExtResource("13_n32ou")
+item = ExtResource("12_6u4mk")
+metadata/_custom_type_script = "uid://v2p8vhcyivw3"
+
 [node name="GameWorld" type="Node2D" unique_id=2141335711]
 z_index = 1
 y_sort_enabled = true
@@ -4097,6 +4120,7 @@ collision_mask = 5
 script = ExtResource("2_hx8sr")
 npc_name = "Slime"
 dialogue_text = "Aku Slime yang baik loh!"
+dialog_entries = Array[ExtResource("4_5tcqn")]([SubResource("Resource_n32ou")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Homeless" unique_id=1810659229]
 z_index = 1
@@ -4140,4 +4164,12 @@ navigation_polygon = SubResource("NavigationPolygon_we6dp")
 
 [node name="CollectableItem" parent="." unique_id=1078411588 instance=ExtResource("11_n32ou")]
 position = Vector2(-536, 296)
-item_data = ExtResource("12_6u4mk")
+loot = SubResource("Resource_6u4mk")
+
+[node name="CollectableItem2" parent="." unique_id=159504668 instance=ExtResource("11_n32ou")]
+position = Vector2(-589, 290)
+loot = SubResource("Resource_sk0ix")
+
+[node name="CollectableItem3" parent="." unique_id=1402628051 instance=ExtResource("11_n32ou")]
+position = Vector2(-634, 291)
+loot = SubResource("Resource_5jdl3")

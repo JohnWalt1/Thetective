@@ -46,24 +46,7 @@ var nearby_clue: Area2D = null
 var _nearby_interactable:Array[Interactable]=[]
 
 func _ready():
-	var potion := load("res://Resources/ItemDatas/DagingAneh.tres")
-	InventoryManager.add_item(potion)
-	var arm = ItemData.new()
-	arm.id = "potion_heal"
-	arm.name = "Potion Heal"
-	arm.item_type = ItemData.ItemType.USABLE
-	arm.effect_type = ItemData.EffectType.BUFF_ATK
-	arm.effect_value = 1000
-	var arm1=arm
-	var arm2=potion
-	var arm3=arm
-	var arm4=arm
-	# (opsional) potion.icon = load("res://icon.png")
-	InventoryManager.add_item(arm)
-	InventoryManager.add_item(arm1)
-	InventoryManager.add_item(arm2)
-	InventoryManager.add_item(arm3)
-	InventoryManager.add_item(arm4)
+
 	add_to_group("player")
 	det_eye_duration.wait_time = 10.0   # Skill aktif 10 detik
 	det_eye_cooldown.wait_time = 2   # Cooldown 30 detik

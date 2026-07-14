@@ -134,4 +134,5 @@ func _grant_rewards(rewards: Array) -> void:
 			print("[MinigameManager] skip: reward atau reward.item null")
 			continue
 		print("[MinigameManager] granting: item=%s amount=%d" % [reward.item.resource_path, reward.amount])
-		InventoryManager.add_item(reward.item)
+		InventoryManager.add_item(reward.item,reward.amount)
+		NotificationManager.show_notification("+%d %s" % [reward.amount,reward.item.name],reward.item.icon)
