@@ -8,14 +8,16 @@ var usable_items:Array[ItemData]=[]
 var equipable_items: Array[ItemData]=[]
 var equipped_slots:Array=[null,null,null,null]
 
-func add_item(item:ItemData)->void:
-	if item.item_type==ItemData.ItemType.USABLE:
-		usable_items.append(item)
-		usable_inventory_changed.emit()
-	else:
-		equipable_items.append(item)
-		equipable_inventory_changed.emit()
-		
+func add_item(item:ItemData, amount:int)->void:
+	for i in range(amount):
+		if item.item_type==ItemData.ItemType.USABLE:
+			
+			usable_items.append(item)
+			usable_inventory_changed.emit()
+		else:
+			equipable_items.append(item)
+			equipable_inventory_changed.emit()
+			
 func remove_usable_item(item:ItemData)->void:
 	usable_items.erase(item)
 	usable_inventory_changed.emit()

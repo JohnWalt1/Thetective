@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dm63r18yt5pc3" path="res://Dialog/d_box.png" id="2_ot2p7"]
 
 [node name="TextBox" type="MarginContainer" unique_id=1896787356]
+process_mode = 3
 z_index = 100
 offset_right = 84.0
 offset_bottom = 56.0

@@ -3,9 +3,8 @@ extends Node
 var is_det_eye_active: bool = false
 var player_hp: int = 500
 var player_max_hp: int =500
-#Inventory
 var inventory: Array = []
-#signal-> for UI
+var is_gameplay_paused:bool=false
 
 signal inventory_updated(inventor:Array)
 signal det_eye_toggled(active)
@@ -41,3 +40,15 @@ func get_flag(flag_name: String) -> bool:
 		push_warning("Flag '%s' tidak dikenal" % flag_name)
 		return false
 	return flags[flag_name]
+
+func pause_gameplay():
+	if is_gameplay_paused:
+		return
+	is_gameplay_paused=true
+	get_tree().paused=true
+
+func resume_gameplay():
+	if not is_gameplay_paused:
+		return
+	is_gameplay_paused = false
+	get_tree().paused = false
