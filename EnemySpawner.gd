@@ -81,6 +81,7 @@ func _on_spawn_timer_timeout():
 func start_auto_spawn():
 	if spawn_timer and spawn_interval>0:
 		spawn_timer.start()
+		
 func stop_suto_spawn():
 	if spawn_timer:
 		spawn_timer.stop()

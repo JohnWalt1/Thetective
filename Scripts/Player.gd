@@ -195,12 +195,13 @@ func toggle_hidden_objects(active: bool):
 	var objects = get_tree().get_nodes_in_group("det_eye_hidden")
 
 	for obj in objects:
-		obj.visible = active
-		if obj.has_node("CollisionShape2D"):
-			var shape = obj.get_node("CollisionShape2D")
-			shape.disabled = not active
-		# Aktifkan proses agar sinyal overlap bisa berjalan
-		obj.process_mode = PROCESS_MODE_INHERIT if active else PROCESS_MODE_DISABLED
+		if obj.has_method("refresh_visibility"):
+			obj.refresh_visibility()
+		else:
+			obj.visible = active
+			if obj.has_node("CollisionShape2D"):
+				obj.get_node("CollisionShape2D").disabled = not active
+			obj.process_mode = PROCESS_MODE_INHERIT if active else PROCESS_MODE_DISABLED
 func start_battle(enemy_node):
 	Global.is_battle_active = true
 	

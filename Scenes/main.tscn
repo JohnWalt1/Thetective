@@ -76,10 +76,10 @@ y_sort_enabled = true
 position = Vector2(602, 267)
 scale = Vector2(2, 2)
 enemy_scene = ExtResource("6_21xkr")
-spawn_count = 5
+spawn_count = 14
 spawn_radius = 100.0
 max_enemies = 20
-spawn_interval = 4.0
+spawn_interval = 5.0
 auto_spawn_on_ready = true
 
 [node name="PuzzleClue" parent="." unique_id=2006939993 instance=ExtResource("11_d1ilt")]

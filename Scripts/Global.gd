@@ -5,7 +5,6 @@ var player_hp: int = 500
 var player_max_hp: int =500
 var inventory: Array = []
 var is_gameplay_paused:bool=false
-
 signal inventory_updated(inventor:Array)
 signal det_eye_toggled(active)
 
