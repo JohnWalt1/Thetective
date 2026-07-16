@@ -14,7 +14,7 @@ var spawn_timer:Timer=null
 signal enemy_spawned(enemy:Node2D)
 signal all_enemies_defeated()
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	if enemy_scene==null:
 		return
@@ -82,8 +82,7 @@ func start_auto_spawn():
 	if spawn_timer and spawn_interval>0:
 		spawn_timer.start()
 		
-func stop_suto_spawn():
-	if spawn_timer:
-		spawn_timer.stop()
+func stop_auto_spawn():
+	spawn_timer.stop()
 func trigger_spawn():
 	spawn_enemies()
