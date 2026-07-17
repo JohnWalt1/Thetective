@@ -20,7 +20,6 @@ func _input(event:InputEvent):
 		if entry==null or entry.lines.is_empty():
 			Global.resume_gameplay()
 			print("Tidak ada lah :v")
-			return
 		DialogManager.dialog_ended.connect(_on_custom_dialog_finished, CONNECT_ONE_SHOT)
 		DialogManager.start_dialog(global_position, entry.lines)
 		for body in bodies:
@@ -29,8 +28,8 @@ func _input(event:InputEvent):
 				break
 func _on_custom_dialog_finished():
 	Global.resume_gameplay()
-	if trigger_story!=null:
-		trigger_dialogic()
+	get_parent().trigger_dialogic(trigger_story)
+	Dialogic.VAR.act1_completed=true
 func _resolve_entry() -> DialogCondition:
 	for entry in dialog_entries:
 		var result:=dialog_entries
@@ -38,14 +37,6 @@ func _resolve_entry() -> DialogCondition:
 			return entry
 	return null
 
-func trigger_dialogic():
-	Global.pause_gameplay()
-	Dialogic.start("Arrest")
-	Dialogic.timeline_ended.connect(_on_arrest_ended, CONNECT_ONE_SHOT)
-
-func _on_arrest_ended():
-	Global.resume_gameplay()
-	Dialogic.VAR.act1_completed=true
 
 func trigger_minigame():
 	MinigameManager.start_minigame(minigame_id,minigame_data)

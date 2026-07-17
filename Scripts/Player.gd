@@ -171,7 +171,7 @@ func activate_det_eye():
 		canvas_modulate.color = Color(0.15, 0.2, 0.5)
 
 	toggle_hidden_objects(true)
-	
+	toggle_spawners(true)
 	print("[Player] DET EYE activated! (10 detik)")
 
 func _on_det_eye_duration_timeout():
@@ -184,7 +184,7 @@ func _on_det_eye_duration_timeout():
 	
 	# Sembunyikan semua objek tersembunyi
 	toggle_hidden_objects(false)
-	
+	toggle_spawners(false)
 	print("[Player] DET EYE Cooldown! (Cooldown 30 detik)")
 
 func _on_det_eye_cooldown_timeout():
@@ -202,6 +202,13 @@ func toggle_hidden_objects(active: bool):
 			if obj.has_node("CollisionShape2D"):
 				obj.get_node("CollisionShape2D").disabled = not active
 			obj.process_mode = PROCESS_MODE_INHERIT if active else PROCESS_MODE_DISABLED
+
+func toggle_spawners(active:bool):
+	var spawners=get_tree().get_nodes_in_group("enemy_spawner")
+	for spawner in spawners:
+		if spawner.has_method("set_active"):
+			spawner.set_active(active)
+
 func start_battle(enemy_node):
 	Global.is_battle_active = true
 	
