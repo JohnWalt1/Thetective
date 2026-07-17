@@ -7,7 +7,8 @@ extends Node2D
 @export var max_enemies:int =10
 @export var spawn_interval:float= 0.0
 @export var auto_spawn_on_ready:bool=true
-
+var is_active:bool=false
+var has_ever_activated:bool=false
 var spawned_enemies:Array[Node]=[]
 var spawn_timer:Timer=null
 
@@ -16,6 +17,7 @@ signal all_enemies_defeated()
 
 
 func _ready():
+	add_to_group("enemy_spawner")
 	if enemy_scene==null:
 		return
 	if spawn_interval>0:
@@ -52,7 +54,8 @@ func spawn_single_enemy()->Node2D:
 	
 	get_tree().current_scene.call_deferred("add_child",enemy)
 	spawned_enemies.append(enemy)
-	
+	enemy.visible=is_active
+	enemy.process_mode=Node.PROCESS_MODE_INHERIT if is_active else PROCESS_MODE_DISABLED
 	if enemy.has_signal("died"):
 		enemy.died.connect(_on_enemy_died)
 	else:
@@ -86,3 +89,28 @@ func stop_auto_spawn():
 	spawn_timer.stop()
 func trigger_spawn():
 	spawn_enemies()
+
+func set_active(active:bool):
+	if active and not is_active:
+		is_active=true
+		if not has_ever_activated:
+			has_ever_activated=true
+			spawn_enemies()
+		if spawn_timer and spawn_interval>0:
+			spawn_timer.start()
+		show_all_enemies()
+	elif not active and is_active:
+		is_active=false
+		if spawn_timer:
+			spawn_timer.stop()
+		hide_all_enemies() 
+func hide_all_enemies():
+	for enemy in spawned_enemies:
+		if is_instance_valid(enemy):
+			enemy.visible=false
+			enemy.process_mode=Node.PROCESS_MODE_DISABLED
+func show_all_enemies():
+	for enemy in spawned_enemies:
+		if is_instance_valid(enemy):
+			enemy.visible=true
+			enemy.process_mode=Node.PROCESS_MODE_INHERIT 

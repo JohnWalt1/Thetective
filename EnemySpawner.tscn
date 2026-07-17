@@ -4,8 +4,3 @@
 
 [node name="EnemySpawner" type="Node2D" unique_id=395757916]
 script = ExtResource("1_tlwx7")
-spawn_count = null
-spawn_radius = null
-max_enemies = null
-spawn_interval = null
-auto_spawn_on_ready = null
