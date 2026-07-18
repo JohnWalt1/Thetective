@@ -1,42 +1,36 @@
-extends Area2D
+# res://scripts/clue.gd
+extends Interactable
+class_name Clue
 
-@export var item_data:ItemData
-@export var minigame_id:String=""
-@export var minigame_data:Dictionary={}
-var player_ref:Node2D=null
-@export var trigger_story: DialogicTimeline=null
-@export var dialog_entries: Array[DialogCondition]=[]
-@export var is_puzzle:bool=false
-func _ready():
-	pass
-	
+@export var clue_id: String = ""
+@export var item_data: ItemData
+@export var dialog_entries: Array[DialogCondition] = []
 
-func _input(event:InputEvent):
-	if event.is_action_pressed("interact") and has_overlapping_bodies():
-		var bodies=get_overlapping_bodies()
-		InventoryManager.add_item(item_data,1)
-		Global.pause_gameplay()
-		var entry:=_resolve_entry()
-		if entry==null or entry.lines.is_empty():
-			Global.resume_gameplay()
-			print("Tidak ada lah :v")
-		DialogManager.dialog_ended.connect(_on_custom_dialog_finished, CONNECT_ONE_SHOT)
-		DialogManager.start_dialog(global_position, entry.lines)
-		for body in bodies:
-			if body.is_in_group("player") and is_puzzle:
-				trigger_minigame()
-				break
-func _on_custom_dialog_finished():
+func _on_interact(_source: Node) -> void:
+	if clue_id == "":
+		push_warning("Clue node tanpa clue_id: " + name)
+		return
+	if ClueManager.has(clue_id):
+		return   # sudah pernah diambil, cegah re-trigger
+
+	InventoryManager.add_item(item_data, 1)
+	Global.pause_gameplay()
+
+	var entry := _resolve_entry()
+	if entry == null or entry.lines.is_empty():
+		Global.resume_gameplay()
+		ClueManager.collect(clue_id)
+		return
+
+	DialogManager.dialog_ended.connect(_on_dialog_finished, CONNECT_ONE_SHOT)
+	DialogManager.start_dialog(global_position, entry.lines)
+
+func _on_dialog_finished() -> void:
 	Global.resume_gameplay()
-	get_parent().trigger_dialogic(trigger_story)
-	Dialogic.VAR.act1_completed=true
+	ClueManager.collect(clue_id)
+
 func _resolve_entry() -> DialogCondition:
 	for entry in dialog_entries:
-		var result:=dialog_entries
-		if result:
+		if entry.check_condition():
 			return entry
 	return null
-
-
-func trigger_minigame():
-	MinigameManager.start_minigame(minigame_id,minigame_data)

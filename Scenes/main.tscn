@@ -10,17 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://dqqnwqmsour5i" path="res://Scenes/Worlds/game_world.tscn" id="4_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://dkxphqyqb7t6q" path="res://enemy.tscn" id="6_21xkr"]
 [ext_resource type="PackedScene" uid="uid://curvj4rw8lbr6" path="res://EnemySpawner.tscn" id="7_6bp64"]
-[ext_resource type="PackedScene" uid="uid://cyjj40dtlqiov" path="res://Scenes/puzzle_clue.tscn" id="11_d1ilt"]
-[ext_resource type="Resource" uid="uid://cd38ayikda0bj" path="res://Puzzle/OverlapPuzzle_lv/level_01.tres" id="12_6iyac"]
-[ext_resource type="PackedScene" uid="uid://ncklvb603m2n" path="res://Clue_Item.tscn" id="13_fdnlq"]
-[ext_resource type="Resource" uid="uid://plkdv64h6grt" path="res://Resources/ItemDatas/DagingAneh.tres" id="14_jkdf5"]
-[ext_resource type="Resource" uid="uid://blwh2k66kxqx0" path="res://Timelines/Act1/Arrest.dtl" id="15_wsu2k"]
-[ext_resource type="Script" uid="uid://cvk76d00awenn" path="res://Resources/Dialog/DialogCondition.gd" id="16_k12tt"]
-
-[sub_resource type="Resource" id="Resource_h1bgf"]
-script = ExtResource("16_k12tt")
-lines = Array[String](["Secarik kertas", "Sepertinya bekas robekan dari buku harian seseorang", "\"Entah kenapa... Si X", "Dia selalu mengawasi ku?", "Tapi perilaku nya aneh, seperti bukan dia?", "Orang yang membingungkan."])
-metadata/_custom_type_script = "uid://cvk76d00awenn"
 
 [node name="Main" type="Node2D" unique_id=418448351]
 script = ExtResource("1_6bp64")
@@ -89,15 +78,3 @@ spawn_count = 14
 spawn_radius = 100.0
 max_enemies = 20
 spawn_interval = 5.0
-
-[node name="PuzzleClue" parent="." unique_id=2006939993 instance=ExtResource("11_d1ilt")]
-z_index = 1
-position = Vector2(-1440, 35)
-level = ExtResource("12_6iyac")
-
-[node name="ClueItem" parent="." unique_id=171473998 instance=ExtResource("13_fdnlq")]
-z_index = 1
-position = Vector2(424, 81)
-item_data = ExtResource("14_jkdf5")
-trigger_story = ExtResource("15_wsu2k")
-dialog_entries = Array[ExtResource("16_k12tt")]([SubResource("Resource_h1bgf")])

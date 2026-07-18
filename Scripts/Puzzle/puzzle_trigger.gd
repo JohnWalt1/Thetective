@@ -1,14 +1,47 @@
 extends Interactable
 class_name PuzzleTrigger
-## Tempel di Area2D objek dunia (mis. mesin kuno, altar, dsb).
-## Tinggal isi field `level` di Inspector dengan resource PuzzleLevelData yang mau dipakai.
 
+@export var clue_id: String = ""
+@export var item_data: ItemData
 @export var level: PuzzleLevelData
-
+@export var dialog_entries: Array[DialogCondition] = []
 func _on_interact(_source: Node) -> void:
-	print("[PuzzleTrigger:%s] _on_interact dipanggil, level=%s" % [name, level])
-	if not level:
-		push_warning("PuzzleTrigger '%s' belum diisi level-nya." % name)
+	if clue_id == "":
+		push_warning("PuzzleClue tanpa clue_id: " + name)
 		return
+	if not level:
+		push_warning("PuzzleClue '%s' belum diisi level-nya." % name)
+		return
+	if ClueManager.has(clue_id):
+		return   # sudah pernah selesai, cegah re-trigger
+
+	Global.pause_gameplay()
+
+	var entry := _resolve_entry()
+	if entry != null and not entry.lines.is_empty():
+		DialogManager.dialog_ended.connect(_on_intro_dialog_finished, CONNECT_ONE_SHOT)
+		DialogManager.start_dialog(global_position, entry.lines)
+	else:
+		_start_puzzle()
+
+func _on_intro_dialog_finished() -> void:
+	_start_puzzle()
+
+func _start_puzzle() -> void:
+	MinigameManager.minigame_closed.connect(_on_puzzle_finished, CONNECT_ONE_SHOT)
 	MinigameManager.open_minigame("overlap_puzzle", {"level": level})
-	print("[PuzzleTrigger:%s] open_minigame sudah dipanggil" % name)
+
+func _on_puzzle_finished(success: bool) -> void:
+	Global.resume_gameplay()
+	if success:
+		if item_data:
+			InventoryManager.add_item(item_data, 1)
+		ClueManager.collect(clue_id)
+	else:
+		print("Puzzle gagal, clue belum didapat: ", clue_id)
+
+func _resolve_entry() -> DialogCondition:
+	for entry in dialog_entries:
+		if entry.check_condition():
+			return entry
+	return null
