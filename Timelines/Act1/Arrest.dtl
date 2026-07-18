@@ -6,4 +6,4 @@ Erina (excited): Siapa??
 X, pasti dia. (menunjukkan bukti pada semuanya)
 Bukti menunjukkan bahwa korban merasa tidak nyaman dan bahwa X memiliki hubungan yang membingungkan dengan korban
 Dan mungkin itu alasan korban memberikan tanda "?" sebagai pesan terakhirnya
-set {act1_completed} = true
+set {case_arrested} = true

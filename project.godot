@@ -24,6 +24,8 @@ InventoryManager="*uid://ckb7qcjqviu1p"
 PlayerStats="*uid://ditcj3w7onb41"
 MinigameManager="*uid://bl0ppp1xn02vr"
 NotificationManager="*uid://2e74byt1qmbe"
+ClueManager="*uid://bpew4ojn6l0ba"
+StoryManager="*uid://dt7r25edwsttg"
 
 [dialogic]
 
@@ -38,7 +40,11 @@ layout/style_directory={}
 layout/style_list=[]
 layout/default_style="Default"
 variables={
-"act1_completed": false
+"act": 1,
+"act1_completed": false,
+"case_arrested": false,
+"det_in_coma": false,
+"has_daging": false
 }
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true

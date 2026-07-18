@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="StoryTrigger" format=3 uid="uid://cdn2xfyyiqhj1"]
+
+[ext_resource type="Script" uid="uid://cr7pbdeo7ykjk" path="res://Scripts/Resources/story_trigger.gd" id="1_0mmdj"]
+[ext_resource type="Resource" uid="uid://c08fir8pt7vo4" path="res://Timelines/Act1/Intro.dtl" id="2_dnprn"]
+
+[resource]
+script = ExtResource("1_0mmdj")
+id = "sct1_intro"
+type = 2
+required_flag = "act1_completed"
+invert_condition = true
+timeline = ExtResource("2_dnprn")
+metadata/_custom_type_script = "uid://cr7pbdeo7ykjk"
