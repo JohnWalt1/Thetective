@@ -5,29 +5,29 @@ var player_hp: int = 500
 var player_max_hp: int =500
 var inventory: Array = []
 var is_gameplay_paused:bool=false
-signal inventory_updated(inventor:Array)
-signal det_eye_toggled(active)
-signal flag_changed(flag_name:String,value)
+var story_progress:int=0
 var _active_ysort: Node = null 
-
 var flags: Dictionary = {
 	"talked_to_slime": false,
 	"naga_defeated": false,
 	"has_sword": false,
 	"talked_to_elder": false,
 }
+
+signal inventory_updated(inventory:Array)
+signal det_eye_toggled(active)
+signal flag_changed(flag_name:String,value)
+
 func add_clue(item_name:String):
 	if not inventory.has(item_name):
 		inventory.append(item_name)
-		print("Clue founded:",item_name)
-		print("Inventory:",inventory)
 	else:
 		print("Clue sudah ada:",item_name)
 
 func toggle_det_eye(active:bool):
 	is_det_eye_active=active
 	det_eye_toggled.emit(active)
-	print("Det Eye status", active)
+	
 
 func set_flag(flag_name: String, value) -> void:
 	flags[flag_name] = value
