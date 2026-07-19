@@ -17,22 +17,6 @@ func _ready():
 	_check_story_availability()
 	_update_appearance()
 	sprite.play("default")
-	if is_hidden_clue:
-		add_to_group("det_eye_hidden")
-		
-		visible = false
-		if has_node("CollisionShape2D"):
-			$CollisionShape2D.disabled = true
-		if has_node("CollisionPolygon2D"):
-			$CollisionPolygon2D.disabled = true
-		process_mode = PROCESS_MODE_DISABLED
-		
-	else:
-
-		visible = true
-		if has_node("CollisionShape2D"):
-			$CollisionShape2D.disabled = false
-		process_mode = PROCESS_MODE_INHERIT
 
 func _check_story_availability():
 	var should_unlock=true
@@ -44,27 +28,24 @@ func _check_story_availability():
 			should_unlock = false
 	
 	is_story_unlocked = should_unlock
-	if not is_story_unlocked:
-		if is_in_group("det_eye_hidden"):
-			remove_from_group("det_eye_hidden")
 
 func _update_appearance():
 	if not is_story_unlocked:
 		visible = false
 		_set_collision_enabled(false)
 		process_mode = PROCESS_MODE_DISABLED
+		if is_in_group("det_eye_hidden"):
+			remove_from_group("det_eye_hidden")
 		return
-	var eyes_active = Global.is_det_eye_active
 	if is_hidden_clue:
-		if eyes_active:
-			visible=true
-			_set_collision_enabled(true)
-			process_mode=Node.PROCESS_MODE_INHERIT
-		else:
-			visible=false
-			_set_collision_enabled(false)
-			process_mode=Node.PROCESS_MODE_DISABLED
+		add_to_group("det_eye_hidden")
+		var eyes_active=Global.is_det_eye_active
+		visible=eyes_active
+		_set_collision_enabled(eyes_active)
+		process_mode=Node.AUTO_TRANSLATE_MODE_DISABLED if eyes_active else Node.PROCESS_MODE_INHERIT
 	else:
+		if is_in_group("det_eye_hidden"):
+			remove_from_group("det_eye_hidden")
 		visible=true
 		_set_collision_enabled(true)
 		process_mode=Node.PROCESS_MODE_INHERIT
@@ -81,8 +62,7 @@ func refresh_visibility():
 func _resolve_entry() -> DialogCondition:
 
 	for entry in dialog_entries:
-		var result:=dialog_entries
-		if result:
+		if entry.check_condition():
 			return entry
 	return null
 
@@ -91,21 +71,10 @@ func interact():
 	var entry:=_resolve_entry()
 	if entry==null or entry.lines.is_empty():
 		Global.resume_gameplay()
-		print("Tidak ada lah :v")
 		return
 	DialogManager.dialog_ended.connect(_on_custom_dialog_finished, CONNECT_ONE_SHOT)
 	DialogManager.start_dialog(global_position, entry.lines)
-	Global.set_flag("on_naga_defeated",true)
 
 
 func _on_custom_dialog_finished():
 	Global.resume_gameplay()
-
-	
-func _check_condition(entry: DialogCondition) -> bool:
-	if entry.condition_flag == "":
-		return true
-	var current := Global.get_flag(entry.condition_flag)
-	print("    get_flag('%s') = %s, expected = %s" % [entry.condition_flag, current, entry.expected_value])
-	return current == entry.expected_value
-	return Global.get(entry.condition_flag) == entry.expected_value

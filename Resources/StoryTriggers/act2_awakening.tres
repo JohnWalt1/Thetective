@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="StoryTrigger" format=3 uid="uid://cdt64t6w48rvm"]
+
+[ext_resource type="Script" uid="uid://cr7pbdeo7ykjk" path="res://Scripts/Resources/story_trigger.gd" id="1_lwa00"]
+
+[resource]
+script = ExtResource("1_lwa00")
+id = "act2_awakening"
+type = 2
+required_flag = "det_in_coma"
+metadata/_custom_type_script = "uid://cr7pbdeo7ykjk"

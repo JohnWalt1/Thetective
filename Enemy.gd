@@ -306,28 +306,27 @@ func is_player_visible()->bool:
 	return not raycast.is_colliding() or collider==player
 	
 func get_random_wander_point()->Vector2:
+	var map = get_world_2d().navigation_map
+	if NavigationServer2D.map_get_iteration_id(map)==0:
+		return global_position
 	var angle = randf() * 2 * PI
 	var radius = randf() * wander_radius
 	var offset = Vector2(cos(angle), sin(angle)) * radius
 	var target = global_position + offset
-	
-	# Proyeksikan ke navigation map agar aman
-	var map = get_world_2d().navigation_map
 	var safe_target = NavigationServer2D.map_get_closest_point(map, target)
 	return safe_target
+	
 # Fungsi untuk mencari arah bebas menggunakan test_move
 func find_free_direction() -> Vector2:
 	var directions = [
 		Vector2.RIGHT, Vector2.LEFT, Vector2.UP, Vector2.DOWN,
 		Vector2(1, 1), Vector2(1, -1), Vector2(-1, 1), Vector2(-1, -1)
 	]
-	var step = 5.0  # jarak pergeseran untuk test
+	var step = 5.0  
 	for dir in directions:
-		# test_move membutuhkan transform dan delta, kita gunakan delta kecil
 		if not test_move(transform, dir * step):
-			# Tidak ada tabrakan -> arah ini aman
 			return dir.normalized()
-	return Vector2.ZERO  # tidak ada arah aman
+	return Vector2.ZERO 
 
 func update_raycast_to_player():
 	if player:

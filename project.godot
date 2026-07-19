@@ -30,11 +30,14 @@ StoryManager="*uid://dt7r25edwsttg"
 [dialogic]
 
 directories/dch_directory={
-"Erina": "res://Characters/Erina.dch"
+"Detective": "res://Characters/Detective.dch",
+"Erina": "res://Characters/Erina.dch",
+"Sister": "res://Characters/Sister.dch"
 }
 directories/dtl_directory={
 "Arrest": "res://Timelines/Act1/Arrest.dtl",
-"Intro": "res://Timelines/Act1/Intro.dtl"
+"Intro": "res://Timelines/Act1/Intro.dtl",
+"act2_awakening": "res://Timelines/Act1/act2_awakening.dtl"
 }
 layout/style_directory={}
 layout/style_list=[]
@@ -42,9 +45,13 @@ layout/default_style="Default"
 variables={
 "act": 1,
 "act1_completed": false,
+"act2_started": false,
 "case_arrested": false,
 "det_in_coma": false,
-"has_daging": false
+"has_daging": false,
+"knows_wrong_arrest": false,
+"secret_clue_count": 0,
+"sherlock_alibi_given": false
 }
 text/letter_speed=0.01
 text/initial_text_reveal_skippable=true
