@@ -63,6 +63,8 @@ func _resolve_entry() -> DialogCondition:
 
 	for entry in dialog_entries:
 		if entry.check_condition():
+			if entry.sets_flag_on_trigger!="":
+				Global.set_flag(entry.sets_flag_on_trigger,true)
 			return entry
 	return null
 

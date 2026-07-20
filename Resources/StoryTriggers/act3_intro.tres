@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StoryTrigger" format=3 uid="uid://ddd16tphg1c2k"]
+
+[ext_resource type="Script" uid="uid://cr7pbdeo7ykjk" path="res://Scripts/Resources/story_trigger.gd" id="1_1uccg"]
+[ext_resource type="Resource" uid="uid://c0wpxdanmy8qm" path="res://Timelines/Act1/act3_intro.dtl" id="2_hw056"]
+
+[resource]
+script = ExtResource("1_1uccg")
+id = "act3_intro"
+type = 2
+required_clue_id = "sherlock_alibi_given"
+timeline = ExtResource("2_hw056")
+metadata/_custom_type_script = "uid://cr7pbdeo7ykjk"

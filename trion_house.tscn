@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://brm3yjg0hokc"]
+
+[ext_resource type="Script" uid="uid://c2dqj1g16swyb" path="res://trion_house.gd" id="1_hxi4l"]
+[ext_resource type="PackedScene" uid="uid://ncklvb603m2n" path="res://Clue_Item.tscn" id="2_if1km"]
+[ext_resource type="PackedScene" uid="uid://cyjj40dtlqiov" path="res://Scenes/puzzle_clue.tscn" id="3_gifqn"]
+
+[node name="TrionHouse" type="Node2D" unique_id=1493633925]
+script = ExtResource("1_hxi4l")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=2068661985]
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="." unique_id=559028326]
+
+[node name="act2_footprint" parent="." unique_id=2006939993 instance=ExtResource("2_if1km")]
+clue_id = "act2_footprint"
+
+[node name="act2_hidden_note" parent="." unique_id=337764748 instance=ExtResource("2_if1km")]
+clue_id = "act2_hidden_note"
+is_secret_clue = true
+
+[node name="act2_lock_puzzle" parent="." unique_id=1342139757 instance=ExtResource("3_gifqn")]
+clue_id = "act2_lock_puzzle"
+is_secret_clue = true

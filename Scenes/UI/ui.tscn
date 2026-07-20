@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://nu624js7jt6i"]
+
+[ext_resource type="PackedScene" uid="uid://deixyqoxfi5we" path="res://bagbutton.tscn" id="1_c7mb3"]
+[ext_resource type="Script" uid="uid://cjah0vcwnovmr" path="res://Scenes/UI/ui.gd" id="1_fo61o"]
+[ext_resource type="PackedScene" uid="uid://chbk58ihqy717" path="res://ui/usable_panel.tscn" id="2_fo61o"]
+[ext_resource type="PackedScene" uid="uid://dd1erruptd7qk" path="res://ui/equipment_bar.tscn" id="3_alcrr"]
+
+[node name="UI" type="CanvasLayer" unique_id=371051675]
+script = ExtResource("1_fo61o")
+
+[node name="Button" parent="." unique_id=1866508090 instance=ExtResource("1_c7mb3")]
+offset_left = 1022.9999
+offset_top = 248.0
+offset_right = 1543.0
+offset_bottom = 768.0
+
+[node name="UsablePanel" parent="." unique_id=1856823514 instance=ExtResource("2_fo61o")]
+
+[node name="DetEyeIndicator" type="TextureProgressBar" parent="." unique_id=781967447]
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="InteractionHint" type="Label" parent="." unique_id=937700285]
+offset_right = 40.0
+offset_bottom = 23.0
+metadata/_edit_use_anchors_ = true
+
+[node name="EquipmentBar" parent="." unique_id=896329967 instance=ExtResource("3_alcrr")]

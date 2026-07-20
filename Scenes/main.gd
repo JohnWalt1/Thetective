@@ -1,12 +1,15 @@
 extends Node
 
-@onready var button: Button = $UI/Button
-@onready var usable_panel: UsablePanel = $UI/UsablePanel
 @onready var ysort: Node = $ysort
-
+@onready var player: Player = get_tree().get_first_node_in_group("player")
 func _ready():
 	Global.register_ysort(ysort)
-	button.pressed.connect(_open_usable_popup)
+	
 	StoryManager.recheck()
-func _open_usable_popup():
-	usable_panel.popup_centered()
+	_place_player_at_spawn()
+func _place_player_at_spawn()->void:
+	var spawns=get_tree().get_nodes_in_group("spawn_point")
+	for spawn in spawns:
+		if spawn is SpawnPoint and spawn.spawn_id==SceneManager.pending_spawn_id:
+			player.global_position=spawn.global_position
+			return
