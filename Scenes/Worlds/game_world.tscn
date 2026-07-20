@@ -2,13 +2,13 @@
 
 [ext_resource type="Texture2D" uid="uid://sxan4cnr75k1" path="res://Assets/Sprites/Black Units/Pawn/Tilemap_color1.png" id="1_s7653"]
 [ext_resource type="Script" uid="uid://jqjn0ffi4t3q" path="res://Scenes/Worlds/NPC.gd" id="2_hx8sr"]
-[ext_resource type="Texture2D" uid="uid://bopi27yyqf576" path="res://Assets/Sprites/slime-Sheet.png" id="2_til7i"]
 [ext_resource type="Texture2D" uid="uid://dyechtcd88jyb" path="res://Pixel Art Top Down - Basic v1.2.3/Texture/TX Tileset Grass.png" id="2_ufcxp"]
 [ext_resource type="Texture2D" uid="uid://x0rk0jtvgx0o" path="res://Pixel Art Top Down - Basic v1.2.3/Texture/TX Struct.png" id="2_wrtpm"]
 [ext_resource type="Texture2D" uid="uid://b0wh24jsjmlk1" path="res://Assets/Sprites/Black Units/Lancer/Lancer_Idle.png" id="3_hx8sr"]
 [ext_resource type="Texture2D" uid="uid://cfoq5neyhn7u6" path="res://Pixel Art Top Down - Basic v1.2.3/Texture/TX Tileset Wall.png" id="3_rfqs3"]
 [ext_resource type="Script" uid="uid://cvk76d00awenn" path="res://Resources/Dialog/DialogCondition.gd" id="4_5tcqn"]
 [ext_resource type="PackedScene" uid="uid://ncklvb603m2n" path="res://Clue_Item.tscn" id="5_5i252"]
+[ext_resource type="PackedScene" uid="uid://dfpu4xg5hy4uc" path="res://Scenes/NPC/Sherlock.tscn" id="5_sk0ix"]
 [ext_resource type="Resource" uid="uid://plkdv64h6grt" path="res://Resources/ItemDatas/DagingAneh.tres" id="10_x6b1m"]
 [ext_resource type="PackedScene" uid="uid://bmo7kniuctopp" path="res://Scenes/collectable_item.tscn" id="11_n32ou"]
 [ext_resource type="Resource" uid="uid://biitgueqho6cx" path="res://Resources/ItemDatas/BarangAneh.tres" id="12_6u4mk"]
@@ -3911,70 +3911,6 @@ sources/9 = SubResource("TileSetAtlasSource_abmt3")
 sources/1 = SubResource("TileSetAtlasSource_q2e3r")
 sources/2 = SubResource("TileSetAtlasSource_x6b1m")
 
-[sub_resource type="Resource" id="Resource_n32ou"]
-script = ExtResource("4_5tcqn")
-lines = Array[String](["Aku cuma slime biasa kok", "Tadi aku tinggal di goa yang ada naganya", "tunggu", "Mungkin itu Kadal, hehe"])
-metadata/_custom_type_script = "uid://cvk76d00awenn"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hx8sr"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5jdl3"]
-atlas = ExtResource("2_til7i")
-region = Rect2(0, 0, 32, 25)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lrbqj"]
-atlas = ExtResource("2_til7i")
-region = Rect2(32, 0, 32, 25)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jmaeq"]
-atlas = ExtResource("2_til7i")
-region = Rect2(64, 0, 32, 25)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cquhv"]
-atlas = ExtResource("2_til7i")
-region = Rect2(96, 0, 32, 25)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vbwy5"]
-atlas = ExtResource("2_til7i")
-region = Rect2(128, 0, 32, 25)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_06fe0"]
-atlas = ExtResource("2_til7i")
-region = Rect2(160, 0, 32, 25)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rpjai"]
-atlas = ExtResource("2_til7i")
-region = Rect2(192, 0, 32, 25)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_nku2f"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5jdl3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lrbqj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jmaeq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cquhv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vbwy5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_06fe0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rpjai")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [sub_resource type="Resource" id="Resource_ufcxp"]
 script = ExtResource("4_5tcqn")
 lines = Array[String](["Hmm, dari tampangmu, sepertinya kau ssudah bertemu dengannya", "...", "Si Jack The Reaper itu", "Dia sudah meneror sanctuary untuk waktu yang lama", "..."])
@@ -3984,6 +3920,8 @@ metadata/_custom_type_script = "uid://cvk76d00awenn"
 script = ExtResource("4_5tcqn")
 lines = Array[String](["Apa-apaan", "bisa-bisanya", "ANTEK-ANTEK ASING!!"])
 metadata/_custom_type_script = "uid://cvk76d00awenn"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hx8sr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sxo2p"]
 atlas = ExtResource("3_hx8sr")
@@ -4123,21 +4061,8 @@ tile_map_data = PackedByteArray("AAD+//n/AQALABkAAAD+//r/AQALABoAAAD+//v/AQALABs
 tile_set = SubResource("TileSet_hx8sr")
 collision_visibility_mode = 1
 
-[node name="Homeless" type="CharacterBody2D" parent="." unique_id=83058995]
-z_index = 1
+[node name="Homeless" parent="." unique_id=1401345789 instance=ExtResource("5_sk0ix")]
 position = Vector2(10, -179)
-collision_layer = 3
-collision_mask = 5
-script = ExtResource("2_hx8sr")
-dialog_entries = Array[ExtResource("4_5tcqn")]([SubResource("Resource_n32ou")])
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Homeless" unique_id=1810659229]
-z_index = 1
-shape = SubResource("RectangleShape2D_hx8sr")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Homeless" unique_id=300868914]
-z_index = 1
-sprite_frames = SubResource("SpriteFrames_nku2f")
 
 [node name="Mundar" type="CharacterBody2D" parent="." unique_id=1608596954]
 z_index = 1

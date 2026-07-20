@@ -5,6 +5,7 @@ class_name PuzzleTrigger
 @export var item_data: ItemData
 @export var level: PuzzleLevelData
 @export var dialog_entries: Array[DialogCondition] = []
+@export var is_secret_clue: bool = false 
 func _on_interact(_source: Node) -> void:
 	if clue_id == "":
 		push_warning("PuzzleClue tanpa clue_id: " + name)
@@ -36,7 +37,7 @@ func _on_puzzle_finished(success: bool) -> void:
 	if success:
 		if item_data:
 			InventoryManager.add_item(item_data, 1)
-		ClueManager.collect(clue_id)
+		ClueManager.collect(clue_id,is_secret_clue)
 	else:
 		print("Puzzle gagal, clue belum didapat: ", clue_id)
 

@@ -26,18 +26,23 @@ MinigameManager="*uid://bl0ppp1xn02vr"
 NotificationManager="*uid://2e74byt1qmbe"
 ClueManager="*uid://bpew4ojn6l0ba"
 StoryManager="*uid://dt7r25edwsttg"
+UI="*uid://nu624js7jt6i"
+SceneManager="*uid://d72on8jpaw4o"
 
 [dialogic]
 
 directories/dch_directory={
 "Detective": "res://Characters/Detective.dch",
 "Erina": "res://Characters/Erina.dch",
+"Sherlock": "res://Characters/Sherlock.dch",
 "Sister": "res://Characters/Sister.dch"
 }
 directories/dtl_directory={
 "Arrest": "res://Timelines/Act1/Arrest.dtl",
 "Intro": "res://Timelines/Act1/Intro.dtl",
-"act2_awakening": "res://Timelines/Act1/act2_awakening.dtl"
+"act2_awakening": "res://Timelines/Act1/act2_awakening.dtl",
+"act3_intro": "res://Timelines/Act1/act3_intro.dtl",
+"act3_kidnap_case": "res://Timelines/Act1/act3_kidnap_case.dtl"
 }
 layout/style_directory={}
 layout/style_list=[]
