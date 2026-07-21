@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://cr8df1l32dp1s"]
+
+[ext_resource type="Script" uid="uid://jqjn0ffi4t3q" path="res://Scenes/Worlds/NPC.gd" id="1_0r5ha"]
+[ext_resource type="Script" uid="uid://cvk76d00awenn" path="res://Resources/Dialog/DialogCondition.gd" id="2_upcpq"]
+[ext_resource type="Texture2D" uid="uid://b0wh24jsjmlk1" path="res://Assets/Sprites/Black Units/Lancer/Lancer_Idle.png" id="3_dnfoe"]
+
+[sub_resource type="Resource" id="Resource_ufcxp"]
+script = ExtResource("2_upcpq")
+lines = Array[String](["Hmm, dari tampangmu, sepertinya kau ssudah bertemu dengannya", "...", "Si Jack The Reaper itu", "Dia sudah meneror sanctuary untuk waktu yang lama", "..."])
+metadata/_custom_type_script = "uid://cvk76d00awenn"
+
+[sub_resource type="Resource" id="Resource_5tcqn"]
+script = ExtResource("2_upcpq")
+lines = Array[String](["Apa-apaan", "bisa-bisanya", "ANTEK-ANTEK ASING!!"])
+metadata/_custom_type_script = "uid://cvk76d00awenn"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hx8sr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxo2p"]
+atlas = ExtResource("3_dnfoe")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5i252"]
+atlas = ExtResource("3_dnfoe")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5tcqn"]
+atlas = ExtResource("3_dnfoe")
+region = Rect2(640, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ufcxp"]
+atlas = ExtResource("3_dnfoe")
+region = Rect2(960, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abmt3"]
+atlas = ExtResource("3_dnfoe")
+region = Rect2(1280, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrtpm"]
+atlas = ExtResource("3_dnfoe")
+region = Rect2(1600, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfqs3"]
+atlas = ExtResource("3_dnfoe")
+region = Rect2(1920, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2e3r"]
+atlas = ExtResource("3_dnfoe")
+region = Rect2(2240, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6b1m"]
+atlas = ExtResource("3_dnfoe")
+region = Rect2(2560, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n32ou"]
+atlas = ExtResource("3_dnfoe")
+region = Rect2(2880, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6u4mk"]
+atlas = ExtResource("3_dnfoe")
+region = Rect2(3200, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sk0ix"]
+atlas = ExtResource("3_dnfoe")
+region = Rect2(3520, 0, 320, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q2e3r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxo2p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5i252")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5tcqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ufcxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abmt3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrtpm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfqs3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2e3r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6b1m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n32ou")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6u4mk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sk0ix")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Mundar" type="CharacterBody2D" unique_id=41685878]
+z_index = 1
+scale = Vector2(0.5, 0.5)
+collision_layer = 3
+collision_mask = 5
+script = ExtResource("1_0r5ha")
+is_hidden_clue = true
+dialog_entries = Array[ExtResource("2_upcpq")]([SubResource("Resource_ufcxp"), SubResource("Resource_5tcqn")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=308380682]
+z_index = 1
+scale = Vector2(3.56, 3.56)
+shape = SubResource("RectangleShape2D_hx8sr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1301205731]
+z_index = 1
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_q2e3r")

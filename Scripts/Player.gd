@@ -41,21 +41,23 @@ var is_attacking:bool=false
 #input user
 var input_direction: Vector2 = Vector2.ZERO
 
-
 var nearby_clue: Area2D = null 
 var _nearby_interactable:Array[Interactable]=[]
+
+var is_un_terrain_active:bool =false
+signal un_terrain_entered
+signal un_terrain_exited
 
 func _ready():
 
 	add_to_group("player")
-	det_eye_duration.wait_time = 10.0   # Skill aktif 10 detik
-	det_eye_cooldown.wait_time = 2   # Cooldown 30 detik
+	det_eye_duration.wait_time = 10.0   
+	det_eye_cooldown.wait_time = 2  
 	dodge_timer.wait_time=dodge_duration
 	dodge_timer.timeout.connect(_on_dodge_timer_timeout)
 	det_eye_duration.timeout.connect(_on_det_eye_duration_timeout)
 	det_eye_cooldown.timeout.connect(_on_det_eye_cooldown_timeout)
 	idle_timer.wait_time=3
-	#initialize hitbox offset
 	hitbox_offset=hitbox.position
 
 func _physics_process(delta):
@@ -123,16 +125,11 @@ func _input(event):
 		if det_eye_cooldown.is_stopped() and not Global.is_det_eye_active:
 			activate_det_eye()
 		elif Global.is_det_eye_active:
-			print("[Player] Det Eye masih aktif!")
+			return
 		elif not det_eye_cooldown.is_stopped():
-			print("[Player] Det Eye sedang cooldown!")
+			return
 
 func attempt_interaction():
-	if nearby_clue and nearby_clue.visible:
-		print("[Player]  Mengambil clue via overlap!")
-		nearby_clue.pickup()
-		nearby_clue = null  # Reset setelah diambil
-		return
 	if not interaction_ray.is_colliding():
 		return
 	
@@ -140,55 +137,34 @@ func attempt_interaction():
 	if not collider:
 		return
 		
-	# 1. Interaksi NPC (Biasa atau Hidden)
+	
 	if collider.is_in_group("npc") and collider.visible:
 		collider.interact()
 		return
 
-	# 2. Interaksi Musuh (Hanya jika Det Eye aktif)
-	if collider.is_in_group("enemy") and collider.visible:
-		if Global.is_det_eye_active:
-			start_battle(collider)
-		return
-	
-# Fungsi alternatif: deteksi Area2D di sekitar player (pakai overlap)
-func detect_nearby_interactables():
-	var areas = get_tree().get_nodes_in_group("clue_pickup")
-	for area in areas:
-		if area is Area2D and area.visible:
-			var dist = global_position.distance_to(area.global_position)
-			if dist < 50.0:  # Jarak dekat
-				var dir_to_area = (area.global_position - global_position).normalized()
-				if dir_to_area.dot(facing_direction) > 0.7:  # Arah depan
-					area.pickup()
-					return
+
+
 #######################################################
 func activate_det_eye():
 	Global.is_det_eye_active = true
 	det_eye_duration.start()
-	
 	if canvas_modulate:
 		canvas_modulate.color = Color(0.15, 0.2, 0.5)
-
+	enter_un_terrain()
 	toggle_hidden_objects(true)
 	toggle_spawners(true)
-	print("[Player] DET EYE activated! (10 detik)")
 
 func _on_det_eye_duration_timeout():
 	Global.is_det_eye_active = false
 	det_eye_cooldown.start()
-	
-	# Warna Normal
 	if canvas_modulate:
 		canvas_modulate.color = Color.WHITE
-	
-	# Sembunyikan semua objek tersembunyi
+	exit_un_terrain()
 	toggle_hidden_objects(false)
 	toggle_spawners(false)
-	print("[Player] DET EYE Cooldown! (Cooldown 30 detik)")
 
 func _on_det_eye_cooldown_timeout():
-	print("[Player] Det Eye ready")
+	pass
 
 
 func toggle_hidden_objects(active: bool):
@@ -209,16 +185,20 @@ func toggle_spawners(active:bool):
 		if spawner.has_method("set_active"):
 			spawner.set_active(active)
 
-func start_battle(enemy_node):
-	Global.is_battle_active = true
+func enter_un_terrain() -> void:
+	if is_un_terrain_active:
+		return
+	is_un_terrain_active = true
+	Global.enter_un_terrain_layer()
+	un_terrain_entered.emit()
+
+func exit_un_terrain() -> void:
+	if not is_un_terrain_active:
+		return
+	is_un_terrain_active = false
+	Global.exit_un_terrain_layer()
+	un_terrain_exited.emit()
 	
-	var battle_ui = get_node("/root/Main/UI/BattleUI")
-	if battle_ui:
-		battle_ui.start_battle(enemy_node)
-	else:
-		print("[Player] ERROR: BattleUI tidak ditemukan!")
-
-
 func attacksystem():
 	if current_state==PlayerState.ATTACK:
 		return

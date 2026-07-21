@@ -32,14 +32,15 @@ func _start_puzzle() -> void:
 	MinigameManager.minigame_closed.connect(_on_puzzle_finished, CONNECT_ONE_SHOT)
 	MinigameManager.open_minigame("overlap_puzzle", {"level": level})
 
-func _on_puzzle_finished(success: bool) -> void:
+func _on_puzzle_finished(_minigame_name:String,result:Dictionary) -> void:
 	Global.resume_gameplay()
+	var success=result.get("success",false)
 	if success:
 		if item_data:
 			InventoryManager.add_item(item_data, 1)
 		ClueManager.collect(clue_id,is_secret_clue)
 	else:
-		print("Puzzle gagal, clue belum didapat: ", clue_id)
+		return
 
 func _resolve_entry() -> DialogCondition:
 	for entry in dialog_entries:
