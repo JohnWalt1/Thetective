@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dh7r0op5mu37q"]
+
+[ext_resource type="Texture2D" uid="uid://ct76i5l7e44e7" path="res://rim1.png" id="1_37kl0"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8uh7m"]
+
+[node name="Node3D" type="Node3D" unique_id=568197293]
+
+[node name="AnimatableBody3D" type="StaticBody3D" parent="." unique_id=1198617837]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09079647, 2.3841858e-07, 0.62175846)
+physics_material_override = SubResource("PhysicsMaterial_8uh7m")
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="AnimatableBody3D" unique_id=14226725]
+polygon = PackedVector2Array(0.8058414, 0.13427645)
+
+[node name="Sprite3D" type="Sprite3D" parent="AnimatableBody3D" unique_id=211201822]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19072908, 0.9422548, 0)
+texture = ExtResource("1_37kl0")
