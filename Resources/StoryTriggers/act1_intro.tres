@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_0mmdj")
-id = "sct1_intro"
+id = "act1_intro"
 type = 2
 required_flag = "act1_completed"
 invert_condition = true

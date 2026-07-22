@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="StoryTrigger" format=3 uid="uid://chl60clpnarky"]
 
 [ext_resource type="Script" uid="uid://cr7pbdeo7ykjk" path="res://Scripts/Resources/story_trigger.gd" id="1_qfjv8"]
-[ext_resource type="Resource" uid="uid://c08fir8pt7vo4" path="res://Timelines/Act1/Intro.dtl" id="2_lxx6s"]
+[ext_resource type="Resource" uid="uid://blwh2k66kxqx0" path="res://Timelines/Act1/Arrest.dtl" id="2_lxx6s"]
 
 [resource]
 script = ExtResource("1_qfjv8")
 id = "act1_arrest"
 type = 1
-required_count = 3
+required_count = 2
 timeline = ExtResource("2_lxx6s")
 metadata/_custom_type_script = "uid://cr7pbdeo7ykjk"

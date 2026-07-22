@@ -1,0 +1,4 @@
+(kabut purih menghalangi pandangan, suara musik aneh menggema)
+Detective: Sia—
+set {det_in_coma} = true
+[signal arg="act1_end"]

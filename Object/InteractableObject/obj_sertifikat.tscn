@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bu8fox1ysyk6m"]
+
+[ext_resource type="Script" uid="uid://la58fcfg0ucb" path="res://interactable_object.gd" id="1_1101q"]
+[ext_resource type="Script" uid="uid://cvk76d00awenn" path="res://Resources/Dialog/DialogCondition.gd" id="2_6nxrl"]
+
+[sub_resource type="Resource" id="Resource_j842w"]
+script = ExtResource("2_6nxrl")
+lines = Array[String](["\"Detektif terbaik tahun ini.\" ", "\"Berhasil menyelesaikan kasus-kasus tua yang rumit\"", ". . . rasanya sudah lama sekali"])
+metadata/_custom_type_script = "uid://cvk76d00awenn"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_spc4p"]
+
+[node name="InteractableObject" type="Area2D" unique_id=699771221]
+script = ExtResource("1_1101q")
+dialog_entries = Array[ExtResource("2_6nxrl")]([SubResource("Resource_j842w")])
+metadata/_custom_type_script = "uid://la58fcfg0ucb"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=510640885]
+shape = SubResource("RectangleShape2D_spc4p")

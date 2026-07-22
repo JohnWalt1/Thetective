@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://gve24unom20r"]
+
+[ext_resource type="Script" uid="uid://b2q5a5k4vv4hn" path="res://act_1_hudson_district.gd" id="1_wm24d"]
+[ext_resource type="Script" uid="uid://b83tbqppy4j2u" path="res://Clue.gd" id="2_xlxo4"]
+[ext_resource type="Script" uid="uid://cuk8x0kp8frbc" path="res://Scripts/Resources/ItemData.gd" id="3_i5ejm"]
+[ext_resource type="Script" uid="uid://cvk76d00awenn" path="res://Resources/Dialog/DialogCondition.gd" id="4_xh4yw"]
+[ext_resource type="Script" uid="uid://dirmkglufmd8x" path="res://scene_door.gd" id="5_xlxo4"]
+
+[sub_resource type="Resource" id="Resource_axxjj"]
+script = ExtResource("3_i5ejm")
+name = "Wallet"
+metadata/_custom_type_script = "uid://cuk8x0kp8frbc"
+
+[sub_resource type="Resource" id="Resource_6jgn8"]
+script = ExtResource("4_xh4yw")
+lines = Array[String](["Resep obat, dan domper . . . milik Grey", "Kenapa barang-barang ini ada di sini"])
+metadata/_custom_type_script = "uid://cvk76d00awenn"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i6nd2"]
+
+[sub_resource type="Resource" id="Resource_4tsvu"]
+script = ExtResource("4_xh4yw")
+lines = Array[String](["Gagang pintu berlumuran darah", "Sidik jarinya . . . Cocok sempurna dengan milik Grey ", "Ini cukup jadi bukti"])
+metadata/_custom_type_script = "uid://cvk76d00awenn"
+
+[sub_resource type="Resource" id="Resource_dm4y8"]
+script = ExtResource("4_xh4yw")
+lines = Array[String](["Musik itu . . sudah dimulai . . .", "Sanctuary . . telah runtuh", "(Cuma distorsi biasa. Tidak ada kaitannya dengan kasus ini.)"])
+metadata/_custom_type_script = "uid://cvk76d00awenn"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i5ejm"]
+
+[node name="act1_hudson_district" type="Node2D" unique_id=717692639]
+script = ExtResource("1_wm24d")
+
+[node name="clue_wallet" type="Area2D" parent="." unique_id=594534239]
+script = ExtResource("2_xlxo4")
+clue_id = "act1_wallet"
+item_data = SubResource("Resource_axxjj")
+dialog_entries = Array[ExtResource("4_xh4yw")]([SubResource("Resource_6jgn8"), null])
+metadata/_custom_type_script = "uid://b83tbqppy4j2u"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="clue_wallet" unique_id=2111497385]
+shape = SubResource("RectangleShape2D_i6nd2")
+
+[node name="Sprite2D" type="Sprite2D" parent="clue_wallet" unique_id=346746867]
+
+[node name="Clue_doorknob" type="Area2D" parent="." unique_id=2052072112]
+script = ExtResource("2_xlxo4")
+clue_id = "act1_doorknob"
+item_data = SubResource("Resource_axxjj")
+dialog_entries = Array[ExtResource("4_xh4yw")]([SubResource("Resource_4tsvu"), null])
+metadata/_custom_type_script = "uid://b83tbqppy4j2u"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Clue_doorknob" unique_id=1864594152]
+shape = SubResource("RectangleShape2D_i6nd2")
+
+[node name="Sprite2D" type="Sprite2D" parent="Clue_doorknob" unique_id=466018109]
+
+[node name="Clue_Echo" type="Area2D" parent="." unique_id=1399245812]
+script = ExtResource("2_xlxo4")
+clue_id = "act1_Echo"
+item_data = SubResource("Resource_axxjj")
+dialog_entries = Array[ExtResource("4_xh4yw")]([SubResource("Resource_dm4y8")])
+is_secret_clue = true
+metadata/_custom_type_script = "uid://b83tbqppy4j2u"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Clue_Echo" unique_id=168689551]
+shape = SubResource("RectangleShape2D_i6nd2")
+
+[node name="Sprite2D" type="Sprite2D" parent="Clue_Echo" unique_id=1413391059]
+
+[node name="SceneDoor" type="Area2D" parent="." unique_id=1218508562]
+script = ExtResource("5_xlxo4")
+target_scene_path = "res://Scenes/Worlds/act_1_hudson_district.tscn"
+target_spawn_id = "from_kantor"
+required_flag = "act1_completed"
+locked_message = "Aku belum siap berangkat."
+metadata/_custom_type_script = "uid://dirmkglufmd8x"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneDoor" unique_id=519039461]
+shape = SubResource("RectangleShape2D_i5ejm")
