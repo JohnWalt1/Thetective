@@ -40,6 +40,7 @@ directories/dch_directory={
 directories/dtl_directory={
 "Arrest": "res://Timelines/Act1/Arrest.dtl",
 "Intro": "res://Timelines/Act1/Intro.dtl",
+"act1_coma": "res://Timelines/Act1/act1_coma.dtl",
 "act2_awakening": "res://Timelines/Act1/act2_awakening.dtl",
 "act3_intro": "res://Timelines/Act1/act3_intro.dtl",
 "act3_kidnap_case": "res://Timelines/Act1/act3_kidnap_case.dtl"
@@ -55,6 +56,7 @@ variables={
 "det_in_coma": false,
 "has_daging": false,
 "knows_wrong_arrest": false,
+"player_name": "Kudou",
 "secret_clue_count": 0,
 "sherlock_alibi_given": false
 }

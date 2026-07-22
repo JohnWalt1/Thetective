@@ -1,5 +1,7 @@
-Kamu terbangun di sebuah ruangan yang tampaknya
-Sebelumnya terjadi pembunuhan disana...
-Seseorang datang kepadamu
-Erina: Aku menemukan sesuatu di atas meja, coba periksa.
+Pagi Detektif. . Kopimu sudah kubuatkan
+Sister: (menaruh kotak makan) Ini bekalmmu untuk nanti siang kak. Jangan lupa dimakan, ya!
+Detective: Iya, iya. Kalian memang merepotkan.
+(Ada fax masuk)
+Ada laporan masuk dari Tuan Surgiture. Kasus Pembunuhan berantai di distrik Hudson. Mereka telah mengamankan lokasi untuk kita.
+Detective: Baiklah, aku akan berangkat begitu siap.
 set {act1_completed} = true

@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://rwcinxyovjqj"]
+
+[ext_resource type="Script" uid="uid://la58fcfg0ucb" path="res://interactable_object.gd" id="1_7sv3j"]
+[ext_resource type="Script" uid="uid://cvk76d00awenn" path="res://Resources/Dialog/DialogCondition.gd" id="2_6m02k"]
+
+[sub_resource type="Resource" id="Resource_ewta6"]
+script = ExtResource("2_6m02k")
+lines = Array[String](["Foto waktu kelulusan adik.", "Dia tersenyum lebar sekali hari itu", "Aku berterimakasih dan bangga padanya", ". . . Adikku tersayang.kiyhh777777777777777777777777"])
+metadata/_custom_type_script = "uid://cvk76d00awenn"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ihdtq"]
+
+[node name="InteractableObject" type="Area2D" unique_id=1254425845]
+script = ExtResource("1_7sv3j")
+dialog_entries = Array[ExtResource("2_6m02k")]([SubResource("Resource_ewta6")])
+metadata/_custom_type_script = "uid://la58fcfg0ucb"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1410339629]
+shape = SubResource("RectangleShape2D_ihdtq")

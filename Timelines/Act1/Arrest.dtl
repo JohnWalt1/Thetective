@@ -1,9 +1,11 @@
-Kupikir bukti ini sudah cukup untuk menyatakan pelakunya
-Terlebih ini justru menjelaskan pesan kematian korban
-Erina: Bagaimana Pak? Apa anda sudah menemukan petunjuk
-Sudah, bahkan kupikir pelakunya sudah jelas
-Erina (excited): Siapa??
-X, pasti dia. (menunjukkan bukti pada semuanya)
-Bukti menunjukkan bahwa korban merasa tidak nyaman dan bahwa X memiliki hubungan yang membingungkan dengan korban
-Dan mungkin itu alasan korban memberikan tanda "?" sebagai pesan terakhirnya
+Detective: Kupikir bukti ini sudah cukup untuk menyatakan pelakunya
+Detective: Dompet, Sidik jari di gagang pintu . . semuanya cocok.
+Detective: Orang yang bertanggung jawab atas pembunuhan ini adalah Grey
+TIDAK! Jelas ada yang salah,  Aku bukan pelaku, aku  BERSUMPAH!!
+Detective: Lantas mengapa sidik jari mu menyentuh darah korban dan bahkan ada di gagang pintu? Kau tidak akan mengatakannya bekas lama kan?
+Aku memang disini tadi malam, tapi aku mengawasinya karena khawatir. ADA MAKHLUK MENGERIKAN YANG MENGIKUTINYA!!
+DAN SAAT AKU MENCOBA MASUK KE RUMAHNYA, SEMUANYA SUDAH TERLAMBAT! INI SALAH MONSTER ITU, DIA PELAKUNYA!
+Detective: Cerita yang tidak masuk akal, Tapi . .ini sedikit merepotkan. Tampaknya dia memiliki gangguan mental . . .
+Detective: Opsir, aku serahkan bukti dan tersangkanya pada kalian.
 set {case_arrested} = true
+[signal arg="act1_case_closed"]

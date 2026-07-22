@@ -151,7 +151,6 @@ func activate_det_eye():
 	if canvas_modulate:
 		canvas_modulate.color = Color(0.15, 0.2, 0.5)
 	enter_un_terrain()
-	toggle_hidden_objects(true)
 	toggle_spawners(true)
 
 func _on_det_eye_duration_timeout():
@@ -160,24 +159,10 @@ func _on_det_eye_duration_timeout():
 	if canvas_modulate:
 		canvas_modulate.color = Color.WHITE
 	exit_un_terrain()
-	toggle_hidden_objects(false)
 	toggle_spawners(false)
 
 func _on_det_eye_cooldown_timeout():
 	pass
-
-
-func toggle_hidden_objects(active: bool):
-	var objects = get_tree().get_nodes_in_group("det_eye_hidden")
-
-	for obj in objects:
-		if obj.has_method("refresh_visibility"):
-			obj.refresh_visibility()
-		else:
-			obj.visible = active
-			if obj.has_node("CollisionShape2D"):
-				obj.get_node("CollisionShape2D").disabled = not active
-			obj.process_mode = PROCESS_MODE_INHERIT if active else PROCESS_MODE_DISABLED
 
 func toggle_spawners(active:bool):
 	var spawners=get_tree().get_nodes_in_group("enemy_spawner")
