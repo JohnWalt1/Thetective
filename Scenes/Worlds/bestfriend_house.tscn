@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://mqg5qyn8xbci"]
+
+[ext_resource type="Script" uid="uid://la58fcfg0ucb" path="res://interactable_object.gd" id="1_ywbsd"]
+[ext_resource type="Script" uid="uid://cvk76d00awenn" path="res://Resources/Dialog/DialogCondition.gd" id="2_mx1ly"]
+[ext_resource type="Script" uid="uid://b83tbqppy4j2u" path="res://Clue.gd" id="3_mx1ly"]
+
+[sub_resource type="Resource" id="Resource_3rc8p"]
+script = ExtResource("2_mx1ly")
+lines = Array[String](["Gramafon ini berputar sendiri . . . ", "memutar lagu yang asing", "Tidak ada sumber listrik, tidak masuk akal"])
+metadata/_custom_type_script = "uid://cvk76d00awenn"
+
+[sub_resource type="Resource" id="Resource_m5jmg"]
+script = ExtResource("2_mx1ly")
+lines = Array[String](["\"Aku mendengar suara aneh dari balik dinding\"", "\"Melodi yang indah, tetapi membuatku bergidik\"", "\"Dia masih koma, aku harus melakukannya sendiri\"", "Dia melanjutkan penyelidikanku sendiarian . . . sayang sekali.", "Ini kesalahanku"])
+metadata/_custom_type_script = "uid://cvk76d00awenn"
+
+[node name="bestfriend_house" type="Node2D" unique_id=1742849904]
+
+[node name="Gramafon" type="Area2D" parent="." unique_id=973746583]
+script = ExtResource("1_ywbsd")
+dialog_entries = Array[ExtResource("2_mx1ly")]([SubResource("Resource_3rc8p")])
+metadata/_custom_type_script = "uid://la58fcfg0ucb"
+
+[node name="Clue_CatatanHarian" type="Area2D" parent="." unique_id=341679190]
+script = ExtResource("3_mx1ly")
+clue_id = "act2_catatan_harian"
+dialog_entries = Array[ExtResource("2_mx1ly")]([SubResource("Resource_m5jmg")])
+metadata/_custom_type_script = "uid://b83tbqppy4j2u"
