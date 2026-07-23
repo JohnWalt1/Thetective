@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bfh1umdbkr41b"]
+
+[ext_resource type="Script" uid="uid://dirmkglufmd8x" path="res://scene_door.gd" id="1_cyv1e"]
+
+[node name="Hospital" type="Node2D" unique_id=1000624053]
+
+[node name="SceneDoor" type="Area2D" parent="." unique_id=1953483921]
+script = ExtResource("1_cyv1e")
+target_scene_path = "res://Scenes/main.tscn"
+metadata/_custom_type_script = "uid://dirmkglufmd8x"

@@ -1,16 +1,15 @@
 Detective: . . . ini. . ini dimana?
 Sister: ?!?  KAMU SUDAH SADAR!! Sudah setahun kamu tertidur . . .
 Detective: Setahun? . . .
-Detective: Bagaimana dengan kasus di Bromend——
+Detective: Bagaimana dengan kasus di Hudson——
 Sister: Itu . . .  kakak, ada yang harus kamu tahu.
 Sister: Sahabatmu—Trion, baru saja dibunuh. Dengan pola yang sama. . \
-PERSIS sama seperti kasus terakhirmu di Bromend . .
-Detective: Tapi . . Itu tidak mungkin, Pelakunya kan sudah ditangkap? Hmm. . Apa mungkin, Si X punya rekan?
-Sister: KAKAK! . . .\
-Maaf kalau mengejutkan, tapi . . beberapa minggu setelah kakak tidak sadarkan diri, kepolisian menyatakan X tidak bersalah dan membebaskannya.
-Detective: Apa?!? Seenaknya saja! Semua bukti di TKP jelas jelas mengarah padanya.
-Detective: Adik, ayo temani aku melakukan pemeriksaan ke rumah Trion.
+PERSIS sama seperti kasus terakhirmu di Hudson . .
+Detective: Tapi . . Itu tidak mungkin, Pelakunya kan sudah ditangkap? Hmm. . Apa mungkin, Si Grey punya rekan?
+Sister: Tidak, seharusnya. Grey . . . Sudah dibebaskan karena alibinya kakak. .
+Detective: !?! Apa-apaan!? Ini aneh, aku harus menyelidikinya langsung.
+Sister: Tapi, kau baru bangun—
+Detective: Aku tidak apa, tenang saja.
 set {act} = 2.0
 set {act2_started} = true
-set {knows_wrong_arrest} = true
 [signal arg="act2_goto_trion_house"]

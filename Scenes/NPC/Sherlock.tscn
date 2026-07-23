@@ -6,8 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_d4dcx"]
 script = ExtResource("2_mx7wt")
-condition_type = 6
-required_clue_id = "2"
+condition_type = 5
 lines = Array[String](["Bocah itu bersamaku malam itu", "Ia tidak bersalah", "Kamu menyita perangkap ", "tetapi tidak mencari siapa yang menaruh perangkap itu"])
 sets_flag_on_trigger = "sherlock_alibi_given"
 metadata/_custom_type_script = "uid://cvk76d00awenn"
@@ -21,7 +20,7 @@ metadata/_custom_type_script = "uid://cvk76d00awenn"
 
 [sub_resource type="Resource" id="Resource_arj1o"]
 script = ExtResource("2_mx7wt")
-lines = Array[String](["... (menggumam tidak jelas, mengabaikanmu)"])
+lines = Array[String]([". . .", "(dia mengabaikanmu)"])
 metadata/_custom_type_script = "uid://cvk76d00awenn"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hx8sr"]
