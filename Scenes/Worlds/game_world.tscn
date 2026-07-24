@@ -3910,6 +3910,25 @@ sources/9 = SubResource("TileSetAtlasSource_jmaeq")
 sources/1 = SubResource("TileSetAtlasSource_5jdl3")
 sources/2 = SubResource("TileSetAtlasSource_lrbqj")
 
+[sub_resource type="Resource" id="Resource_cquhv"]
+script = ExtResource("4_5tcqn")
+condition_type = 5
+lines = Array[String](["Bocah itu bersamaku malam itu", "Ia tidak bersalah", "Kamu menyita perangkap ", "tetapi tidak mencari siapa yang menaruh perangkap itu"])
+sets_flag_on_trigger = "sherlock_alibi_given"
+metadata/_custom_type_script = "uid://cvk76d00awenn"
+
+[sub_resource type="Resource" id="Resource_vbwy5"]
+script = ExtResource("4_5tcqn")
+condition_type = 6
+required_clue_id = "1"
+lines = Array[String](["Aku melihat banyak hal di jalanan ini, Detektif", "Coba cari lebih teliti", "Ada yang tidak beres pada malam itu"])
+metadata/_custom_type_script = "uid://cvk76d00awenn"
+
+[sub_resource type="Resource" id="Resource_06fe0"]
+script = ExtResource("4_5tcqn")
+lines = Array[String]([". . .", "(dia mengabaikanmu)"])
+metadata/_custom_type_script = "uid://cvk76d00awenn"
+
 [sub_resource type="Resource" id="Resource_lrbqj"]
 script = ExtResource("4_5tcqn")
 lines = Array[String](["Sebuah kertas", "Sepertinya bekas robekan dari buku harian seseorang", "\"Dia membuatku merasa muak. Bahkan hari ini dia marah hanya karena aku memanggil namanya \"X\" ketika di supermarket \""])
@@ -7982,6 +8001,7 @@ collision_visibility_mode = 1
 
 [node name="Homeless" parent="NormalTerrain" unique_id=1401345789 instance=ExtResource("5_sk0ix")]
 position = Vector2(10, -179)
+dialog_entries = Array[ExtResource("4_5tcqn")]([SubResource("Resource_cquhv"), SubResource("Resource_vbwy5"), SubResource("Resource_06fe0")])
 
 [node name="ClueItem" parent="NormalTerrain" unique_id=2006939993 instance=ExtResource("5_5i252")]
 position = Vector2(-61, 89)
