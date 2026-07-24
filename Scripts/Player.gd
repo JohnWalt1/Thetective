@@ -15,9 +15,9 @@ var is_attacking:bool=false
 @export var walk_speed: float = 150.0
 @export var dodge_speed: float = 500.0
 @export var dodge_duration: float = 0.2
-
+@export var attack_radius:float=50.0
 @export var hitbox_size: Vector2 = Vector2(58, 120)  
-
+@export var use_mouse:bool=true
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var interaction_ray: RayCast2D = $InteractionRay
@@ -83,15 +83,28 @@ func _physics_process(delta):
 
 	update_animation()
 	update_interaction_ray()
+func _process(delta):
+	update_attack_area_position()
+func update_attack_area_position():
+	var direction:Vector2
 	
+	if use_mouse:
+		var mouse_pos=get_global_mouse_position()
+		direction=(mouse_pos-global_position).normalized()
+		facing_direction=direction
+	else:
+		direction=Input.get_vector("ui_left","ui_right","ui_up","ui_down")
+		facing_direction=direction
+	hitbox.global_position=global_position+direction*attack_radius
+	hitbox.rotation=direction.angle()
 func handle_movement(delta):
 	input_direction=Input.get_vector("move_left", "move_right","move_up", "move_down")
 	
 	if input_direction!=Vector2.ZERO:
-		facing_direction=input_direction
+		
 		current_state=PlayerState.WALK
 		velocity=(input_direction*walk_speed)
-		update_hitbox()
+		
 	else:
 		current_state=PlayerState.IDLE
 		velocity =Vector2.ZERO
@@ -218,27 +231,27 @@ func update_animation():
 	if facing_direction.x != 0:
 		sprite.flip_h = facing_direction.x < 0
 
-func update_hitbox():
-	var collision=$Hitbox/CollisionShape2D
-	if not collision:
-		return
-	var x:=hitbox_offset.x
-	var y:=hitbox_offset.y
-	
-	match facing_direction:
-		Vector2.LEFT:
-			hitbox.position=Vector2(-x,y)
-			collision.shape.extents = hitbox_size
-		Vector2.RIGHT:
-			hitbox.position=Vector2(x,y)
-			collision.shape.extents = hitbox_size
-		Vector2.UP:
-			hitbox.position=Vector2(y,-x)
-			collision.shape.extents = Vector2(hitbox_size.y,hitbox_size.x)
-		Vector2.DOWN:
-			hitbox.position=Vector2(-y,x)
-			collision.shape.extents = Vector2(hitbox_size.y,hitbox_size.x)
-			
+#func update_hitbox():
+	#var collision=$Hitbox/CollisionShape2D
+	#if not collision:
+		#return
+	#var x:=hitbox_offset.x
+	#var y:=hitbox_offset.y
+	#
+	#match facing_direction:
+		#Vector2.LEFT:
+			#hitbox.position=Vector2(-x,y)
+			#collision.shape.extents = hitbox_size
+		#Vector2.RIGHT:
+			#hitbox.position=Vector2(x,y)
+			#collision.shape.extents = hitbox_size
+		#Vector2.UP:
+			#hitbox.position=Vector2(y,-x)
+			#collision.shape.extents = Vector2(hitbox_size.y,hitbox_size.x)
+		#Vector2.DOWN:
+			#hitbox.position=Vector2(-y,x)
+			#collision.shape.extents = Vector2(hitbox_size.y,hitbox_size.x)
+			#
 			
 
 func _on_hitbox_body_entered(body: Node2D) -> void:

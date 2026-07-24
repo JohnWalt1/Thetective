@@ -65,6 +65,7 @@ func _resolve_entry() -> DialogCondition:
 		if entry.check_condition():
 			if entry.sets_flag_on_trigger!="":
 				Global.set_flag(entry.sets_flag_on_trigger,true)
+				Dialogic.VAR.set_variable(entry.sets_flag_on_trigger,true)
 			return entry
 	return null
 
